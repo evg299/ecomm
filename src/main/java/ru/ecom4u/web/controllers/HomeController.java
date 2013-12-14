@@ -61,5 +61,10 @@ public class HomeController {
 	public String personal(Locale locale, Model model) {
 		return "personal";
 	}
+	
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public String registration(Locale locale, Model model) {
+		return "registration";
+	}
 
 }

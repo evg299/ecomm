@@ -35,6 +35,7 @@ public class PropertiesConfig {
         PropertiesFactoryBean factory = new PropertiesFactoryBean();
         factory.setLocations(new Resource[] {
                 new ClassPathResource("ru/ecom4u/web/domain/db/db.properties"),
+                new ClassPathResource("ru/ecom4u/web/domain/filestorage.properties"),
         });
         return factory;
     }
