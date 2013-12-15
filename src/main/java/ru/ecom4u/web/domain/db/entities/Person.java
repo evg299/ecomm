@@ -5,23 +5,22 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the persons database table.
  * 
  */
 @Entity
-@Table(name="persons")
+@Table(name = "persons")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="birth_date")
+	@Column(name = "birth_date")
 	private Date birthDate;
 
 	@Lob
@@ -35,35 +34,31 @@ public class Person implements Serializable {
 	@Lob
 	private String mname;
 
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to Comment
+	@OneToMany(mappedBy = "person")
 	private List<Comment> comments;
 
-	//bi-directional many-to-one association to Delivery
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to Delivery
+	@OneToMany(mappedBy = "person")
 	private List<Delivery> deliveries;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to Order
+	@OneToMany(mappedBy = "person")
 	private List<Order> orders;
 
-	//bi-directional many-to-one association to PersonContact
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to PersonContact
+	@OneToMany(mappedBy = "person")
 	private List<PersonContact> personContacts;
 
-	//bi-directional many-to-one association to Picture
+	// bi-directional many-to-one association to Picture
 	@ManyToOne
-	@JoinColumn(name="picture_id")
+	@JoinColumn(name = "picture_id")
 	private Picture picture;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="user_id", nullable=false)
+	// bi-directional many-to-one association to User
+	@OneToOne
+	@PrimaryKeyJoinColumn
 	private User user;
-
-	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="person")
-	private List<User> users;
 
 	public Person() {
 	}
@@ -218,28 +213,6 @@ public class Person implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public User addUser(User user) {
-		getUsers().add(user);
-		user.setPerson(this);
-
-		return user;
-	}
-
-	public User removeUser(User user) {
-		getUsers().remove(user);
-		user.setPerson(null);
-
-		return user;
 	}
 
 }

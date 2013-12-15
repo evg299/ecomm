@@ -1,48 +1,49 @@
 package ru.ecom4u.web.domain.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Column(name="confirmed_flag", nullable=false)
+	@Column(name = "confirmed_flag", nullable = false)
 	private Boolean confirmedFlag;
 
-	@Column(nullable=false, length=256)
+	@Column(nullable = false, length = 256)
 	private String email;
 
-	@Column(name="hash_passord", nullable=false, length=256)
+	@Column(name = "hash_passord", nullable = false, length = 256)
 	private String hashPassord;
 
-	@Column(nullable=false, length=32)
+	@Column(nullable = false, length = 32)
 	private String login;
 
-	//bi-directional many-to-one association to Person
-	@OneToMany(mappedBy="user")
-	private List<Person> persons;
-
-	//bi-directional many-to-one association to Person
-	@ManyToOne
-	@JoinColumn(name="person_id")
+	@OneToOne(mappedBy = "user")
 	private Person person;
 
-	//bi-directional many-to-one association to Role
+	// bi-directional many-to-one association to Role
 	@ManyToOne
-	@JoinColumn(name="role_id", nullable=false)
+	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
 
 	public User() {
@@ -86,28 +87,6 @@ public class User implements Serializable {
 
 	public void setLogin(String login) {
 		this.login = login;
-	}
-
-	public List<Person> getPersons() {
-		return this.persons;
-	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
-
-	public Person addPerson(Person person) {
-		getPersons().add(person);
-		person.setUser(this);
-
-		return person;
-	}
-
-	public Person removePerson(Person person) {
-		getPersons().remove(person);
-		person.setUser(null);
-
-		return person;
 	}
 
 	public Person getPerson() {

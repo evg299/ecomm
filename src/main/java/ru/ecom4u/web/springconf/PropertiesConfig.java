@@ -36,6 +36,7 @@ public class PropertiesConfig {
         factory.setLocations(new Resource[] {
                 new ClassPathResource("ru/ecom4u/web/domain/db/db.properties"),
                 new ClassPathResource("ru/ecom4u/web/domain/filestorage.properties"),
+                new ClassPathResource("ru/ecom4u/web/services/hasher.properties"),
         });
         return factory;
     }

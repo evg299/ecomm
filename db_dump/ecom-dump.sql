@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~10 837 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 539 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -12422,7 +12422,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.roles: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.roles: ~4 rows (приблизительно)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `name`, `description`) VALUES
@@ -12492,17 +12492,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(256) NOT NULL,
   `hash_passord` varchar(256) NOT NULL,
   `confirmed_flag` bit(1) NOT NULL DEFAULT b'0',
-  `person_id` int(11) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_users_roles` (`role_id`),
-  KEY `FK_users_persons` (`person_id`),
-  CONSTRAINT `FK_users_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.users: ~0 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` (`id`, `role_id`, `login`, `email`, `hash_passord`, `confirmed_flag`) VALUES
+	(5, 4, 'admin', 'admin@e.com', '1234567890', b'1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
