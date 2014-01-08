@@ -19,8 +19,7 @@ public class RegistrationForm {
 	
 	@Size(min = 7, max = 32)
 	private String pwd1;
-	
-	@Size(min = 7, max = 32)
+
 	private String pwd2;
 	
 	private boolean distribution = true;

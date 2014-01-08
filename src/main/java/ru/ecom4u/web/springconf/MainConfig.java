@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({ HibernateConfig.class, PropertiesConfig.class })
-@ComponentScan(value = {"ru.ecom4u.web"})
+@ComponentScan(value = {"ru.ecom4u.web.domain.db", "ru.ecom4u.web.services" })
 public class MainConfig {
 
 }

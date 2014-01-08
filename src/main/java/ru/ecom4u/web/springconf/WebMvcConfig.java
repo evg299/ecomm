@@ -22,15 +22,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-	/*
-	 * @Bean public ReloadableResourceBundleMessageSource
-	 * resourceBundleMessageSource() { ReloadableResourceBundleMessageSource
-	 * messageSource = new ReloadableResourceBundleMessageSource(); String[]
-	 * resources = { "/WEB-INF/messages/validators", "/WEB-INF/messages/view" };
-	 * messageSource.setBasenames(resources);
-	 * messageSource.setDefaultEncoding("UTF-8"); return messageSource; }
-	 */
-
 	@Bean
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();

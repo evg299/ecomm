@@ -2,11 +2,12 @@ package ru.ecom4u.web.domain.db.dao;
 
 import java.util.List;
 
-import ru.ecom4u.web.domain.db.entities.User;
-
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import ru.ecom4u.web.domain.db.entities.User;
 
 @Repository
 @Transactional
@@ -20,6 +21,13 @@ public class UserDao extends AbstractDao {
 	public User getById(int id) {
 		Session hSession = sessionFactory.getCurrentSession();
 		return (User) hSession.get(User.class, id);
+	}
+
+	public User getByEmail(String email) {
+		Session hSession = sessionFactory.getCurrentSession();
+		return (User) hSession.createCriteria(User.class)
+				.add(Restrictions.eq("email", email))
+				.uniqueResult();
 	}
 
 	/*********************/

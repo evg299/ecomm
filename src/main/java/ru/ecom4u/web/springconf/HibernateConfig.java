@@ -6,15 +6,15 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.jolbox.bonecp.BoneCPDataSource;
 
 @Configuration
-@ComponentScan(value = { "ru.ecom4u.web.domain.db" })
+@EnableTransactionManagement
 public class HibernateConfig {
 
 	@Value("#{properties['DB_DRIVER_CLASS']}")
@@ -47,7 +47,12 @@ public class HibernateConfig {
 		dataSource.setPassword(dbPwd);
 
 		dataSource.setConnectionTimeoutInMs(dbTimeOut);
-		dataSource.setPartitionCount(dbMaxConect);
+
+		// Hardcoded properties, adjust if required
+		int partitionCount = dbMaxConect > 2 ? 2 : 1;
+		dataSource.setMaxConnectionsPerPartition(dbMaxConect / partitionCount);
+		dataSource.setPartitionCount(partitionCount);
+		dataSource.setReleaseHelperThreads(1);
 
 		return dataSource;
 	}
