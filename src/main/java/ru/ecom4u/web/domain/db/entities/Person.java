@@ -57,7 +57,7 @@ public class Person implements Serializable {
 
 	// bi-directional many-to-one association to User
 	@OneToOne
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	public Person() {

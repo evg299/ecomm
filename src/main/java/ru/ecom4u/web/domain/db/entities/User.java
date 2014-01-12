@@ -29,6 +29,9 @@ public class User implements Serializable {
 	@Column(name = "confirmed_flag", nullable = false)
 	private Boolean confirmedFlag;
 
+	@Column(name = "confirmed_code", length = 256)
+	private String confirmedCode;
+
 	@Column(nullable = false, length = 256)
 	private String email;
 
@@ -55,6 +58,14 @@ public class User implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getConfirmedCode() {
+		return confirmedCode;
+	}
+
+	public void setConfirmedCode(String confirmedCode) {
+		this.confirmedCode = confirmedCode;
 	}
 
 	public Boolean getConfirmedFlag() {

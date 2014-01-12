@@ -12,8 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ru.ecom4u.web.domain.db.dao.UserDao;
 import ru.ecom4u.web.domain.db.entities.User;
+import ru.ecom4u.web.domain.db.services.UserService;
 
 @Controller
 public class HomeController {
@@ -22,7 +22,7 @@ public class HomeController {
 			.getLogger(HomeController.class);
 	
 	@Autowired
-	public UserDao userDao;
+	public UserService userService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
@@ -36,7 +36,7 @@ public class HomeController {
 
 		model.addAttribute("serverTime", formattedDate);
 		
-		User user = userDao.getByEmail("qwe@qwe.ru");
+		User user = userService.getByEmail("qwe@qwe.ru");
 
 		return "main";
 	}

@@ -37,6 +37,7 @@ public class PropertiesConfig {
                 new ClassPathResource("ru/ecom4u/web/configs/db.properties"),
                 new ClassPathResource("ru/ecom4u/web/configs/filestorage.properties"),
                 new ClassPathResource("ru/ecom4u/web/configs/hasher.properties"),
+                new ClassPathResource("ru/ecom4u/web/configs/mail.properties"),
         });
         return factory;
     }

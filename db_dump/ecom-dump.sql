@@ -11,6 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Дамп структуры базы данных ecom
+DROP DATABASE IF EXISTS `ecom`;
 CREATE DATABASE IF NOT EXISTS `ecom` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `ecom`;
 
@@ -24,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   `address` tinytext NOT NULL,
   `hierarhy_json` text,
   PRIMARY KEY (`id`),
-  KEY `FK_address_address_state` (`address_satate_id`),
-  KEY `FK_address_address_city` (`address_city_id`),
+  KEY `FK_o1llccblq0webs89wgiqr34yd` (`address_city_id`),
+  KEY `FK_12r1ipl31kcatuvxqv47g1kq8` (`address_satate_id`),
   CONSTRAINT `FK_address_address_city` FOREIGN KEY (`address_city_id`) REFERENCES `address_cities` (`id`),
   CONSTRAINT `FK_address_address_state` FOREIGN KEY (`address_satate_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -44,13 +45,13 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   `address_state_id` int(11) NOT NULL DEFAULT '0',
   `name` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_address_cities_address_countries` (`address_country_id`),
-  KEY `FK_address_cities_address_states` (`address_state_id`),
+  KEY `FK_odtlk7lc6xgxdtxl87ga3ugsw` (`address_country_id`),
+  KEY `FK_mdy5la6m0wjwhfvp5iqj45c5s` (`address_state_id`),
   CONSTRAINT `FK_address_cities_address_countries` FOREIGN KEY (`address_country_id`) REFERENCES `address_countries` (`id`),
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 539 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 408 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -11158,7 +11159,7 @@ CREATE TABLE IF NOT EXISTS `address_states` (
   `short_name` tinytext,
   `name` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_address_state_address_country` (`address_country_id`),
+  KEY `FK_1ge13gdwxf5boctxgpnjgpl62` (`address_country_id`),
   CONSTRAINT `FK_address_state_address_country` FOREIGN KEY (`address_country_id`) REFERENCES `address_countries` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=925 DEFAULT CHARSET=utf8;
 
@@ -12097,16 +12098,14 @@ INSERT INTO `address_states` (`id`, `address_country_id`, `short_name`, `name`) 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `creation_date` datetime NOT NULL,
+  `stars` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `stars` int(11) DEFAULT NULL,
-  `content` text NOT NULL,
+  `product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_comments_products` (`product_id`),
-  KEY `FK_comments_persons` (`person_id`),
-  CONSTRAINT `FK_comments_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
-  CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  KEY `FK_7mkhwfldsy6ure4nei4sgwvg0` (`person_id`),
+  KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.comments: ~0 rows (приблизительно)
@@ -12156,10 +12155,10 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
   `weight_kg` double NOT NULL,
   `delivery_type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_delivery_persons` (`person_id`),
-  KEY `FK_delivery_address` (`address_id`),
-  KEY `FK_delivery_orders` (`order_id`),
-  KEY `FK_delivery_delivery_types` (`delivery_type_id`),
+  KEY `FK_546e7d7d3qu5v7lsdtxih7nhm` (`address_id`),
+  KEY `FK_nco7git1vf8l6d7o60a1nvs0g` (`delivery_type_id`),
+  KEY `FK_k36n9p5v7dd96hpgkwybvbogt` (`order_id`),
+  KEY `FK_pm25xo0fbcmg7u5wtmv1k6rud` (`person_id`),
   CONSTRAINT `FK_delivery_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
   CONSTRAINT `FK_delivery_delivery_types` FOREIGN KEY (`delivery_type_id`) REFERENCES `delivery_types` (`id`),
   CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
@@ -12198,9 +12197,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `delivery_id` int(11) NOT NULL,
   `comment` text,
   PRIMARY KEY (`id`),
-  KEY `FK_orders_persons` (`person_id`),
-  KEY `FK_orders_order_statuses` (`order_status_id`),
-  KEY `FK_orders_delivery` (`delivery_id`),
+  KEY `FK_9ct0l8xfeaiqruabcqjh1neui` (`delivery_id`),
+  KEY `FK_sd54uh7m15taltnaj0e22cuny` (`order_status_id`),
+  KEY `FK_iej2da8bimqjxwvdma0eq8qus` (`person_id`),
   CONSTRAINT `FK_orders_delivery` FOREIGN KEY (`delivery_id`) REFERENCES `deliveries` (`id`),
   CONSTRAINT `FK_orders_order_statuses` FOREIGN KEY (`order_status_id`) REFERENCES `order_statuses` (`id`),
   CONSTRAINT `FK_orders_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
@@ -12239,15 +12238,18 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `picture_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_persons_pictures` (`picture_id`),
   KEY `FK_persons_users` (`user_id`),
+  KEY `FK_ck2ybawdmh3xbhdq4lq3lu1pa` (`picture_id`),
   CONSTRAINT `FK_persons_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
   CONSTRAINT `FK_persons_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.persons: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.persons: ~2 rows (приблизительно)
 DELETE FROM `persons`;
 /*!40000 ALTER TABLE `persons` DISABLE KEYS */;
+INSERT INTO `persons` (`id`, `fname`, `lname`, `mname`, `gender`, `birth_date`, `picture_id`, `user_id`) VALUES
+	(1, 'qweqwe', 'qweqwe', NULL, NULL, NULL, NULL, 14),
+	(2, 'qweqwe', 'qweqwe', NULL, NULL, NULL, NULL, 15);
 /*!40000 ALTER TABLE `persons` ENABLE KEYS */;
 
 
@@ -12255,14 +12257,12 @@ DELETE FROM `persons`;
 DROP TABLE IF EXISTS `person_contacts`;
 CREATE TABLE IF NOT EXISTS `person_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` longtext NOT NULL,
   `contact_type_id` int(11) NOT NULL,
-  `value` tinytext NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_person_contacts_contact_types` (`contact_type_id`),
-  KEY `FK_person_contacts_persons` (`person_id`),
-  CONSTRAINT `FK_person_contacts_contact_types` FOREIGN KEY (`contact_type_id`) REFERENCES `contact_types` (`id`),
-  CONSTRAINT `FK_person_contacts_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
+  KEY `FK_tc0xfflx5d9fethkufw84kdwv` (`contact_type_id`),
+  KEY `FK_31iwjuobjdf1si4a458vjp5rf` (`person_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.person_contacts: ~0 rows (приблизительно)
@@ -12297,7 +12297,7 @@ CREATE TABLE IF NOT EXISTS `prices` (
   `value` double NOT NULL,
   `currency_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_prices_currencies` (`currency_id`),
+  KEY `FK_9bv44p0kh8xfyvyahcmdb78cx` (`currency_id`),
   CONSTRAINT `FK_prices_currencies` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -12311,21 +12311,17 @@ DELETE FROM `prices`;
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_category_id` int(11) NOT NULL,
-  `uuid` varchar(128) NOT NULL,
-  `name` tinytext NOT NULL,
+  `amt` int(11) NOT NULL,
+  `description` longtext,
+  `name` longtext NOT NULL,
+  `uuid` varchar(255) NOT NULL,
   `main_pict_id` int(11) DEFAULT NULL,
   `price_id` int(11) NOT NULL,
-  `amt` int(11) DEFAULT '1',
-  `description` longtext,
+  `product_category_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uuid_key` (`uuid`),
-  KEY `FK_products_product_categories` (`product_category_id`),
-  KEY `FK_products_pictures` (`main_pict_id`),
-  KEY `FK_products_prices` (`price_id`),
-  CONSTRAINT `FK_products_pictures` FOREIGN KEY (`main_pict_id`) REFERENCES `pictures` (`id`),
-  CONSTRAINT `FK_products_prices` FOREIGN KEY (`price_id`) REFERENCES `prices` (`id`),
-  CONSTRAINT `FK_products_product_categories` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`)
+  KEY `FK_9dx42u00vahblql25ta4jwhmm` (`main_pict_id`),
+  KEY `FK_bo4t9moxwowswgg5jncfwtbbr` (`price_id`),
+  KEY `FK_m2wi2jkrcn171xn3tvfndwgxc` (`product_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.products: ~0 rows (приблизительно)
@@ -12342,7 +12338,7 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   `name` tinytext NOT NULL,
   `pid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_product_categories_product_categories` (`pid`),
+  KEY `FK_7wnr9lccbf3u84rg7uexbcl3e` (`pid`),
   CONSTRAINT `FK_product_categories_product_categories` FOREIGN KEY (`pid`) REFERENCES `product_categories` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -12356,15 +12352,13 @@ DELETE FROM `product_categories`;
 DROP TABLE IF EXISTS `product_properties`;
 CREATE TABLE IF NOT EXISTS `product_properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` tinytext NOT NULL,
-  `value` tinytext NOT NULL,
-  `unit_id` int(11) NOT NULL,
+  `name` longtext NOT NULL,
+  `value` longtext NOT NULL,
   `product_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_product_properties_units` (`unit_id`),
-  KEY `FK_product_properties_products` (`product_id`),
-  CONSTRAINT `FK_product_properties_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `FK_product_properties_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`)
+  KEY `FK_haph4nj2vx1p621276hvqsnqh` (`product_id`),
+  KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.product_properties: ~0 rows (приблизительно)
@@ -12377,11 +12371,10 @@ DELETE FROM `product_properties`;
 DROP TABLE IF EXISTS `product_variants`;
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` longtext NOT NULL,
   `product_id` int(11) NOT NULL,
-  `name` tinytext NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_product_variants_product_variants` (`product_id`),
-  CONSTRAINT `FK_product_variants_product_variants` FOREIGN KEY (`product_id`) REFERENCES `product_variants` (`id`)
+  KEY `FK_9kqi6gmy3atvxumgx7y5kn91x` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.product_variants: ~0 rows (приблизительно)
@@ -12394,17 +12387,14 @@ DELETE FROM `product_variants`;
 DROP TABLE IF EXISTS `product_variant_options`;
 CREATE TABLE IF NOT EXISTS `product_variant_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` tinytext NOT NULL,
-  `unit_id` int(11) NOT NULL,
-  `pid` int(11) NOT NULL,
+  `value` longtext NOT NULL,
   `variant_id` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_product_variant_options_units` (`unit_id`),
-  KEY `FK_product_variant_options_product_variants` (`variant_id`),
-  KEY `FK_product_variant_options_product_variant_options` (`pid`),
-  CONSTRAINT `FK_product_variant_options_product_variants` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`id`),
-  CONSTRAINT `FK_product_variant_options_product_variant_options` FOREIGN KEY (`pid`) REFERENCES `product_variant_options` (`id`),
-  CONSTRAINT `FK_product_variant_options_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`)
+  KEY `FK_geflaxxhi6c23isrtyffxp9wi` (`variant_id`),
+  KEY `FK_jvbc4ug3foat0lkm45wkwuqt8` (`pid`),
+  KEY `FK_m8q0ptlv4wcfmn7l7ljdknety` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.product_variant_options: ~0 rows (приблизительно)
@@ -12433,32 +12423,18 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 
--- Дамп структуры для таблица ecom.site_properties
-DROP TABLE IF EXISTS `site_properties`;
-CREATE TABLE IF NOT EXISTS `site_properties` (
-  `name` varchar(128) NOT NULL,
-  `value` tinytext NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Дамп данных таблицы ecom.site_properties: ~0 rows (приблизительно)
-DELETE FROM `site_properties`;
-/*!40000 ALTER TABLE `site_properties` DISABLE KEYS */;
-/*!40000 ALTER TABLE `site_properties` ENABLE KEYS */;
-
-
 -- Дамп структуры для таблица ecom.static_page
 DROP TABLE IF EXISTS `static_page`;
 CREATE TABLE IF NOT EXISTS `static_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url_name` varchar(128) NOT NULL,
-  `title` tinytext NOT NULL,
-  `creation_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `pict_id` int(11) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
   `html_content` longtext NOT NULL,
+  `title` longtext NOT NULL,
+  `url_name` varchar(128) NOT NULL,
+  `pict_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_static_page_pictures` (`pict_id`),
-  CONSTRAINT `FK_static_page_pictures` FOREIGN KEY (`pict_id`) REFERENCES `pictures` (`id`)
+  KEY `FK_ggsfbrcmbayddphjc2c2xpft4` (`pict_id`),
+  CONSTRAINT `FK_ggsfbrcmbayddphjc2c2xpft4` FOREIGN KEY (`pict_id`) REFERENCES `pictures` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.static_page: ~0 rows (приблизительно)
@@ -12471,9 +12447,9 @@ DELETE FROM `static_page`;
 DROP TABLE IF EXISTS `units`;
 CREATE TABLE IF NOT EXISTS `units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) NOT NULL,
   `abbr` varchar(16) NOT NULL,
-  `weight` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(128) NOT NULL,
+  `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -12492,16 +12468,26 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(256) NOT NULL,
   `hash_passord` varchar(256) NOT NULL,
   `confirmed_flag` bit(1) NOT NULL DEFAULT b'0',
+  `confirmed_code` varchar(256) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_users_roles` (`role_id`),
+  KEY `FK_krvotbtiqhudlkamvlpaqus0t` (`role_id`),
+  CONSTRAINT `FK_krvotbtiqhudlkamvlpaqus0t` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.users: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.users: ~9 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `role_id`, `login`, `email`, `hash_passord`, `confirmed_flag`) VALUES
-	(5, 4, 'admin', 'admin@e.com', '1234567890', b'1');
+INSERT INTO `users` (`id`, `role_id`, `login`, `email`, `hash_passord`, `confirmed_flag`, `confirmed_code`) VALUES
+	(5, 4, 'admin', 'admin@e.com', '1234567890', b'1', '0'),
+	(6, 2, 'qwe@aaa.ru', 'qwe@aaa.ru', 'Zq4p+L9yHQc7arfBfQgyUg==', b'0', '0'),
+	(7, 2, 'qwe1@aaa.ru', 'qwe1@aaa.ru', 'S5pa7DLFDiEUfp5QDb1DKA==', b'0', '0'),
+	(8, 2, 'qwe2@aaa.ru', 'qwe2@aaa.ru', 'S5pa7DLFDiEUfp5QDb1DKA==', b'0', '0'),
+	(9, 2, 'qwe3@aaa.ru', 'qwe3@aaa.ru', 'DCjrYh1rvAZRvgjMocGMrg==', b'0', '0'),
+	(10, 2, 'qwe4@aaa.ru', 'qwe4@aaa.ru', 'DCjrYh1rvAZRvgjMocGMrg==', b'0', '0'),
+	(11, 2, 'qwe5@aaa.ru', 'qwe5@aaa.ru', 'S5pa7DLFDiEUfp5QDb1DKA==', b'0', '0'),
+	(14, 2, 'qwe11@aaa.ru', 'qwe11@aaa.ru', 'S5pa7DLFDiEUfp5QDb1DKA==', b'0', '0'),
+	(15, 2, 'qwe22@aaa.ru', 'qwe22@aaa.ru', 'DCjrYh1rvAZRvgjMocGMrg==', b'0', '0');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ru.ecom4u.web.controllers.dto.forms.RegistrationForm;
 import ru.ecom4u.web.controllers.validators.RegistrationValidator;
-import ru.ecom4u.web.services.UsersService;
+import ru.ecom4u.web.domain.db.services.AuthenticationService;
 
 @Controller
 @RequestMapping(value = "registration")
@@ -23,7 +23,7 @@ public class RegistrationController {
 	@Autowired
 	private RegistrationValidator registrationValidator;
 	@Autowired
-	private UsersService usersService;
+	private AuthenticationService authenticationService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
@@ -38,7 +38,7 @@ public class RegistrationController {
 		if (result.hasErrors()) {
 			return "registration";
 		} else {
-			if (usersService.registerNewUser(registrationForm))
+			if (authenticationService.registerNewUser(registrationForm))
 				return "redirect:/";
 			else {
 				model.addAttribute("icon", "q1w2");
