@@ -3,6 +3,7 @@ package ru.ecom4u.web.springconf;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -32,6 +33,7 @@ public class MainConfig {
 	@Value("#{properties['mail.smtp.starttls.enable']}")
 	private boolean mailSmtpStarttlsEnable;
 
+	@Bean
 	public JavaMailSender mailSender() {
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		mailSenderImpl.setHost(mailHost);

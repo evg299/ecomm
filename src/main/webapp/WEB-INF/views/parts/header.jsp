@@ -23,5 +23,5 @@
 		</li>
 	</ul>
 
-	<a href="#"><img id="top_banner" src="resources/img/_banner_.gif" /></a>
+	<a href="#"><img id="top_banner" src="${pageContext.request.contextPath}/resources/img/_banner_.gif" /></a>
 </div>

@@ -32,51 +32,47 @@ public class AuthenticationService extends AbstractService {
 	@Autowired
 	private MailService mailService;
 
-	@Transactional
-	public boolean registerNewUser(RegistrationForm form) {
+	@Transactional(rollbackFor = Throwable.class)
+	public void registerNewUser(RegistrationForm form) {
 		Session session = getCurrentSession();
-		try {
-			Role userRole = (Role) session.createCriteria(Role.class)
-					.add(Restrictions.eq("name", Role.MainRoles.USER.toString()).ignoreCase()).uniqueResult();
 
-			// код подтверждения
-			String confirmedCode = UUID.randomUUID().toString();
+		Role userRole = (Role) session.createCriteria(Role.class)
+				.add(Restrictions.eq("name", Role.MainRoles.USER.toString()).ignoreCase()).uniqueResult();
 
-			User user = new User();
-			user.setLogin(form.getEmail());
-			user.setEmail(form.getEmail());
-			user.setConfirmedFlag(new Boolean(false));
-			user.setHashPassord(hasherService.calculateHash(form.getPwd1()));
-			user.setRole(userRole);
-			user.setConfirmedCode(confirmedCode);
-			session.save(user);
+		// код подтверждения
+		String confirmedCode = UUID.randomUUID().toString();
 
-			Person person = new Person();
-			person.setFname(form.getFname());
-			person.setLname(form.getLname());
-			person.setUser(user);
-			session.save(person);
+		User user = new User();
+		user.setLogin(form.getEmail());
+		user.setEmail(form.getEmail());
+		user.setConfirmedFlag(new Boolean(false));
+		user.setHashPassord(hasherService.calculateHash(form.getPwd1()));
+		user.setRole(userRole);
+		user.setConfirmedCode(confirmedCode);
+		session.save(user);
 
-			// формирование email письма
-			RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-			System.out.println(request.getPathInfo());
-			
-			String tpl = mailService.getTemplate("registration", LocaleContextHolder.getLocale());
-			Map<String, String> tokenMap = new TreeMap<String, String>();
-			tokenMap.put("rootUrl", request.getPathInfo());
-			tokenMap.put("email", form.getEmail());
-			tokenMap.put("fname", form.getFname());
-			tokenMap.put("lname", form.getLname());
-			tokenMap.put("confirmedCode", confirmedCode);
+		Person person = new Person();
+		person.setFname(form.getFname());
+		person.setLname(form.getLname());
+		person.setUser(user);
+		session.save(person);
 
-			String content = replaceTokens(tokenMap, tpl);
+		// формирование email письма
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+		System.out.println(request.getPathInfo());
 
-			return mailService.sendEmail(form.getEmail(), "reg", content);
-		} catch (Throwable t) {
-			t.printStackTrace();
-			return false;
-		}
+		String tpl = mailService.getTemplate("registration", LocaleContextHolder.getLocale());
+		Map<String, String> tokenMap = new TreeMap<String, String>();
+		tokenMap.put("rootUrl", request.getPathInfo());
+		tokenMap.put("email", form.getEmail());
+		tokenMap.put("fname", form.getFname());
+		tokenMap.put("lname", form.getLname());
+		tokenMap.put("confirmedCode", confirmedCode);
+
+		String content = replaceTokens(tokenMap, tpl);
+
+		mailService.sendEmail(form.getEmail(), "reg", content);
 	}
 
 	private static final String WRAPPER_TPL = "__#%s__";

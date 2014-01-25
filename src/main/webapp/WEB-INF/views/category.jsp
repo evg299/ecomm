@@ -5,10 +5,10 @@
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 <script
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="resources/js/left-menu.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/left-menu.js"></script>
 </head>
 <body>
 	<%@include file="parts/header.jsp"%>

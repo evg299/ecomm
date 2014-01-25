@@ -11,13 +11,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Дамп структуры базы данных ecom
-DROP DATABASE IF EXISTS `ecom`;
 CREATE DATABASE IF NOT EXISTS `ecom` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `ecom`;
 
 
 -- Дамп структуры для таблица ecom.addresses
-DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_satate_id` int(11) NOT NULL,
@@ -38,7 +36,6 @@ DELETE FROM `addresses`;
 
 
 -- Дамп структуры для таблица ecom.address_cities
-DROP TABLE IF EXISTS `address_cities`;
 CREATE TABLE IF NOT EXISTS `address_cities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_country_id` int(11) NOT NULL DEFAULT '0',
@@ -51,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 408 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 350 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -11030,7 +11027,6 @@ INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `n
 
 
 -- Дамп структуры для таблица ecom.address_countries
-DROP TABLE IF EXISTS `address_countries`;
 CREATE TABLE IF NOT EXISTS `address_countries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `short_name` tinytext,
@@ -11152,7 +11148,6 @@ INSERT INTO `address_countries` (`id`, `short_name`, `name`) VALUES
 
 
 -- Дамп структуры для таблица ecom.address_states
-DROP TABLE IF EXISTS `address_states`;
 CREATE TABLE IF NOT EXISTS `address_states` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_country_id` int(11) NOT NULL,
@@ -12095,7 +12090,6 @@ INSERT INTO `address_states` (`id`, `address_country_id`, `short_name`, `name`) 
 
 
 -- Дамп структуры для таблица ecom.comments
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` longtext NOT NULL,
@@ -12115,7 +12109,6 @@ DELETE FROM `comments`;
 
 
 -- Дамп структуры для таблица ecom.contact_types
-DROP TABLE IF EXISTS `contact_types`;
 CREATE TABLE IF NOT EXISTS `contact_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(512) NOT NULL,
@@ -12130,7 +12123,6 @@ DELETE FROM `contact_types`;
 
 
 -- Дамп структуры для таблица ecom.currencies
-DROP TABLE IF EXISTS `currencies`;
 CREATE TABLE IF NOT EXISTS `currencies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` int(11) NOT NULL,
@@ -12146,7 +12138,6 @@ DELETE FROM `currencies`;
 
 
 -- Дамп структуры для таблица ecom.deliveries
-DROP TABLE IF EXISTS `deliveries`;
 CREATE TABLE IF NOT EXISTS `deliveries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
@@ -12172,7 +12163,6 @@ DELETE FROM `deliveries`;
 
 
 -- Дамп структуры для таблица ecom.delivery_types
-DROP TABLE IF EXISTS `delivery_types`;
 CREATE TABLE IF NOT EXISTS `delivery_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
@@ -12188,7 +12178,6 @@ DELETE FROM `delivery_types`;
 
 
 -- Дамп структуры для таблица ecom.orders
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
@@ -12212,7 +12201,6 @@ DELETE FROM `orders`;
 
 
 -- Дамп структуры для таблица ecom.order_statuses
-DROP TABLE IF EXISTS `order_statuses`;
 CREATE TABLE IF NOT EXISTS `order_statuses` (
   `id` int(11) NOT NULL,
   `name` varchar(512) NOT NULL,
@@ -12227,7 +12215,6 @@ DELETE FROM `order_statuses`;
 
 
 -- Дамп структуры для таблица ecom.persons
-DROP TABLE IF EXISTS `persons`;
 CREATE TABLE IF NOT EXISTS `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` tinytext,
@@ -12254,7 +12241,6 @@ INSERT INTO `persons` (`id`, `fname`, `lname`, `mname`, `gender`, `birth_date`, 
 
 
 -- Дамп структуры для таблица ecom.person_contacts
-DROP TABLE IF EXISTS `person_contacts`;
 CREATE TABLE IF NOT EXISTS `person_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` longtext NOT NULL,
@@ -12272,10 +12258,10 @@ DELETE FROM `person_contacts`;
 
 
 -- Дамп структуры для таблица ecom.pictures
-DROP TABLE IF EXISTS `pictures`;
 CREATE TABLE IF NOT EXISTS `pictures` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url_name` varchar(128) NOT NULL,
+  `original` tinytext NOT NULL,
   `small` tinytext NOT NULL,
   `medium` tinytext NOT NULL,
   `big` tinytext NOT NULL,
@@ -12291,7 +12277,6 @@ DELETE FROM `pictures`;
 
 
 -- Дамп структуры для таблица ecom.prices
-DROP TABLE IF EXISTS `prices`;
 CREATE TABLE IF NOT EXISTS `prices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` double NOT NULL,
@@ -12308,7 +12293,6 @@ DELETE FROM `prices`;
 
 
 -- Дамп структуры для таблица ecom.products
-DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amt` int(11) NOT NULL,
@@ -12331,7 +12315,6 @@ DELETE FROM `products`;
 
 
 -- Дамп структуры для таблица ecom.product_categories
-DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url_name` varchar(256) NOT NULL,
@@ -12340,16 +12323,23 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   PRIMARY KEY (`id`),
   KEY `FK_7wnr9lccbf3u84rg7uexbcl3e` (`pid`),
   CONSTRAINT `FK_product_categories_product_categories` FOREIGN KEY (`pid`) REFERENCES `product_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_categories: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_categories: ~7 rows (приблизительно)
 DELETE FROM `product_categories`;
 /*!40000 ALTER TABLE `product_categories` DISABLE KEYS */;
+INSERT INTO `product_categories` (`id`, `url_name`, `name`, `pid`) VALUES
+	(1, 'cat1', 'Категория №1', NULL),
+	(2, 'cat2', 'Категория №2', NULL),
+	(3, 'cat3', 'Категория №3', NULL),
+	(4, 'cat4', 'Категория №4', 2),
+	(5, 'cat5', 'Категория №5', 2),
+	(6, 'cat6', 'Категория №6', 1),
+	(7, 'cat7', 'Категория №7', 1);
 /*!40000 ALTER TABLE `product_categories` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица ecom.product_properties
-DROP TABLE IF EXISTS `product_properties`;
 CREATE TABLE IF NOT EXISTS `product_properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
@@ -12368,7 +12358,6 @@ DELETE FROM `product_properties`;
 
 
 -- Дамп структуры для таблица ecom.product_variants
-DROP TABLE IF EXISTS `product_variants`;
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
@@ -12384,7 +12373,6 @@ DELETE FROM `product_variants`;
 
 
 -- Дамп структуры для таблица ecom.product_variant_options
-DROP TABLE IF EXISTS `product_variant_options`;
 CREATE TABLE IF NOT EXISTS `product_variant_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` longtext NOT NULL,
@@ -12404,7 +12392,6 @@ DELETE FROM `product_variant_options`;
 
 
 -- Дамп структуры для таблица ecom.roles
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -12423,8 +12410,20 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 
+-- Дамп структуры для таблица ecom.site_properties
+CREATE TABLE IF NOT EXISTS `site_properties` (
+  `name` varchar(128) NOT NULL,
+  `value` longtext,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы ecom.site_properties: ~0 rows (приблизительно)
+DELETE FROM `site_properties`;
+/*!40000 ALTER TABLE `site_properties` DISABLE KEYS */;
+/*!40000 ALTER TABLE `site_properties` ENABLE KEYS */;
+
+
 -- Дамп структуры для таблица ecom.static_page
-DROP TABLE IF EXISTS `static_page`;
 CREATE TABLE IF NOT EXISTS `static_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `creation_date` datetime DEFAULT NULL,
@@ -12435,16 +12434,17 @@ CREATE TABLE IF NOT EXISTS `static_page` (
   PRIMARY KEY (`id`),
   KEY `FK_ggsfbrcmbayddphjc2c2xpft4` (`pict_id`),
   CONSTRAINT `FK_ggsfbrcmbayddphjc2c2xpft4` FOREIGN KEY (`pict_id`) REFERENCES `pictures` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.static_page: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.static_page: ~1 rows (приблизительно)
 DELETE FROM `static_page`;
 /*!40000 ALTER TABLE `static_page` DISABLE KEYS */;
+INSERT INTO `static_page` (`id`, `creation_date`, `html_content`, `title`, `url_name`, `pict_id`) VALUES
+	(1, '2014-01-19 11:52:57', 'If you\'re inside a front contoller servlet which is mapped on a prefix pattern, then you can just use HttpServletRequest#getPathInfo().\r\n\r\nString pathInfo = request.getPathInfo();\r\n// ...\r\nAssuming that the servlet in your example is mapped on /secure, then this will return /users which would be the information of sole interest inside a typical front controller servlet.\r\n\r\nIf the servlet is however mapped on a suffix pattern (your URL examples however does not indicate that this is the case), or when you\'re actually inside a filter (when the to-be-invoked servlet is not necessarily determined yet, so getPathInfo() could return null), then your best bet is to substring the request URI yourself based on the context path\'s length using the usual String method:\r\n\r\nHttpServletRequest request = (HttpServletRequest) req;\r\nString path = request.getRequestURI().substring(request.getContextPath().length());\r\n// ...\r\nUpdate: since some ignorant people keep complaining that getPathInfo() didn\'t work for them as in, it returns null everytime, here\'s an addition: the path info only returns a non-null value when you\'re inside a servlet (not a servlet filter) which is mapped on a prefix pattern like /foo/* (not a suffix/exact pattern like *.foo or /foo). Exactly like as stated in the 1st paragraph of the this answer. It\'s not known in a servlet filter for the simple reason because it\'s at that point not determined yet which servlet will ultimately be hit. It\'s not available in prefix/exact pattern matching for the simple reason because it\'s not a path pattern matching syntax. In that case, use getRequestURI() or getServletPath() instead, depending on the functional requirements.', 'ффывйцвй вйцувй ц', 'qwe', NULL);
 /*!40000 ALTER TABLE `static_page` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица ecom.units
-DROP TABLE IF EXISTS `units`;
 CREATE TABLE IF NOT EXISTS `units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `abbr` varchar(16) NOT NULL,
@@ -12460,7 +12460,6 @@ DELETE FROM `units`;
 
 
 -- Дамп структуры для таблица ecom.users
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,

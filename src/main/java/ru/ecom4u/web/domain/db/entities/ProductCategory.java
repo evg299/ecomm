@@ -4,39 +4,38 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the product_categories database table.
  * 
  */
 @Entity
-@Table(name="product_categories")
+@Table(name = "product_categories")
 public class ProductCategory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String name;
 
-	@Column(name="url_name", nullable=false, length=256)
+	@Column(name = "url_name", nullable = false, length = 256)
 	private String urlName;
 
-	//bi-directional many-to-one association to ProductCategory
+	// bi-directional many-to-one association to ProductCategory
 	@ManyToOne
-	@JoinColumn(name="pid")
+	@JoinColumn(name = "pid")
 	private ProductCategory productCategory;
 
-	//bi-directional many-to-one association to ProductCategory
-	@OneToMany(mappedBy="productCategory")
+	// bi-directional many-to-one association to ProductCategory
+	@OneToMany(mappedBy = "productCategory")
 	private List<ProductCategory> productCategories;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="productCategory")
+	// bi-directional many-to-one association to Product
+	@OneToMany(mappedBy = "productCategory")
 	private List<Product> products;
 
 	public ProductCategory() {

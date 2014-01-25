@@ -37,11 +37,10 @@ public class MailService {
 	}
 
 	public String getTemplate(String name, Locale locale) {
-		String packageLocation = "/ru/ecom4u/web/mailTemplates/";
 		String fname = name + "_" + locale + ".html";
-		System.out.println(packageLocation + fname);
+		System.out.println(GlobalConstants.MAIL_TPL_PACKAGE_LOACATION + fname);
 		
-		InputStream inputStream = getClass().getResourceAsStream(packageLocation + fname);
+		InputStream inputStream = getClass().getResourceAsStream(GlobalConstants.MAIL_TPL_PACKAGE_LOACATION + fname);
 		StringWriter writer = new StringWriter();
 		try {
 			IOUtils.copy(inputStream, writer, "UTF-8");

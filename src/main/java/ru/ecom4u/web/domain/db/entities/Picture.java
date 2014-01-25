@@ -4,49 +4,52 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the pictures database table.
  * 
  */
 @Entity
-@Table(name="pictures")
+@Table(name = "pictures")
 public class Picture implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false)
+	private String original;
+
+	@Lob
+	@Column(nullable = false)
 	private String big;
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String medium;
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String small;
 
 	@Lob
 	private String title;
 
-	@Column(name="url_name", nullable=false, length=128)
+	@Column(name = "url_name", nullable = false, length = 128)
 	private String urlName;
 
-	//bi-directional many-to-one association to Person
-	@OneToMany(mappedBy="picture")
+	// bi-directional many-to-one association to Person
+	@OneToMany(mappedBy = "picture")
 	private List<Person> persons;
 
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="picture")
+	// bi-directional many-to-one association to Product
+	@OneToMany(mappedBy = "picture")
 	private List<Product> products;
 
-	//bi-directional many-to-one association to StaticPage
-	@OneToMany(mappedBy="picture")
+	// bi-directional many-to-one association to StaticPage
+	@OneToMany(mappedBy = "picture")
 	private List<StaticPage> staticPages;
 
 	public Picture() {
@@ -164,6 +167,14 @@ public class Picture implements Serializable {
 		staticPage.setPicture(null);
 
 		return staticPage;
+	}
+
+	public String getOriginal() {
+		return original;
+	}
+
+	public void setOriginal(String original) {
+		this.original = original;
 	}
 
 }

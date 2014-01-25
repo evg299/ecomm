@@ -4,41 +4,40 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the addresses database table.
  * 
  */
 @Entity
-@Table(name="addresses")
+@Table(name = "addresses")
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	private int id;
 
 	@Lob
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String address;
 
 	@Lob
-	@Column(name="hierarhy_json")
+	@Column(name = "hierarhy_json")
 	private String hierarhyJson;
 
-	//bi-directional many-to-one association to AddressCity
+	// bi-directional many-to-one association to AddressCity
 	@ManyToOne
-	@JoinColumn(name="address_city_id")
+	@JoinColumn(name = "address_city_id")
 	private AddressCity addressCity;
 
-	//bi-directional many-to-one association to AddressState
+	// bi-directional many-to-one association to AddressState
 	@ManyToOne
-	@JoinColumn(name="address_satate_id", nullable=false)
+	@JoinColumn(name = "address_satate_id", nullable = false)
 	private AddressState addressState;
 
-	//bi-directional many-to-one association to Delivery
-	@OneToMany(mappedBy="address")
+	// bi-directional many-to-one association to Delivery
+	@OneToMany(mappedBy = "address")
 	private List<Delivery> deliveries;
 
 	public Address() {
