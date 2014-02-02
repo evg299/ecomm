@@ -9,6 +9,7 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +33,12 @@ public class FileStorageService {
 			return null;
 	}
 
-	public synchronized String saveFile(InputStream is, String extention) {
-		String name = generateName();
-		String fullName = name + extention;
+    public File createFile(String fullName){
+        return getFile4Level(fullName);
+    }
 
-		File fsSub = getFile4Level(fullName);
+	public synchronized void saveFileWithName(InputStream is, String name) {
+		File fsSub = getFile4Level(name);
 
 		try {
 			OutputStream os = new FileOutputStream(fsSub);
@@ -52,7 +54,16 @@ public class FileStorageService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public synchronized String saveFile(InputStream is, String extention) {
+		return saveFile(is, "", extention);
+	}
+
+	public synchronized String saveFile(InputStream is, String suffix, String extention) {
+		String name = generateName();
+		String fullName = name + suffix + extention;
+		saveFileWithName(is, fullName);
 		return fullName;
 	}
 
@@ -72,7 +83,7 @@ public class FileStorageService {
 		return new File(fsSub4, fullName);
 	}
 
-	private String generateName() {
+	public String generateName() {
 		Random random = new Random();
 		StringBuffer buffer = new StringBuffer();
 
@@ -82,5 +93,9 @@ public class FileStorageService {
 		}
 
 		return buffer.toString();
+	}
+
+	public String extractExtention(String fileName) {
+		return FilenameUtils.getExtension(fileName);
 	}
 }
