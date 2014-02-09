@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 350 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 539 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -12261,18 +12261,28 @@ DELETE FROM `person_contacts`;
 CREATE TABLE IF NOT EXISTS `pictures` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url_name` varchar(128) NOT NULL,
-  `original` tinytext NOT NULL,
-  `small` tinytext NOT NULL,
-  `medium` tinytext NOT NULL,
-  `big` tinytext NOT NULL,
+  `extention` varchar(128) NOT NULL,
   `title` tinytext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `url_name_key` (`url_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.pictures: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.pictures: ~12 rows (приблизительно)
 DELETE FROM `pictures`;
 /*!40000 ALTER TABLE `pictures` DISABLE KEYS */;
+INSERT INTO `pictures` (`id`, `url_name`, `extention`, `title`) VALUES
+	(22, 'NOMVCYHUYYOHLBSRDNUOGLSQUTMTTCTU', 'jpg', '6jelly1280.jpg'),
+	(23, 'PNLDCUQQUUPYJQMIHCSUYLJTOQMECLRM', 'jpg', 'accelerator1280.jpg'),
+	(24, 'HCKNPDGDIXDGSSYIKHSPFMPWMGIQBXRT', 'jpg', 'accretion1280.jpg'),
+	(25, 'TXXIYTFQFQOHSPEIQMATRFTWHUJLQKNB', 'jpg', 'afterglow2k911280.jpg'),
+	(26, 'GACQWRSOMAMTDAVYHJNMBQIETVJXJVLQ', 'jpg', 'alpine1280.jpg'),
+	(27, 'BJBWOWOIISJYRUHBDXLSNGOHGWRTSJRK', 'jpg', 'amazed1280.jpg'),
+	(28, 'FADGMYNWLPXUWQMUGITDINQNISIDVGLH', 'jpg', 'anemone21280.jpg'),
+	(29, 'FKHWCRGNBYFVUKVIPYDPNUPWRUWSUETR', 'jpg', 'anen1280.jpg'),
+	(30, 'DPJELVPOCIAYKUPUDVNCVRNFOSMFHNAL', 'jpg', 'aquilaeye11280.jpg'),
+	(31, 'RCPMSPXCPOBOQKTMKNBVEXCVORSDDVFR', 'jpg', 'arcana21280.jpg'),
+	(32, 'AGLFPLSOFTOTRRFIYELIQWCDEEIUYCYU', 'jpg', 'arcana31280.jpg'),
+	(33, 'GMTEVGKRTSRWEMHFMOKNRQVNPNENUIKS', 'jpg', 'archaea11280.jpg');
 /*!40000 ALTER TABLE `pictures` ENABLE KEYS */;
 
 
@@ -12323,19 +12333,96 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
   PRIMARY KEY (`id`),
   KEY `FK_7wnr9lccbf3u84rg7uexbcl3e` (`pid`),
   CONSTRAINT `FK_product_categories_product_categories` FOREIGN KEY (`pid`) REFERENCES `product_categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.product_categories: ~7 rows (приблизительно)
 DELETE FROM `product_categories`;
 /*!40000 ALTER TABLE `product_categories` DISABLE KEYS */;
 INSERT INTO `product_categories` (`id`, `url_name`, `name`, `pid`) VALUES
-	(1, 'cat1', 'Категория №1', NULL),
-	(2, 'cat2', 'Категория №2', NULL),
-	(3, 'cat3', 'Категория №3', NULL),
-	(4, 'cat4', 'Категория №4', 2),
-	(5, 'cat5', 'Категория №5', 2),
-	(6, 'cat6', 'Категория №6', 1),
-	(7, 'cat7', 'Категория №7', 1);
+	(1, 'category-0', 'Категория - 0', NULL),
+	(2, 'category-1', 'Категория - 1', NULL),
+	(3, 'category-2', 'Категория - 2', NULL),
+	(4, 'category-3', 'Категория - 3', NULL),
+	(5, 'category-4', 'Категория - 4', NULL),
+	(6, 'category-5', 'Категория - 5', NULL),
+	(7, 'category-6', 'Категория - 6', NULL),
+	(8, 'category-7', 'Категория - 7', NULL),
+	(9, 'category-8', 'Категория - 8', NULL),
+	(10, 'category-9', 'Категория - 9', NULL),
+	(11, 'category-10', 'Категория - 10', NULL),
+	(12, 'category-11', 'Категория - 11', NULL),
+	(13, 'category-8-0', 'Категория - 0', 8),
+	(14, 'category-8-1', 'Категория - 1', 8),
+	(15, 'category-8-2', 'Категория - 2', 8),
+	(16, 'category-8-3', 'Категория - 3', 8),
+	(17, 'category-8-4', 'Категория - 4', 8),
+	(18, 'category-8-5', 'Категория - 5', 8),
+	(19, 'category-8-6', 'Категория - 6', 8),
+	(20, 'category-8-7', 'Категория - 7', 8),
+	(21, 'category-8-8', 'Категория - 8', 8),
+	(22, 'category-8-9', 'Категория - 9', 8),
+	(23, 'category-8-10', 'Категория - 10', 8),
+	(24, 'category-8-11', 'Категория - 11', 8),
+	(25, 'category-9-0', 'Категория - 0', 9),
+	(26, 'category-9-1', 'Категория - 1', 9),
+	(27, 'category-9-2', 'Категория - 2', 9),
+	(28, 'category-9-3', 'Категория - 3', 9),
+	(29, 'category-9-4', 'Категория - 4', 9),
+	(30, 'category-9-5', 'Категория - 5', 9),
+	(31, 'category-9-6', 'Категория - 6', 9),
+	(32, 'category-9-7', 'Категория - 7', 9),
+	(33, 'category-9-8', 'Категория - 8', 9),
+	(34, 'category-9-9', 'Категория - 9', 9),
+	(35, 'category-9-10', 'Категория - 10', 9),
+	(36, 'category-9-11', 'Категория - 11', 9),
+	(37, 'category-10-0', 'Категория - 0', 10),
+	(38, 'category-10-1', 'Категория - 1', 10),
+	(39, 'category-10-2', 'Категория - 2', 10),
+	(40, 'category-10-3', 'Категория - 3', 10),
+	(41, 'category-10-4', 'Категория - 4', 10),
+	(42, 'category-10-5', 'Категория - 5', 10),
+	(43, 'category-10-6', 'Категория - 6', 10),
+	(44, 'category-10-7', 'Категория - 7', 10),
+	(45, 'category-10-8', 'Категория - 8', 10),
+	(46, 'category-10-9', 'Категория - 9', 10),
+	(47, 'category-10-10', 'Категория - 10', 10),
+	(48, 'category-10-11', 'Категория - 11', 10),
+	(49, 'category-1-0', 'Категория - 0', 1),
+	(50, 'category-1-1', 'Категория - 1', 1),
+	(51, 'category-1-2', 'Категория - 2', 1),
+	(52, 'category-1-3', 'Категория - 3', 1),
+	(53, 'category-1-4', 'Категория - 4', 1),
+	(54, 'category-1-5', 'Категория - 5', 1),
+	(55, 'category-1-6', 'Категория - 6', 1),
+	(56, 'category-1-7', 'Категория - 7', 1),
+	(57, 'category-1-8', 'Категория - 8', 1),
+	(58, 'category-1-9', 'Категория - 9', 1),
+	(59, 'category-1-10', 'Категория - 10', 1),
+	(60, 'category-1-11', 'Категория - 11', 1),
+	(61, 'category-2-0', 'Категория - 0', 2),
+	(62, 'category-2-1', 'Категория - 1', 2),
+	(63, 'category-2-2', 'Категория - 2', 2),
+	(64, 'category-2-3', 'Категория - 3', 2),
+	(65, 'category-2-4', 'Категория - 4', 2),
+	(66, 'category-2-5', 'Категория - 5', 2),
+	(67, 'category-2-6', 'Категория - 6', 2),
+	(68, 'category-2-7', 'Категория - 7', 2),
+	(69, 'category-2-8', 'Категория - 8', 2),
+	(70, 'category-2-9', 'Категория - 9', 2),
+	(71, 'category-2-10', 'Категория - 10', 2),
+	(72, 'category-2-11', 'Категория - 11', 2),
+	(73, 'category-2-0', 'Категория - 2-0', 2),
+	(74, 'category-2-1', 'Категория - 2-1', 2),
+	(75, 'category-2-2', 'Категория - 2-2', 2),
+	(76, 'category-2-3', 'Категория - 2-3', 2),
+	(77, 'category-2-4', 'Категория - 2-4', 2),
+	(78, 'category-2-5', 'Категория - 2-5', 2),
+	(79, 'category-2-6', 'Категория - 2-6', 2),
+	(80, 'category-2-7', 'Категория - 2-7', 2),
+	(81, 'category-2-8', 'Категория - 2-8', 2),
+	(82, 'category-2-9', 'Категория - 2-9', 2),
+	(83, 'category-2-10', 'Категория - 2-10', 2),
+	(84, 'category-2-11', 'Категория - 2-11', 2);
 /*!40000 ALTER TABLE `product_categories` ENABLE KEYS */;
 
 
@@ -12420,6 +12507,9 @@ CREATE TABLE IF NOT EXISTS `site_properties` (
 -- Дамп данных таблицы ecom.site_properties: ~0 rows (приблизительно)
 DELETE FROM `site_properties`;
 /*!40000 ALTER TABLE `site_properties` DISABLE KEYS */;
+INSERT INTO `site_properties` (`name`, `value`) VALUES
+	('site_desc', 'Новая восьмисерийная программа Discovery Channel «Как устроена Земля» посвящена группе увлеченных своим делом ученых, отправившихся в путешествие по нашей планете, чтобы найти ответы на самые интересные научные загадки современности.'),
+	('site_name', 'Онлайн интернет магазин мега продажа точка ком');
 /*!40000 ALTER TABLE `site_properties` ENABLE KEYS */;
 
 
@@ -12440,7 +12530,7 @@ CREATE TABLE IF NOT EXISTS `static_page` (
 DELETE FROM `static_page`;
 /*!40000 ALTER TABLE `static_page` DISABLE KEYS */;
 INSERT INTO `static_page` (`id`, `creation_date`, `html_content`, `title`, `url_name`, `pict_id`) VALUES
-	(1, '2014-01-19 11:52:57', 'If you\'re inside a front contoller servlet which is mapped on a prefix pattern, then you can just use HttpServletRequest#getPathInfo().\r\n\r\nString pathInfo = request.getPathInfo();\r\n// ...\r\nAssuming that the servlet in your example is mapped on /secure, then this will return /users which would be the information of sole interest inside a typical front controller servlet.\r\n\r\nIf the servlet is however mapped on a suffix pattern (your URL examples however does not indicate that this is the case), or when you\'re actually inside a filter (when the to-be-invoked servlet is not necessarily determined yet, so getPathInfo() could return null), then your best bet is to substring the request URI yourself based on the context path\'s length using the usual String method:\r\n\r\nHttpServletRequest request = (HttpServletRequest) req;\r\nString path = request.getRequestURI().substring(request.getContextPath().length());\r\n// ...\r\nUpdate: since some ignorant people keep complaining that getPathInfo() didn\'t work for them as in, it returns null everytime, here\'s an addition: the path info only returns a non-null value when you\'re inside a servlet (not a servlet filter) which is mapped on a prefix pattern like /foo/* (not a suffix/exact pattern like *.foo or /foo). Exactly like as stated in the 1st paragraph of the this answer. It\'s not known in a servlet filter for the simple reason because it\'s at that point not determined yet which servlet will ultimately be hit. It\'s not available in prefix/exact pattern matching for the simple reason because it\'s not a path pattern matching syntax. In that case, use getRequestURI() or getServletPath() instead, depending on the functional requirements.', 'ффывйцвй вйцувй ц', 'qwe', NULL);
+	(1, '2014-01-19 11:52:57', 'If you\'re inside a front contoller servlet which is mapped on a prefix pattern, then you can just use HttpServletRequest#getPathInfo().\r\n\r\nString pathInfo = request.getPathInfo();\r\n// ...\r\nAssuming that the servlet in your example is mapped on /secure, then this will return /users which would be the information of sole interest inside a typical front controller servlet.\r\n\r\nIf the servlet is however mapped on a suffix pattern (your URL examples however does not indicate that this is the case), or when you\'re actually inside a filter (when the to-be-invoked servlet is not necessarily determined yet, so getPathInfo() could return null), then your best bet is to substring the request URI yourself based on the context path\'s length using the usual String method:\r\n\r\nHttpServletRequest request = (HttpServletRequest) req;\r\nString path = request.getRequestURI().substring(request.getContextPath().length());\r\n// ...\r\nUpdate: since some ignorant people keep complaining that getPathInfo() didn\'t work for them as in, it returns null everytime, here\'s an addition: the path info only returns a non-null value when you\'re inside a servlet (not a servlet filter) which is mapped on a prefix pattern like /foo/* (not a suffix/exact pattern like *.foo or /foo). Exactly like as stated in the 1st paragraph of the this answer. It\'s not known in a servlet filter for the simple reason because it\'s at that point not determined yet which servlet will ultimately be hit. It\'s not available in prefix/exact pattern matching for the simple reason because it\'s not a path pattern matching syntax. In that case, use getRequestURI() or getServletPath() instead, depending on the functional requirements.', 'ффывйцвй вйцувй ц', 'pay', NULL);
 /*!40000 ALTER TABLE `static_page` ENABLE KEYS */;
 
 
