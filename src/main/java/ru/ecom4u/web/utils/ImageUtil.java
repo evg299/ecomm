@@ -6,15 +6,24 @@ import java.awt.image.BufferedImage;
 
 public class ImageUtil {
 
+    public static final String suffixB = "-b.";
+    public static final String suffixM = "-m.";
+    public static final String suffixS = "-s.";
+    public static final String suffixO = "-o.";
+
 	public static BufferedImage createResizedCopyScaled(BufferedImage originalImage, int scaledWidth, int scaledHeight,
 			boolean preserveAlpha) {
 		int originalWidth = originalImage.getWidth();
 		int originalHeight = originalImage.getHeight();
 
+        if(originalWidth <= scaledWidth && originalHeight <= scaledHeight) {
+            return originalImage;
+        }
+
 		double kwh = (double) originalWidth / (double) originalHeight;
 
 		int scaledWidthT = (int) (scaledHeight * kwh);
-		int scaledHeightT = (int) (scaledWidth / kwh);
+        int scaledHeightT = (int) (scaledWidth / kwh);
 		
 		if(scaledWidthT < scaledWidth){
 			return createResizedCopy(originalImage, scaledWidthT, scaledHeight, preserveAlpha);

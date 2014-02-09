@@ -123,7 +123,7 @@ a {
 	background-color: #b9d7ef;
 	margin-top: 0px;
 	list-style-position: outside;
-	height: 500px;
+	/*height: 500px;*/
 	-webkit-border-bottom-right-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
 	-moz-border-radius-bottomright: 5px;

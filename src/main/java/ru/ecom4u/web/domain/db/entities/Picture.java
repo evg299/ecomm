@@ -1,180 +1,159 @@
 package ru.ecom4u.web.domain.db.entities;
 
-import java.io.Serializable;
+import ru.ecom4u.web.utils.ImageUtil;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * The persistent class for the pictures database table.
- * 
  */
 @Entity
 @Table(name = "pictures")
 public class Picture implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(unique = true, nullable = false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	@Lob
-	@Column(nullable = false)
-	private String original;
+    @Lob
+    private String title;
 
-	@Lob
-	@Column(nullable = false)
-	private String big;
+    @Column(name = "url_name", nullable = false, length = 128)
+    private String urlName;
 
-	@Lob
-	@Column(nullable = false)
-	private String medium;
+    @Column(nullable = false, length = 128)
+    private String extention;
 
-	@Lob
-	@Column(nullable = false)
-	private String small;
+    // bi-directional many-to-one association to Person
+    @OneToMany(mappedBy = "picture")
+    private List<Person> persons;
 
-	@Lob
-	private String title;
+    // bi-directional many-to-one association to Product
+    @OneToMany(mappedBy = "picture")
+    private List<Product> products;
 
-	@Column(name = "url_name", nullable = false, length = 128)
-	private String urlName;
+    // bi-directional many-to-one association to StaticPage
+    @OneToMany(mappedBy = "picture")
+    private List<StaticPage> staticPages;
 
-	// bi-directional many-to-one association to Person
-	@OneToMany(mappedBy = "picture")
-	private List<Person> persons;
+    public Picture() {
+    }
 
-	// bi-directional many-to-one association to Product
-	@OneToMany(mappedBy = "picture")
-	private List<Product> products;
+    public int getId() {
+        return this.id;
+    }
 
-	// bi-directional many-to-one association to StaticPage
-	@OneToMany(mappedBy = "picture")
-	private List<StaticPage> staticPages;
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public Picture() {
-	}
+    public String getTitle() {
+        return this.title;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getUrlName() {
+        return this.urlName;
+    }
 
-	public String getBig() {
-		return this.big;
-	}
+    public void setUrlName(String urlName) {
+        this.urlName = urlName;
+    }
 
-	public void setBig(String big) {
-		this.big = big;
-	}
+    public String getExtention() {
+        return extention;
+    }
 
-	public String getMedium() {
-		return this.medium;
-	}
+    public void setExtention(String extention) {
+        this.extention = extention;
+    }
 
-	public void setMedium(String medium) {
-		this.medium = medium;
-	}
+    public List<Person> getPersons() {
+        return this.persons;
+    }
 
-	public String getSmall() {
-		return this.small;
-	}
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
 
-	public void setSmall(String small) {
-		this.small = small;
-	}
+    public Person addPerson(Person person) {
+        getPersons().add(person);
+        person.setPicture(this);
 
-	public String getTitle() {
-		return this.title;
-	}
+        return person;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public Person removePerson(Person person) {
+        getPersons().remove(person);
+        person.setPicture(null);
 
-	public String getUrlName() {
-		return this.urlName;
-	}
+        return person;
+    }
 
-	public void setUrlName(String urlName) {
-		this.urlName = urlName;
-	}
+    public List<Product> getProducts() {
+        return this.products;
+    }
 
-	public List<Person> getPersons() {
-		return this.persons;
-	}
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
+    public Product addProduct(Product product) {
+        getProducts().add(product);
+        product.setPicture(this);
 
-	public Person addPerson(Person person) {
-		getPersons().add(person);
-		person.setPicture(this);
+        return product;
+    }
 
-		return person;
-	}
+    public Product removeProduct(Product product) {
+        getProducts().remove(product);
+        product.setPicture(null);
 
-	public Person removePerson(Person person) {
-		getPersons().remove(person);
-		person.setPicture(null);
+        return product;
+    }
 
-		return person;
-	}
+    public List<StaticPage> getStaticPages() {
+        return this.staticPages;
+    }
 
-	public List<Product> getProducts() {
-		return this.products;
-	}
+    public void setStaticPages(List<StaticPage> staticPages) {
+        this.staticPages = staticPages;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public StaticPage addStaticPage(StaticPage staticPage) {
+        getStaticPages().add(staticPage);
+        staticPage.setPicture(this);
 
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setPicture(this);
+        return staticPage;
+    }
 
-		return product;
-	}
+    public StaticPage removeStaticPage(StaticPage staticPage) {
+        getStaticPages().remove(staticPage);
+        staticPage.setPicture(null);
 
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setPicture(null);
+        return staticPage;
+    }
 
-		return product;
-	}
+    public String getOrigName() {
+        return urlName + ImageUtil.suffixO + extention;
+    }
 
-	public List<StaticPage> getStaticPages() {
-		return this.staticPages;
-	}
+    public String getBigName() {
+        return urlName + ImageUtil.suffixB + extention;
+    }
 
-	public void setStaticPages(List<StaticPage> staticPages) {
-		this.staticPages = staticPages;
-	}
+    public String getMediumName() {
+        return urlName + ImageUtil.suffixM + extention;
+    }
 
-	public StaticPage addStaticPage(StaticPage staticPage) {
-		getStaticPages().add(staticPage);
-		staticPage.setPicture(this);
-
-		return staticPage;
-	}
-
-	public StaticPage removeStaticPage(StaticPage staticPage) {
-		getStaticPages().remove(staticPage);
-		staticPage.setPicture(null);
-
-		return staticPage;
-	}
-
-	public String getOriginal() {
-		return original;
-	}
-
-	public void setOriginal(String original) {
-		this.original = original;
-	}
-
+    public String getSmallName() {
+        return urlName + ImageUtil.suffixS + extention;
+    }
 }

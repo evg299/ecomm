@@ -27,20 +27,19 @@ $(document).ready(function() {
 	$("#sm_popup").mouseout(function() {
 		$("#sm_popup").hide();
 	});
-	
-	var isOpen = false;
+
 	$("#main_menu_head").click(function(e) {
 		var _this = $(this);
-		if (!isOpen) {
+		if (!document.menuIsOpen) {
 			_this.removeClass("bottom_radius");
 		}
 
 		$("#main_menu").slideToggle("slow", function() {
 			// Animation complete.
-			if (isOpen) {
+			if (document.menuIsOpen) {
 				_this.addClass("bottom_radius");
 			}
-			isOpen = !isOpen;
+            document.menuIsOpen = !document.menuIsOpen;
 		});
 	});
 });

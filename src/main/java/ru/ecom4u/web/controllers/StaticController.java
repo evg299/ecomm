@@ -15,6 +15,7 @@ import ru.ecom4u.web.controllers.dto.BreadcrumpDTO;
 import ru.ecom4u.web.controllers.dto.accessory.HyperLink;
 import ru.ecom4u.web.domain.db.entities.StaticPage;
 import ru.ecom4u.web.domain.db.services.StaticPageService;
+import ru.ecom4u.web.utils.BreadcrumpUtil;
 
 @Controller
 @RequestMapping(value = "static")
@@ -29,8 +30,7 @@ public class StaticController {
 		StaticPage staticPage = staticPageService.getStaticPageByUrlName(urlName);
 
 		if (null != staticPage) {
-			BreadcrumpDTO breadcrumpDTO = new BreadcrumpDTO();
-			breadcrumpDTO.addHyperLink(new HyperLink(request.getContextPath() + "/static/" + urlName, staticPage.getTitle()));
+			BreadcrumpDTO breadcrumpDTO = BreadcrumpUtil.createByStaticPage(staticPage, request);
 			model.addAttribute("breadcrump", breadcrumpDTO);
 			model.addAttribute("title", staticPage.getTitle());
 			model.addAttribute("htmlContent", staticPage.getHtmlContent());
