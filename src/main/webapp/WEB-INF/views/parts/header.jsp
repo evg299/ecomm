@@ -4,11 +4,9 @@
 
 <div id="header">
 	<div id="logo">
-		<a href="${pageContext.request.contextPath}/">Название магазина</a>
+		<a href="${pageContext.request.contextPath}/">${siteName}</a>
         <br />
-        <span>слоган компании</span>
-		<br />
-        <span>The time on the server is ${serverTime}.</span>
+        <span>${siteDesc}</span>
 	</div>
 
 	<div id="card">

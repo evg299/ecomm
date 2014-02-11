@@ -39,7 +39,6 @@ public class AuthenticationService extends AbstractService {
 		Role userRole = (Role) session.createCriteria(Role.class)
 				.add(Restrictions.eq("name", Role.MainRoles.USER.toString()).ignoreCase()).uniqueResult();
 
-		// код подтверждения
 		String confirmedCode = UUID.randomUUID().toString();
 
 		User user = new User();
@@ -57,7 +56,7 @@ public class AuthenticationService extends AbstractService {
 		person.setUser(user);
 		session.save(person);
 
-		// формирование email письма
+
 		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
 		HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 		System.out.println(request.getPathInfo());

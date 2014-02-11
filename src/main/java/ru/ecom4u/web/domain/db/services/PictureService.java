@@ -41,6 +41,7 @@ public class PictureService extends AbstractService {
     @Value("#{properties['picture.small.height']}")
     private int smallHeight;
 
+    @Transactional(readOnly = true)
     public List<Picture> getAll(){
         Session session = getCurrentSession();
         return session.createCriteria(Picture.class).list();
