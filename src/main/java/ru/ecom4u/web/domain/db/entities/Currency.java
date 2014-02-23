@@ -20,12 +20,12 @@ public class Currency implements Serializable {
 	private int id;
 
 	@Column(nullable=false)
-	private int name;
+	private String name;
 
 	private double rate;
 
 	@Column(name="short_name", nullable=false)
-	private int shortName;
+	private String shortName;
 
 	//bi-directional many-to-one association to Price
 	@OneToMany(mappedBy="currency")
@@ -42,11 +42,11 @@ public class Currency implements Serializable {
 		this.id = id;
 	}
 
-	public int getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -58,11 +58,11 @@ public class Currency implements Serializable {
 		this.rate = rate;
 	}
 
-	public int getShortName() {
+	public String getShortName() {
 		return this.shortName;
 	}
 
-	public void setShortName(int shortName) {
+	public void setShortName(String shortName) {
 		this.shortName = shortName;
 	}
 

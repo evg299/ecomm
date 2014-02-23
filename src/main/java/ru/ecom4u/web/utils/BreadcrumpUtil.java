@@ -24,7 +24,7 @@ public class BreadcrumpUtil {
         ProductCategory parentCategory =  null;
         do{
             parentCategory = productCategory.getProductCategory();
-            breadcrumpDTO.addHyperLink(new HyperLink(request.getContextPath() + "/" + productCategory.getUrlName(), productCategory.getName()));
+            breadcrumpDTO.addHyperLink(new HyperLink(request.getContextPath() + "/categories/" + productCategory.getUrlName(), productCategory.getName()));
             productCategory = parentCategory;
         } while(null != parentCategory);
 

@@ -47,6 +47,12 @@ public class PictureService extends AbstractService {
         return session.createCriteria(Picture.class).list();
     }
 
+    @Transactional(readOnly = true)
+    public Picture getById(Integer id){
+        Session session = getCurrentSession();
+        return (Picture) session.get(Picture.class, id);
+    }
+
     @Transactional(rollbackFor = Throwable.class)
     public Picture savePicture(String title, CommonsMultipartFile commonsMultipartFile) {
         Picture picture = new Picture();

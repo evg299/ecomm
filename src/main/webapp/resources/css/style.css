@@ -51,7 +51,7 @@ a {
 	font-size: 30px;
 }
 
-#logo span {
+.site_desc {
 	font-size: 10px;
 }
 
@@ -329,6 +329,20 @@ img {
 	margin-bottom: 5px;
 }
 
+.product_showcase{
+    display: inline-block;
+    text-align: center;
+    padding: 22px 15px;
+    margin-bottom: 30px;
+}
+
+.product_showcase:hover{
+    display: inline-block;
+    text-align: center;
+    border: 1px solid gainsboro;
+    padding: 21px 14px;
+}
+
 /******************************************/
 #useful_links {
 	margin: 0 auto;
@@ -526,7 +540,7 @@ img {
 
 /******************************************/
 #static_content {
-	padding: 10px;
+    min-height: 600px;
 }
 
 #card_types span {

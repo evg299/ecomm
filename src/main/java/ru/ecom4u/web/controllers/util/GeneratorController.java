@@ -5,11 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.ecom4u.web.domain.db.entities.Product;
-import ru.ecom4u.web.domain.db.entities.ProductCategory;
+import ru.ecom4u.web.domain.db.entities.*;
+import ru.ecom4u.web.domain.db.services.CurrencyService;
+import ru.ecom4u.web.domain.db.services.PictureService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
+import ru.ecom4u.web.domain.db.services.ProductService;
 
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 /**
  * Created by Evgeny(e299792459@gmail.com) on 06.02.14.
@@ -19,6 +23,15 @@ public class GeneratorController {
 
     @Autowired
     private ProductCategoryService productCategoryService;
+
+    @Autowired
+    private CurrencyService currencyService;
+
+    @Autowired
+    private PictureService pictureService;
+
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping(value = "util/gencats")
     @ResponseBody
@@ -48,11 +61,38 @@ public class GeneratorController {
         return "Done";
     }
 
-    public String generateProducts(){
+    @RequestMapping(value = "util/genproducts")
+    @ResponseBody
+    public String generateProducts() {
         List<ProductCategory> categories = productCategoryService.getAll();
-        for(ProductCategory productCategory: categories){
-            Product product = new Product();
-            product.setProductCategory(productCategory);
+        Currency currency = currencyService.getById(1);
+        List<Picture> pictures = pictureService.getAll();
+        int pictCount = pictures.size();
+        Random random = new Random();
+
+        int count = 1;
+        for (ProductCategory productCategory : categories) {
+            for (int i = 0; i < 12; i++) {
+                Product product = new Product();
+                product.setProductCategory(productCategory);
+
+                product.setName("Товар №" + count);
+                product.setAmt(1 + count);
+                product.setDescription("Отписание описание товара №" + count);
+                product.setUuid(UUID.randomUUID().toString());
+
+                Price price = new Price();
+                price.setValue(12.3 * count);
+                price.setCurrency(currency);
+                productService.save(price);
+
+                product.setPrice(price);
+                product.setPicture(pictures.get(random.nextInt(pictCount)));
+
+                productService.save(product);
+
+                count++;
+            }
         }
         return "Done";
     }

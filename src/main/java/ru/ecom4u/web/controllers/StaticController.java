@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.controllers.dto.BreadcrumpDTO;
 import ru.ecom4u.web.controllers.dto.accessory.HyperLink;
 import ru.ecom4u.web.domain.db.entities.StaticPage;
+import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.domain.db.services.StaticPageService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 
@@ -23,6 +24,9 @@ public class StaticController {
 
 	@Autowired
 	private StaticPageService staticPageService;
+
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
 	@RequestMapping(value = "{urlName}", method = RequestMethod.GET)
 	public String getStaticPage(@PathVariable(value = "urlName") String urlName, Locale locale, Model model,
@@ -34,6 +38,9 @@ public class StaticController {
 			model.addAttribute("breadcrump", breadcrumpDTO);
 			model.addAttribute("title", staticPage.getTitle());
 			model.addAttribute("htmlContent", staticPage.getHtmlContent());
+
+            model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
+            model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
 
 			return "static";
 		} else {
