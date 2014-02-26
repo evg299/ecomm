@@ -16,7 +16,7 @@
         <c:forEach items="${products}" var="product">
             <div class="product_showcase">
                 <a href="${pageContext.request.contextPath}/products/${product.uuid}" target="_blank">
-                    <img src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg"/>
+                    <img src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-s.${product.picture.extention}"/>
                 </a>
 
                 <div class="prod_name">
@@ -26,7 +26,7 @@
                     ${product.price.value} <small>${product.price.currency.shortName}</small>
                 </div>
                 <div>
-                    <a href="#" class="button"/>В корзину</a>
+                    <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
                 </div>
             </div>
         </c:forEach>

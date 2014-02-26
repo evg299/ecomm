@@ -14,7 +14,7 @@
 <body>
 	<div style="margin: 0 auto; width: 666px;">
 		<div>
-			<a href="<c:url value="/" />">Название магазина</a>
+			<a href="<c:url value="/" />">${siteName}</a>
 			<br /> 
 			<big><s:message code="registration" /></big>
 		</div>

@@ -17,6 +17,7 @@ import ru.ecom4u.web.controllers.dto.forms.RegistrationForm;
 import ru.ecom4u.web.controllers.validators.RegistrationValidator;
 import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.AuthenticationService;
+import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.domain.db.services.UserService;
 
 @Controller
@@ -29,10 +30,13 @@ public class RegistrationController {
 	private AuthenticationService authenticationService;
 	@Autowired
 	private UserService userService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
 		model.asMap().put("regform", new RegistrationForm());
+        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
 		return "registration";
 	}
 

@@ -5,12 +5,12 @@
     <c:forEach items="${subCategories}" var="subCategory">
         <c:choose>
             <c:when test="${true == isFirstSubCat}">
-                <a href="${pageContext.request.contextPath}/<c:out value="${subCategory.urlName}"/>"><c:out value="${subCategory.name}"/></a>
+                <a href="${pageContext.request.contextPath}/categories/<c:out value="${subCategory.urlName}"/>"><c:out value="${subCategory.name}"/></a>
                 <c:set var="isFirstSubCat" scope="request" value="false"/>
             </c:when>
 
             <c:otherwise>
-                , <a href="${pageContext.request.contextPath}/<c:out value="${subCategory.urlName}"/>"><c:out value="${subCategory.name}"/></a>
+                , <a href="${pageContext.request.contextPath}/categories/<c:out value="${subCategory.urlName}"/>"><c:out value="${subCategory.name}"/></a>
             </c:otherwise>
         </c:choose>
     </c:forEach>

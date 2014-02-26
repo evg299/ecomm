@@ -343,6 +343,13 @@ img {
     padding: 21px 14px;
 }
 
+.product_showcase img {
+    border: 1px solid gainsboro;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 /******************************************/
 #useful_links {
 	margin: 0 auto;
