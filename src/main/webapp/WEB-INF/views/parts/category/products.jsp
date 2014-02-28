@@ -4,8 +4,23 @@
 <table id="sorting">
     <tr>
         <td>Сортировать:</td>
-        <td><a href="?order=price">По цене</a></td>
-        <td><span>По дате поступления</span></td>
+        <c:choose>
+            <c:when test="${'price' == order}">
+                <td><span>По цене</span></td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="?page=${page}&order=price">По цене</a></td>
+            </c:otherwise>
+        </c:choose>
+
+        <c:choose>
+            <c:when test="${'receipt' == order}">
+                <td><span>По дате поступления</span></td>
+            </c:when>
+            <c:otherwise>
+                <td><a href="?page=${page}&order=receipt">По дате поступления</a></td>
+            </c:otherwise>
+        </c:choose>
     </tr>
 </table>
 
@@ -38,9 +53,15 @@
 
 <div id="paginator">
     Страницы:
-    <a href="?page=1">1</a>
-    <b>2</b>
-    <a href="?page=3">3</a>
-    <a href="?page=4">4</a>
-    <a href="?page=5">5</a>
+    <c:forEach items="${paginator.items}" var="item">
+        <c:choose>
+            <c:when test="${true == item.current}">
+                <b>${item.page + 1}</b>
+            </c:when>
+
+            <c:otherwise>
+                <a href="?page=${item.page}&order=${order}">${item.page + 1}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
 </div>

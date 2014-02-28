@@ -2,6 +2,7 @@ package ru.ecom4u.web.domain.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -30,6 +31,9 @@ public class Product implements Serializable {
 
 	@Column(nullable=false)
 	private String uuid;
+
+    @Column(name = "date_of_receipt")
+    private Timestamp dateOfReceipt;
 
 	//bi-directional many-to-one association to Comment
 	@OneToMany(mappedBy="product")
@@ -165,4 +169,11 @@ public class Product implements Serializable {
 		this.productCategory = productCategory;
 	}
 
+    public Timestamp getDateOfReceipt() {
+        return dateOfReceipt;
+    }
+
+    public void setDateOfReceipt(Timestamp dateOfReceipt) {
+        this.dateOfReceipt = dateOfReceipt;
+    }
 }
