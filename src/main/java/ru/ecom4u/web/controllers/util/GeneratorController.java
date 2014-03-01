@@ -52,7 +52,7 @@ public class GeneratorController {
         ProductCategory parentProductCategory = productCategoryService.getById(id);
         for (int i = 0; i < 12; i++) {
             ProductCategory productCategory = new ProductCategory();
-            productCategory.setProductCategory(parentProductCategory);
+            productCategory.setParentId(parentProductCategory.getId());
             productCategory.setName("Категория - " + id + "-" + i);
             productCategory.setUrlName("category-" + id + "-" + i);
             productCategoryService.save(productCategory);

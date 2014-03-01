@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ecom4u.web.controllers.dto.QueryResult;
@@ -19,6 +20,9 @@ import ru.ecom4u.web.domain.db.entities.ProductCategory;
 
 @Service
 public class ProductService extends AbstractService {
+
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     @Transactional(readOnly = true)
 	public List<Product> getProducts(int start, int lenght) {
@@ -40,7 +44,10 @@ public class ProductService extends AbstractService {
     public QueryResult<Product> getProductsOfCategory(ProductCategory category, int start, int lenght, CategoryOrder order) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class, "product");
-        criteria.add(Restrictions.eq("productCategory", category));
+
+        List<ProductCategory> chCategories = productCategoryService.expandBranch(category);
+
+        criteria.add(Restrictions.in("productCategory", chCategories));
 
         Integer countAll = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 

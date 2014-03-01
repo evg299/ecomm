@@ -43,8 +43,8 @@ public class CategoriesController {
 		for (ProductCategory dbCategory : dbCategories) {
 			CategoryDTO categoryDTO = new CategoryDTO(dbCategory.getId(), dbCategory.getName(),
 					dbCategory.getUrlName(), 0);
-			if (null != dbCategory.getProductCategory())
-				categoryDTO.setPid(dbCategory.getProductCategory().getId());
+			if (null != dbCategory.getParentId())
+				categoryDTO.setPid(dbCategory.getParentId());
 			result.add(categoryDTO);
 		}
 		return result;

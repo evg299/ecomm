@@ -24,7 +24,7 @@ import java.util.Locale;
 @Controller
 public class DefaultController {
 
-    private static final int PRODUCTS_ON_PAGE = 4;
+    private static final int PRODUCTS_ON_PAGE = 28;
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -64,7 +64,7 @@ public class DefaultController {
 
             model.asMap().put("categoryName", currentCategory.getName());
             model.asMap().put("subCategories", subCategories);
-            model.asMap().put("breadcrump", BreadcrumpUtil.createByProductCategory(currentCategory, request));
+            model.asMap().put("breadcrump", BreadcrumpUtil.createByProductCategory(currentCategory, request, productCategoryService));
 
             QueryResult<Product> productQueryResult = productService.getProductsOfCategory(currentCategory, page * PRODUCTS_ON_PAGE, PRODUCTS_ON_PAGE, order);
             model.asMap().put("order", order);
