@@ -58,6 +58,9 @@ public class Product implements Serializable {
 	@JoinColumn(name="product_category_id", nullable=false)
 	private ProductCategory productCategory;
 
+    @OneToOne(mappedBy = "product")
+    private AuxProductCount auxProductCount;
+
 	public Product() {
 	}
 
@@ -175,5 +178,13 @@ public class Product implements Serializable {
 
     public void setDateOfReceipt(Timestamp dateOfReceipt) {
         this.dateOfReceipt = dateOfReceipt;
+    }
+
+    public AuxProductCount getAuxProductCount() {
+        return auxProductCount;
+    }
+
+    public void setAuxProductCount(AuxProductCount auxProductCount) {
+        this.auxProductCount = auxProductCount;
     }
 }

@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 449 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 485 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -12093,6 +12093,37 @@ INSERT INTO `address_states` (`id`, `address_country_id`, `short_name`, `name`) 
 /*!40000 ALTER TABLE `address_states` ENABLE KEYS */;
 
 
+-- Дамп структуры для таблица ecom.aux_product_count
+DROP TABLE IF EXISTS `aux_product_count`;
+CREATE TABLE IF NOT EXISTS `aux_product_count` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `sell_count` int(11) DEFAULT NULL,
+  `card_count` int(11) DEFAULT NULL,
+  `view_count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы ecom.aux_product_count: ~0 rows (приблизительно)
+DELETE FROM `aux_product_count`;
+/*!40000 ALTER TABLE `aux_product_count` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aux_product_count` ENABLE KEYS */;
+
+
+-- Дамп структуры для таблица ecom.aux_product_recommended
+DROP TABLE IF EXISTS `aux_product_recommended`;
+CREATE TABLE IF NOT EXISTS `aux_product_recommended` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы ecom.aux_product_recommended: ~0 rows (приблизительно)
+DELETE FROM `aux_product_recommended`;
+/*!40000 ALTER TABLE `aux_product_recommended` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aux_product_recommended` ENABLE KEYS */;
+
+
 -- Дамп структуры для таблица ecom.comments
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -12313,7 +12344,7 @@ CREATE TABLE IF NOT EXISTS `prices` (
   CONSTRAINT `FK_prices_currencies` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.prices: ~661 rows (приблизительно)
+-- Дамп данных таблицы ecom.prices: ~1 324 rows (приблизительно)
 DELETE FROM `prices`;
 /*!40000 ALTER TABLE `prices` DISABLE KEYS */;
 INSERT INTO `prices` (`id`, `value`, `currency_id`) VALUES

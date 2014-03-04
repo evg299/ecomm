@@ -1,12 +1,7 @@
 package ru.ecom4u.web.domain.db.services;
 
-import java.util.List;
-
-import com.sun.org.apache.regexp.internal.recompile;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.Session;
-
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -15,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ecom4u.web.controllers.dto.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
+import ru.ecom4u.web.domain.db.entities.AuxProductCount;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.ProductCategory;
+
+import java.util.List;
 
 @Service
 public class ProductService extends AbstractService {
@@ -25,19 +23,27 @@ public class ProductService extends AbstractService {
     private ProductCategoryService productCategoryService;
 
     @Transactional(readOnly = true)
-	public List<Product> getProducts(int start, int lenght) {
-		Session session = getCurrentSession();
-		Criteria criteria = session.createCriteria(Product.class);
-		criteria.setFirstResult(start);
-		criteria.setMaxResults(lenght);
-		return criteria.list();
-	}
+    public List<Product> getProducts(int start, int lenght) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class);
+        criteria.setFirstResult(start);
+        criteria.setMaxResults(lenght);
+        return criteria.list();
+    }
 
     @Transactional(readOnly = true)
-    public Long countProducts(){
+    public Long countProducts() {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class);
         return (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getProducts(List<Integer> ids) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class, "product");
+        criteria.add(Restrictions.in("id", ids));
+        return criteria.list();
     }
 
     @Transactional(readOnly = true)
@@ -53,12 +59,12 @@ public class ProductService extends AbstractService {
 
         criteria.setProjection(null);
 
-        if(CategoryOrder.price == order){
+        if (CategoryOrder.price == order) {
             criteria.createAlias("product.price", "price");
             criteria.setResultTransformer(Criteria.ROOT_ENTITY);
             criteria.addOrder(Order.asc("price.value"));
         }
-        if(CategoryOrder.receipt == order){
+        if (CategoryOrder.receipt == order) {
             criteria.addOrder(Order.asc("dateOfReceipt"));
         }
 
@@ -70,5 +76,70 @@ public class ProductService extends AbstractService {
         return new QueryResult<Product>(countAll, products);
     }
 
+    @Transactional
+    public void markSell(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(AuxProductCount.class, "auxProductCount");
+        criteria.add(Restrictions.eq("product", product));
+        List<AuxProductCount> auxProductCountList = criteria.list();
+
+        AuxProductCount auxProductCount;
+        if (0 == auxProductCountList.size()) {
+            auxProductCount = new AuxProductCount();
+            auxProductCount.setSellCount(1);
+            auxProductCount.setCardCount(1);
+            auxProductCount.setViewCount(1);
+        } else {
+            auxProductCount = auxProductCountList.get(0);
+        }
+
+        auxProductCount.setProduct(product);
+        auxProductCount.setSellCount(auxProductCount.getSellCount() + 1);
+        this.saveOrUpdate(auxProductCount);
+    }
+
+    @Transactional
+    public void markCard(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(AuxProductCount.class, "auxProductCount");
+        criteria.add(Restrictions.eq("product", product));
+        List<AuxProductCount> auxProductCountList = criteria.list();
+
+        AuxProductCount auxProductCount;
+        if (0 == auxProductCountList.size()) {
+            auxProductCount = new AuxProductCount();
+            auxProductCount.setSellCount(0);
+            auxProductCount.setCardCount(1);
+            auxProductCount.setViewCount(1);
+        } else {
+            auxProductCount = auxProductCountList.get(0);
+        }
+
+        auxProductCount.setProduct(product);
+        auxProductCount.setCardCount(auxProductCount.getCardCount() + 1);
+        this.saveOrUpdate(auxProductCount);
+    }
+
+    @Transactional
+    public void markView(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(AuxProductCount.class, "auxProductCount");
+        criteria.add(Restrictions.eq("product", product));
+        List<AuxProductCount> auxProductCountList = criteria.list();
+
+        AuxProductCount auxProductCount;
+        if (0 == auxProductCountList.size()) {
+            auxProductCount = new AuxProductCount();
+            auxProductCount.setSellCount(0);
+            auxProductCount.setCardCount(0);
+            auxProductCount.setViewCount(1);
+        } else {
+            auxProductCount = auxProductCountList.get(0);
+        }
+
+        auxProductCount.setProduct(product);
+        auxProductCount.setViewCount(auxProductCount.getViewCount() + 1);
+        this.saveOrUpdate(auxProductCount);
+    }
 
 }
