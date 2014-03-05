@@ -96,4 +96,40 @@ public class GeneratorController {
         }
         return "Done";
     }
+
+    @RequestMapping(value = "util/genstats")
+    @ResponseBody
+    public String generateStatistics() {
+        int count = productService.countProducts().intValue();
+        List<Product> products = productService.getProducts(0, count);
+        Random random = new Random();
+
+        for (int i = 0; i < count; i++) {
+            Product product = products.get(random.nextInt(count));
+            if (random.nextBoolean())
+                productService.markView(product);
+            if (random.nextBoolean())
+                productService.markCard(product);
+            if (random.nextBoolean())
+                productService.markSell(product);
+        }
+
+        return "Done";
+    }
+
+    @RequestMapping(value = "util/genrecom")
+    @ResponseBody
+    public String generateRecommended() {
+        int count = productService.countProducts().intValue();
+        List<Product> products = productService.getProducts(0, count);
+        Random random = new Random();
+
+        for (int i = 0; i < count / 10; i++) {
+            Product product = products.get(random.nextInt(count));
+            if (random.nextBoolean())
+                productService.markRecommended(product);
+        }
+
+        return "Done";
+    }
 }

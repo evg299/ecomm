@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ecom4u.web.controllers.dto.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
 import ru.ecom4u.web.domain.db.entities.AuxProductCount;
+import ru.ecom4u.web.domain.db.entities.AuxProductRecommended;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.ProductCategory;
 
@@ -142,4 +143,17 @@ public class ProductService extends AbstractService {
         this.saveOrUpdate(auxProductCount);
     }
 
+    @Transactional
+    public void markRecommended(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(AuxProductRecommended.class, "auxProductRecommended");
+        criteria.add(Restrictions.eq("product", product));
+        List<AuxProductRecommended> auxProductRecommendedList = criteria.list();
+
+        if (0 == auxProductRecommendedList.size()) {
+            AuxProductRecommended auxProductRecommended = new AuxProductRecommended();
+            auxProductRecommended.setProduct(product);
+            this.save(auxProductRecommended);
+        }
+    }
 }
