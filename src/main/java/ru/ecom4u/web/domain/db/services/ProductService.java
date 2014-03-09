@@ -15,6 +15,7 @@ import ru.ecom4u.web.domain.db.entities.AuxProductRecommended;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.ProductCategory;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -75,6 +76,35 @@ public class ProductService extends AbstractService {
         List<Product> products = criteria.list();
 
         return new QueryResult<Product>(countAll, products);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getRecommended(int maxLenght) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class, "product");
+        criteria.add(Restrictions.isNotNull("auxProductRecommended"));
+        criteria.setMaxResults(maxLenght);
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getMaxSells(int maxLenght) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class, "product");
+        criteria.createAlias("product.auxProductCount", "auxProductCount");
+        criteria.setResultTransformer(Criteria.ROOT_ENTITY);
+        criteria.addOrder(Order.desc("auxProductCount.sellCount"));
+        criteria.setMaxResults(maxLenght);
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getLastVisited(Collection<Integer> ids, int maxLenght) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class, "product");
+        criteria.add(Restrictions.in("id", ids));
+        criteria.setMaxResults(maxLenght);
+        return criteria.list();
     }
 
     @Transactional

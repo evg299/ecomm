@@ -61,6 +61,9 @@ public class Product implements Serializable {
     @OneToOne(mappedBy = "product")
     private AuxProductCount auxProductCount;
 
+    @OneToOne(mappedBy = "product")
+    private AuxProductRecommended auxProductRecommended;
+
 	public Product() {
 	}
 
@@ -186,5 +189,13 @@ public class Product implements Serializable {
 
     public void setAuxProductCount(AuxProductCount auxProductCount) {
         this.auxProductCount = auxProductCount;
+    }
+
+    public AuxProductRecommended getAuxProductRecommended() {
+        return auxProductRecommended;
+    }
+
+    public void setAuxProductRecommended(AuxProductRecommended auxProductRecommended) {
+        this.auxProductRecommended = auxProductRecommended;
     }
 }

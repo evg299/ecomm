@@ -17,13 +17,16 @@ import ru.ecom4u.web.utils.BreadcrumpUtil;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 @Controller
 public class DefaultController {
 
     private static final int PRODUCTS_ON_PAGE = 28;
+    private static final int PRODUCTS_ON_MAIN = 12;
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -35,8 +38,7 @@ public class DefaultController {
     private ProductService productService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(@CookieValue(value = "foo", required = false) String fooCookie,
-                       HttpServletResponse response,
+    public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
                        Locale locale,
                        Model model) {
         List<ProductCategory> subCategories = productCategoryService.getRootProductCategories();
@@ -45,7 +47,22 @@ public class DefaultController {
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", subCategories);
 
-        response.addCookie(new Cookie("foo", "bar"));
+        try {
+            if (null != lastVisitedIds) {
+                Set<Integer> ids = new HashSet<Integer>();
+                for (String id : lastVisitedIds.split(":")) {
+                    ids.add(Integer.parseInt(id));
+                }
+                model.asMap().put("productsLastVisited", productService.getLastVisited(ids, PRODUCTS_ON_MAIN));
+            }
+        } catch (Throwable t) {
+            System.err.println("" + t.getMessage());
+        }
+
+        model.asMap().put("productsRecommended", productService.getRecommended(PRODUCTS_ON_MAIN));
+        model.asMap().put("productsMaxSell", productService.getMaxSells(PRODUCTS_ON_MAIN));
+
+
 
         // model.asMap().put("products", productService.getProducts(ids));
         return "main";

@@ -1,330 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<div id="products" class="clear">
-	<h3>Купившие то, чем вы интересовались, также покупают</h3>
-	<table class="products_line">
-		<tr>
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
+<c:if test="${fn:length(productsLastVisited) ne 0}">
+    <div id="products" class="clear">
+        <h3>Вы недавно смотрели</h3>
+        <c:forEach items="${productsLastVisited}" var="product">
+            <div class="product_showcase">
+                <a href="${pageContext.request.contextPath}/products/${product.uuid}" target="_blank">
+                    <img src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-s.${product.picture.extention}"/>
+                </a>
 
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
+                <div class="prod_name">
+                    <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
+                </div>
+                <div class="prod_prise">
+                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                </div>
+                <div>
+                    <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
 
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
+<c:if test="${fn:length(productsRecommended) ne 0}">
+    <div id="products" class="clear">
+        <h3>Рекомендуемые товары</h3>
+        <c:forEach items="${productsRecommended}" var="product">
+            <div class="product_showcase">
+                <a href="${pageContext.request.contextPath}/products/${product.uuid}" target="_blank">
+                    <img src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-s.${product.picture.extention}"/>
+                </a>
 
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
+                <div class="prod_name">
+                    <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
+                </div>
+                <div class="prod_prise">
+                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                </div>
+                <div>
+                    <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
 
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-		</tr>
-	</table>
-</div>
+<c:if test="${fn:length(productsMaxSell) ne 0}">
+    <div id="products" class="clear">
+        <h3>Бестселлеры</h3>
+        <c:forEach items="${productsMaxSell}" var="product">
+            <div class="product_showcase">
+                <a href="${pageContext.request.contextPath}/products/${product.uuid}" target="_blank">
+                    <img src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-s.${product.picture.extention}"/>
+                </a>
 
-<div id="products" class="clear">
-	<h3>Другие пользователи сейчас смотрят</h3>
-	<table class="products_line">
-		<tr>
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-		</tr>
-	</table>
-</div>
-
-<div id="products" class="clear">
-	<h3>Вы недавно смотрели</h3>
-	<table class="products_line">
-		<tr>
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-		</tr>
-	</table>
-</div>
-
-<div id="products" class="clear">
-	<h3>Бестселлеры</h3>
-	<table class="products_line">
-		<tr>
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-
-			<td><img
-				src="http://static2.ozone.ru/multimedia/books_covers/c120/1005886477.jpg" />
-				<div class="prod_name">
-					<a href="/context/detail/id/20070014/"
-						title="Книга: Дэвид Хеффельфингер. Разработка приложений Java EE 6 в NetBeans 7">Разработка
-						приложений...</a>
-				</div>
-				<div class="prod_prise">
-					688 <small>руб</small>
-				</div>
-				<div>
-					<a href="#" class="button" />В корзину</a>
-					<!-- <a href="#" class="button"/>Отложить</a> -->
-				</div></td>
-		</tr>
-	</table>
-</div>
+                <div class="prod_name">
+                    <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
+                </div>
+                <div class="prod_prise">
+                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                </div>
+                <div>
+                    <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</c:if>
