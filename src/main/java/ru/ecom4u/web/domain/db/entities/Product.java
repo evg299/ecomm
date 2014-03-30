@@ -1,62 +1,61 @@
 package ru.ecom4u.web.domain.db.entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 
 /**
  * The persistent class for the products database table.
- * 
  */
 @Entity
-@Table(name="products")
+@Table(name = "products")
 public class Product implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	private int amt;
+    private int amt;
 
-	@Lob
-	private String description;
+    @Lob
+    private String description;
 
-	@Lob
-	@Column(nullable=false)
-	private String name;
+    @Lob
+    @Column(nullable = false)
+    private String name;
 
-	@Column(nullable=false)
-	private String uuid;
+    @Column(nullable = false)
+    private String uuid;
 
     @Column(name = "date_of_receipt")
     private Timestamp dateOfReceipt;
 
-	//bi-directional many-to-one association to Comment
-	@OneToMany(mappedBy="product")
-	private List<Comment> comments;
+    //bi-directional many-to-one association to Comment
+    @OneToMany(mappedBy = "product")
+    private List<Comment> comments;
 
-	//bi-directional many-to-one association to ProductProperty
-	@OneToMany(mappedBy="product")
-	private List<ProductProperty> productProperties;
+    //bi-directional many-to-one association to ProductProperty
+    @OneToMany(mappedBy = "product")
+    private List<ProductProperty> productProperties;
 
-	//bi-directional many-to-one association to Picture
-	@ManyToOne
-	@JoinColumn(name="main_pict_id")
-	private Picture picture;
+    //bi-directional many-to-one association to Picture
+    @ManyToOne
+    @JoinColumn(name = "main_pict_id")
+    private Picture picture;
 
-	//bi-directional many-to-one association to Price
-	@ManyToOne
-	@JoinColumn(name="price_id", nullable=false)
-	private Price price;
+    //bi-directional many-to-one association to Price
+    @ManyToOne
+    @JoinColumn(name = "price_id", nullable = false)
+    private Price price;
 
-	//bi-directional many-to-one association to ProductCategory
-	@ManyToOne
-	@JoinColumn(name="product_category_id", nullable=false)
-	private ProductCategory productCategory;
+    //bi-directional many-to-one association to ProductCategory
+    @ManyToOne
+    @JoinColumn(name = "product_category_id", nullable = false)
+    private ProductCategory productCategory;
 
     @OneToOne(mappedBy = "product")
     private AuxProductCount auxProductCount;
@@ -64,116 +63,120 @@ public class Product implements Serializable {
     @OneToOne(mappedBy = "product")
     private AuxProductRecommended auxProductRecommended;
 
-	public Product() {
-	}
+    @ManyToMany
+    @JoinTable(name = "product_pictures", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "picture_id")})
+    private List<Picture> additionalPictures;
 
-	public int getId() {
-		return this.id;
-	}
+    public Product() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public int getAmt() {
-		return this.amt;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setAmt(int amt) {
-		this.amt = amt;
-	}
+    public int getAmt() {
+        return this.amt;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public void setAmt(int amt) {
+        this.amt = amt;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public String getUuid() {
-		return this.uuid;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
+    public String getUuid() {
+        return this.uuid;
+    }
 
-	public List<Comment> getComments() {
-		return this.comments;
-	}
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    public List<Comment> getComments() {
+        return this.comments;
+    }
 
-	public Comment addComment(Comment comment) {
-		getComments().add(comment);
-		comment.setProduct(this);
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
-		return comment;
-	}
+    public Comment addComment(Comment comment) {
+        getComments().add(comment);
+        comment.setProduct(this);
 
-	public Comment removeComment(Comment comment) {
-		getComments().remove(comment);
-		comment.setProduct(null);
+        return comment;
+    }
 
-		return comment;
-	}
+    public Comment removeComment(Comment comment) {
+        getComments().remove(comment);
+        comment.setProduct(null);
 
-	public List<ProductProperty> getProductProperties() {
-		return this.productProperties;
-	}
+        return comment;
+    }
 
-	public void setProductProperties(List<ProductProperty> productProperties) {
-		this.productProperties = productProperties;
-	}
+    public List<ProductProperty> getProductProperties() {
+        return this.productProperties;
+    }
 
-	public ProductProperty addProductProperty(ProductProperty productProperty) {
-		getProductProperties().add(productProperty);
-		productProperty.setProduct(this);
+    public void setProductProperties(List<ProductProperty> productProperties) {
+        this.productProperties = productProperties;
+    }
 
-		return productProperty;
-	}
+    public ProductProperty addProductProperty(ProductProperty productProperty) {
+        getProductProperties().add(productProperty);
+        productProperty.setProduct(this);
 
-	public ProductProperty removeProductProperty(ProductProperty productProperty) {
-		getProductProperties().remove(productProperty);
-		productProperty.setProduct(null);
+        return productProperty;
+    }
 
-		return productProperty;
-	}
+    public ProductProperty removeProductProperty(ProductProperty productProperty) {
+        getProductProperties().remove(productProperty);
+        productProperty.setProduct(null);
 
-	public Picture getPicture() {
-		return this.picture;
-	}
+        return productProperty;
+    }
 
-	public void setPicture(Picture picture) {
-		this.picture = picture;
-	}
+    public Picture getPicture() {
+        return this.picture;
+    }
 
-	public Price getPrice() {
-		return this.price;
-	}
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
 
-	public void setPrice(Price price) {
-		this.price = price;
-	}
+    public Price getPrice() {
+        return this.price;
+    }
 
-	public ProductCategory getProductCategory() {
-		return this.productCategory;
-	}
+    public void setPrice(Price price) {
+        this.price = price;
+    }
 
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
-	}
+    public ProductCategory getProductCategory() {
+        return this.productCategory;
+    }
+
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
 
     public Timestamp getDateOfReceipt() {
         return dateOfReceipt;
@@ -197,5 +200,13 @@ public class Product implements Serializable {
 
     public void setAuxProductRecommended(AuxProductRecommended auxProductRecommended) {
         this.auxProductRecommended = auxProductRecommended;
+    }
+
+    public List<Picture> getAdditionalPictures() {
+        return additionalPictures;
+    }
+
+    public void setAdditionalPictures(List<Picture> additionalPictures) {
+        this.additionalPictures = additionalPictures;
     }
 }

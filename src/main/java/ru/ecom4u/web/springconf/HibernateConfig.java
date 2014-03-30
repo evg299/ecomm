@@ -45,7 +45,6 @@ public class HibernateConfig {
 		dataSource.setJdbcUrl(dbUrl);
 		dataSource.setUsername(dbUser);
 		dataSource.setPassword(dbPwd);
-
 		dataSource.setConnectionTimeoutInMs(dbTimeOut);
 
 		// Hardcoded properties, adjust if required

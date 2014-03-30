@@ -24,27 +24,8 @@ public class HomeController {
 
 	@Autowired
 	public UserService userService;
-
     @Autowired
     private SitePropertiesService sitePropertiesService;
-
-	@RequestMapping(value = "/product", method = RequestMethod.GET)
-	public String product(Locale locale, Model model,
-                          @CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
-                          HttpServletResponse response) {
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
-
-        if(null == lastVisitedIds || lastVisitedIds.isEmpty()) {
-            lastVisitedIds = "1";
-        } else {
-            lastVisitedIds += ":1";
-        }
-
-
-        response.addCookie(new Cookie("lastvisited", lastVisitedIds));
-		return "product";
-	}
 
 	@RequestMapping(value = "/card", method = RequestMethod.GET)
 	public String card(Locale locale, Model model) {

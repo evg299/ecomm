@@ -417,12 +417,16 @@ img {
 	border-bottom: 1px solid gainsboro;
 }
 
-#thumbs_image,#view_image {
-	cursor: pointer;
+#thumbs_image img {
+    margin: 3px;
+    display: inline-block;
+    cursor: pointer;
+    width: 100px;
 }
 
 #view_image {
 	display: inline-block;
+    cursor: pointer;
 }
 
 #thumbs_image img,#view_image img {
@@ -452,6 +456,8 @@ img {
 	margin: -15px;
 	padding: 15px;
 	display: none;
+    top: 0;
+    left: 0;
 }
 
 #dialog {

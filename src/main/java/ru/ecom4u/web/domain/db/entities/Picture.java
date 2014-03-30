@@ -40,6 +40,9 @@ public class Picture implements Serializable {
     @OneToMany(mappedBy = "picture")
     private List<StaticPage> staticPages;
 
+    @ManyToMany(mappedBy = "additionalPictures")
+    private List<Product> additionalProducts;
+
     public Picture() {
     }
 
@@ -155,5 +158,13 @@ public class Picture implements Serializable {
 
     public String getSmallName() {
         return urlName + ImageUtil.suffixS + extention;
+    }
+
+    public List<Product> getAdditionalProducts() {
+        return additionalProducts;
+    }
+
+    public void setAdditionalProducts(List<Product> additionalProducts) {
+        this.additionalProducts = additionalProducts;
     }
 }

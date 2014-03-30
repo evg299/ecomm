@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ecom4u.web.controllers.dto.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
-import ru.ecom4u.web.domain.db.entities.AuxProductCount;
-import ru.ecom4u.web.domain.db.entities.AuxProductRecommended;
-import ru.ecom4u.web.domain.db.entities.Product;
-import ru.ecom4u.web.domain.db.entities.ProductCategory;
+import ru.ecom4u.web.domain.db.entities.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,10 +38,27 @@ public class ProductService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
+    public Product getProductByUuid(String uuid){
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Product.class);
+        criteria.add(Restrictions.eq("uuid", uuid));
+        return (Product) criteria.uniqueResult();
+    }
+
+    @Transactional(readOnly = true)
     public List<Product> getProducts(List<Integer> ids) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class, "product");
         criteria.add(Restrictions.in("id", ids));
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Picture> getAdditionalPictures(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(Picture.class);
+        criteria.createAlias("additionalProducts", "product");
+        criteria.add(Restrictions.eq("product.id", product.getId()));
         return criteria.list();
     }
 
@@ -100,6 +114,9 @@ public class ProductService extends AbstractService {
 
     @Transactional(readOnly = true)
     public List<Product> getLastVisited(Collection<Integer> ids, int maxLenght) {
+        if(null == ids || 0 == ids.size())
+            return null;
+
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class, "product");
         criteria.add(Restrictions.in("id", ids));

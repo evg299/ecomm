@@ -11,6 +11,7 @@ import ru.ecom4u.web.domain.db.services.PictureService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -128,6 +129,29 @@ public class GeneratorController {
             Product product = products.get(random.nextInt(count));
             if (random.nextBoolean())
                 productService.markRecommended(product);
+        }
+
+        return "Done";
+    }
+
+    @RequestMapping(value = "util/genadditionalpictures")
+    @ResponseBody
+    public String generateAdditionalPictures() {
+        Random random = new Random();
+        List<Picture> pictures = pictureService.getAll();
+        int pictSize = pictures.size();
+
+        int prodSize = productService.countProducts().intValue();
+        List<Product> products = productService.getProducts(0, prodSize);
+
+        for (Product product : products) {
+            List<Picture> additional = new ArrayList<Picture>();
+            for (int i = 0; i < random.nextInt(8); i++) {
+                additional.add(pictures.get(random.nextInt(pictSize)));
+            }
+
+            product.setAdditionalPictures(additional);
+            productService.update(product);
         }
 
         return "Done";

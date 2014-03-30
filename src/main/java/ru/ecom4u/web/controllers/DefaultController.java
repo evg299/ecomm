@@ -13,6 +13,7 @@ import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
 import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
+import ru.ecom4u.web.utils.LastVisitedIdsUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -47,24 +48,13 @@ public class DefaultController {
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", subCategories);
 
-        try {
-            if (null != lastVisitedIds) {
-                Set<Integer> ids = new HashSet<Integer>();
-                for (String id : lastVisitedIds.split(":")) {
-                    ids.add(Integer.parseInt(id));
-                }
-                model.asMap().put("productsLastVisited", productService.getLastVisited(ids, PRODUCTS_ON_MAIN));
-            }
-        } catch (Throwable t) {
-            System.err.println("" + t.getMessage());
-        }
+        Set<Integer> ids = LastVisitedIdsUtil.parceIds(lastVisitedIds);
+        System.err.println("ids: " + ids);
+        model.asMap().put("productsLastVisited", productService.getLastVisited(ids, PRODUCTS_ON_MAIN));
 
         model.asMap().put("productsRecommended", productService.getRecommended(PRODUCTS_ON_MAIN));
         model.asMap().put("productsMaxSell", productService.getMaxSells(PRODUCTS_ON_MAIN));
 
-
-
-        // model.asMap().put("products", productService.getProducts(ids));
         return "main";
     }
 
