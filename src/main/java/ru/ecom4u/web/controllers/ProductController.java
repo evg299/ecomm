@@ -42,6 +42,7 @@ public class ProductController {
         model.asMap().put("product", product);
         model.asMap().put("productPrice", ProductUtil.convertPrice(product.getPrice()));
         model.asMap().put("additionalPictures", productService.getAdditionalPictures(product));
+        model.asMap().put("productProperties", productService.getProductProperties(product));
         model.asMap().put("breadcrump", BreadcrumpUtil.createByProductCategory(product, request, productCategoryService));
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());

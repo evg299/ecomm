@@ -22,7 +22,7 @@ public class Unit implements Serializable {
 	@Column(nullable=false, length=16)
 	private String abbr;
 
-	@Column(nullable=false, length=128)
+	@Column(nullable=true, length=128)
 	private String name;
 
 	@Column(nullable=false)

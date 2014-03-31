@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ecom4u.web.domain.db.entities.*;
-import ru.ecom4u.web.domain.db.services.CurrencyService;
-import ru.ecom4u.web.domain.db.services.PictureService;
-import ru.ecom4u.web.domain.db.services.ProductCategoryService;
-import ru.ecom4u.web.domain.db.services.ProductService;
+import ru.ecom4u.web.domain.db.services.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +30,9 @@ public class GeneratorController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private UnitService unitService;
 
     @RequestMapping(value = "util/gencats")
     @ResponseBody
@@ -153,6 +153,53 @@ public class GeneratorController {
             product.setAdditionalPictures(additional);
             productService.update(product);
         }
+
+        return "Done";
+    }
+
+    @RequestMapping(value = "util/genproductproperties")
+    @ResponseBody
+    public String generateProductProperties() {
+        Random random = new Random();
+        List<Unit> units = unitService.getAll();
+        int unitSize = units.size();
+
+        int prodSize = productService.countProducts().intValue();
+        List<Product> products = productService.getProducts(0, prodSize);
+        for (Product product : products) {
+            for (int i = 0; i < random.nextInt(8); i++) {
+                ProductProperty property = new ProductProperty();
+                property.setProduct(product);
+                property.setUnit(units.get(random.nextInt(unitSize)));
+                property.setName("Свойство №" + random.nextInt(100));
+                property.setValue("" + random.nextInt(1000));
+                productService.save(property);
+            }
+        }
+
+        return "Done";
+    }
+
+    @RequestMapping(value = "util/genproductrelated")
+    @ResponseBody
+    public String generateProductRelated() {
+        Random random = new Random();
+        int prodSize = productService.countProducts().intValue();
+        List<Product> products = productService.getProducts(0, prodSize);
+
+        for (Product product : products) {
+            if (random.nextBoolean())
+                for (int i = 0; i < random.nextInt(8); i++) {
+                    AuxProductRelated auxProductRelated = new AuxProductRelated();
+                    auxProductRelated.setProduct1(product);
+                    Product product2 = products.get(random.nextInt(prodSize));
+                    if (product2 != product) {
+                        auxProductRelated.setProduct2(product2);
+                        productService.save(auxProductRelated);
+                    }
+                }
+        }
+
 
         return "Done";
     }

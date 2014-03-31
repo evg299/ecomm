@@ -8,13 +8,13 @@
             var extention = $(this).attr("extention");
             var title = $(this).attr("title");
             $('#view_image img').attr({
-                src: "${pageContext.request.contextPath}/filestorage/download/"+ urlName +"-m." + extention,
+                src: "${pageContext.request.contextPath}/filestorage/download/" + urlName + "-m." + extention,
                 title: title
             });
 
             var bigImg = $("#sh_image");
             bigImg.attr({
-                src: "${pageContext.request.contextPath}/filestorage/download/"+ urlName +"-b." + extention
+                src: "${pageContext.request.contextPath}/filestorage/download/" + urlName + "-b." + extention
             });
         });
 
@@ -61,13 +61,16 @@
         <td style="width: 610px;">
             <div id="view_image">
                 <img src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-m.${product.picture.extention}"
-                     urlName="${product.picture.urlName}" extention="${product.picture.extention}" title="${product.picture.title}">
+                     urlName="${product.picture.urlName}" extention="${product.picture.extention}"
+                     title="${product.picture.title}">
             </div>
             <div id="thumbs_image">
-                <img urlName="${product.picture.urlName}" extention="${product.picture.extention}" title="${product.picture.title}"
+                <img urlName="${product.picture.urlName}" extention="${product.picture.extention}"
+                     title="${product.picture.title}"
                      src="${pageContext.request.contextPath}/filestorage/download/${product.picture.urlName}-s.${product.picture.extention}">
                 <c:forEach items="${additionalPictures}" var="additionalPicture">
-                    <img urlName="${additionalPicture.urlName}" extention="${additionalPicture.extention}" title="${additionalPicture.title}"
+                    <img urlName="${additionalPicture.urlName}" extention="${additionalPicture.extention}"
+                         title="${additionalPicture.title}"
                          src="${pageContext.request.contextPath}/filestorage/download/${additionalPicture.urlName}-s.${additionalPicture.extention}">
                 </c:forEach>
             </div>
@@ -77,25 +80,20 @@
 
             <p class="idItems">ID товара: ${product.uuid}</p>
 
-            <h5>Основные характеристики товара:</h5>
+            <c:if test="${fn:length(productProperties) ne 0}">
+                <h5>Характеристики товара:</h5>
 
-            <div class="product_detail">
-                <div>
-                    <b>Автор:</b> Дэвид Хеффельфингер
+                <div class="product_detail">
+                    <c:forEach items="${productProperties}" var="productProperty">
+                        <div>
+                            <b>${productProperty.name}:</b> ${productProperty.value} ${productProperty.unit.name}
+                        </div>
+                    </c:forEach>
                 </div>
-                <div>
-                    <b>Переводчик:</b> Е. Карышев
-                </div>
-                <div>
-                    <b>Языки:</b> Русский
-                </div>
-                <div>
-                    <b>Издательство:</b> ДМК Пресс
-                </div>
-                <div>ISBN 978-5-94074-914-1, 978-5-94074-914-1; 2013 г.</div>
-            </div>
+            </c:if>
 
-            <h5>Дополнительные характеристики товара:</h5>
+
+            <h5>Типы товара:</h5>
 
             <div class="product_detail">
                 <div>

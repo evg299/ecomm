@@ -63,6 +63,14 @@ public class ProductService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
+    public List<ProductProperty> getProductProperties(Product product){
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(ProductProperty.class);
+        criteria.add(Restrictions.eq("product", product));
+        return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
     public QueryResult<Product> getProductsOfCategory(ProductCategory category, int start, int lenght, CategoryOrder order) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class, "product");

@@ -18,10 +18,12 @@ public class AuxProductRelated implements Serializable {
     @Column(unique = true, nullable = false)
     private int id;
 
-    @Column(name = "product_id_1", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "product_id_1", nullable = false)
     private Product product1;
 
-    @Column(name = "product_id_2", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "product_id_2", nullable = false)
     private Product product2;
 
     public int getId() {
