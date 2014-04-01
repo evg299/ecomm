@@ -119,8 +119,6 @@
     </tr>
 </table>
 
-<div class="separator"></div>
-
 <%@include file="recommended.jsp" %>
 
 <div class="separator"></div>

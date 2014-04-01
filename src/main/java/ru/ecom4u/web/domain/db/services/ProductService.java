@@ -12,6 +12,7 @@ import ru.ecom4u.web.controllers.dto.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
 import ru.ecom4u.web.domain.db.entities.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ProductService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
-    public Product getProductByUuid(String uuid){
+    public Product getProductByUuid(String uuid) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(Product.class);
         criteria.add(Restrictions.eq("uuid", uuid));
@@ -63,7 +64,7 @@ public class ProductService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductProperty> getProductProperties(Product product){
+    public List<ProductProperty> getProductProperties(Product product) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(ProductProperty.class);
         criteria.add(Restrictions.eq("product", product));
@@ -122,7 +123,7 @@ public class ProductService extends AbstractService {
 
     @Transactional(readOnly = true)
     public List<Product> getLastVisited(Collection<Integer> ids, int maxLenght) {
-        if(null == ids || 0 == ids.size())
+        if (null == ids || 0 == ids.size())
             return null;
 
         Session session = getCurrentSession();
@@ -130,6 +131,21 @@ public class ProductService extends AbstractService {
         criteria.add(Restrictions.in("id", ids));
         criteria.setMaxResults(maxLenght);
         return criteria.list();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> getRelatedProducts(Product product) {
+        Session session = getCurrentSession();
+        Criteria criteria = session.createCriteria(AuxProductRelated.class);
+        criteria.add(Restrictions.eq("product1", product));
+        List<AuxProductRelated> productRelateds = criteria.list();
+
+        List<Product> result = new ArrayList<Product>(productRelateds.size());
+        for (AuxProductRelated productRelated : productRelateds) {
+            result.add(productRelated.getProduct2());
+        }
+
+        return result;
     }
 
     @Transactional
@@ -211,4 +227,5 @@ public class ProductService extends AbstractService {
             this.save(auxProductRecommended);
         }
     }
+
 }
