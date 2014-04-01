@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 341 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 539 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -14039,7 +14039,7 @@ CREATE TABLE IF NOT EXISTS `prices` (
   CONSTRAINT `FK_prices_currencies` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.prices: ~1 077 rows (приблизительно)
+-- Дамп данных таблицы ecom.prices: ~661 rows (приблизительно)
 DELETE FROM `prices`;
 /*!40000 ALTER TABLE `prices` DISABLE KEYS */;
 INSERT INTO `prices` (`id`, `value`, `currency_id`) VALUES
@@ -15071,7 +15071,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `FK_m2wi2jkrcn171xn3tvfndwgxc` (`product_category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.products: ~1 043 rows (приблизительно)
+-- Дамп данных таблицы ecom.products: ~970 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `amt`, `description`, `name`, `uuid`, `date_of_receipt`, `main_pict_id`, `price_id`, `product_category_id`) VALUES
@@ -18518,7 +18518,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~2 086 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 291 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES
@@ -20755,8 +20755,12 @@ CREATE TABLE IF NOT EXISTS `product_variants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
   `product_id` int(11) NOT NULL,
+  `unit_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_9kqi6gmy3atvxumgx7y5kn91x` (`product_id`)
+  KEY `FK_product_variants_units` (`unit_id`),
+  KEY `FK_product_variants_products` (`product_id`),
+  CONSTRAINT `FK_product_variants_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_product_variants_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.product_variants: ~0 rows (приблизительно)

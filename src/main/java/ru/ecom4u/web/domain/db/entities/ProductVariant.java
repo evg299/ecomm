@@ -23,18 +23,18 @@ public class ProductVariant implements Serializable {
 	@Column(nullable=false)
 	private String name;
 
-	//bi-directional many-to-one association to ProductVariantOption
+	// bi-directional many-to-one association to ProductVariantOption
 	@OneToMany(mappedBy="productVariant")
 	private List<ProductVariantOption> productVariantOptions;
 
-	//bi-directional many-to-one association to ProductVariant
+	// bi-directional many-to-one association to ProductVariant
 	@ManyToOne
 	@JoinColumn(name="product_id", nullable=false)
-	private ProductVariant productVariant;
+	private Product product;
 
-	//bi-directional many-to-one association to ProductVariant
-	@OneToMany(mappedBy="productVariant")
-	private List<ProductVariant> productVariants;
+    @ManyToOne
+    @JoinColumn(name="unit_id", nullable=true)
+    private Unit unit;
 
 	public ProductVariant() {
 	}
@@ -77,34 +77,19 @@ public class ProductVariant implements Serializable {
 		return productVariantOption;
 	}
 
-	public ProductVariant getProductVariant() {
-		return this.productVariant;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public void setProductVariant(ProductVariant productVariant) {
-		this.productVariant = productVariant;
-	}
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
-	public List<ProductVariant> getProductVariants() {
-		return this.productVariants;
-	}
+    public Unit getUnit() {
+        return unit;
+    }
 
-	public void setProductVariants(List<ProductVariant> productVariants) {
-		this.productVariants = productVariants;
-	}
-
-	public ProductVariant addProductVariant(ProductVariant productVariant) {
-		getProductVariants().add(productVariant);
-		productVariant.setProductVariant(this);
-
-		return productVariant;
-	}
-
-	public ProductVariant removeProductVariant(ProductVariant productVariant) {
-		getProductVariants().remove(productVariant);
-		productVariant.setProductVariant(null);
-
-		return productVariant;
-	}
-
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
 }
