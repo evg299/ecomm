@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
+import ru.ecom4u.web.domain.db.services.ProductVariantService;
 import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 import ru.ecom4u.web.utils.LastVisitedIdsUtil;
@@ -31,6 +32,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductVariantService productVariantService;
 
     @RequestMapping(value = "{productUuid}", method = RequestMethod.GET)
     public String product(@PathVariable(value = "productUuid") String productUuid, @CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
@@ -43,6 +46,8 @@ public class ProductController {
         model.asMap().put("productPrice", ProductUtil.convertPrice(product.getPrice()));
         model.asMap().put("additionalPictures", productService.getAdditionalPictures(product));
         model.asMap().put("productProperties", productService.getProductProperties(product));
+        model.asMap().put("notSelectVariants", productVariantService.getNotSelectByProduct(product));
+
         model.asMap().put("relatedProducts", productService.getRelatedProducts(product));
         model.asMap().put("breadcrump", BreadcrumpUtil.createByProductCategory(product, request, productCategoryService));
         model.asMap().put("categoryName", "Категории товаров");

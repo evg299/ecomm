@@ -93,9 +93,19 @@
             </c:if>
 
 
-            <h5>Типы товара:</h5>
+            <h5>Выберите нужную вам разновидность товара:</h5>
 
             <div class="product_detail">
+                <table style="vertical-align: top;">
+                    <c:forEach items="${notSelectVariants}" var="notSelectVariant">
+                        <tr>
+                            <td style="text-align: right; margin-right: 3px;"><b>${notSelectVariant.name}:</b> </td>
+                            <td><input id="nsv-${notSelectVariant.id}" class="prod_variant" type="text" value="${notSelectVariant.defaultValue}" /> ${notSelectVariant.unit.name}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+
                 <div>
                     <b>Автор:</b> Дэвид Хеффельфингер
                 </div>
