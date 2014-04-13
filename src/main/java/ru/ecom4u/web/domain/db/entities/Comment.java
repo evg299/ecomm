@@ -1,92 +1,102 @@
 package ru.ecom4u.web.domain.db.entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
 /**
  * The persistent class for the comments database table.
- * 
  */
 @Entity
-@Table(name="comments")
+@Table(name = "comments")
 public class Comment implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	@Lob
-	@Column(nullable=false)
-	private String content;
+    @Column(nullable = false)
+    private String title;
 
-	@Column(name="creation_date", nullable=false)
-	private Timestamp creationDate;
+    @Lob
+    @Column(nullable = false)
+    private String content;
 
-	private int stars;
+    @Column(name = "creation_date", nullable = false)
+    private Timestamp creationDate;
 
-	//bi-directional many-to-one association to Person
-	@ManyToOne
-	@JoinColumn(name="person_id", nullable=false)
-	private Person person;
+    private int stars;
 
-	//bi-directional many-to-one association to Product
-	@ManyToOne
-	@JoinColumn(name="product_id", nullable=false)
-	private Product product;
+    //bi-directional many-to-one association to Person
+    @ManyToOne
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
-	public Comment() {
-	}
+    //bi-directional many-to-one association to Product
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
-	public int getId() {
-		return this.id;
-	}
+    public Comment() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getContent() {
-		return this.content;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getContent() {
+        return this.content;
+    }
 
-	public Timestamp getCreationDate() {
-		return this.creationDate;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setCreationDate(Timestamp creationDate) {
-		this.creationDate = creationDate;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public int getStars() {
-		return this.stars;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setStars(int stars) {
-		this.stars = stars;
-	}
+    public Timestamp getCreationDate() {
+        return this.creationDate;
+    }
 
-	public Person getPerson() {
-		return this.person;
-	}
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+    public int getStars() {
+        return this.stars;
+    }
 
-	public Product getProduct() {
-		return this.product;
-	}
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public Person getPerson() {
+        return this.person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
 }

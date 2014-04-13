@@ -1,5 +1,7 @@
 package ru.ecom4u.web.domain.db.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -26,10 +28,12 @@ public class ProductVariant implements Serializable {
     @Column(name = "default_value", nullable = true)
     private String defaultValue;
 
+    @JsonIgnore
     // bi-directional many-to-one association to ProductVariantOption
     @OneToMany(mappedBy = "productVariant")
     private List<ProductVariantOption> productVariantOptions;
 
+    @JsonIgnore
     // bi-directional many-to-one association to ProductVariant
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

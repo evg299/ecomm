@@ -1,5 +1,7 @@
 package ru.ecom4u.web.domain.db.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -28,10 +30,12 @@ public class Unit implements Serializable {
 	@Column(nullable=false)
 	private int weight;
 
+    @JsonIgnore
 	//bi-directional many-to-one association to ProductProperty
 	@OneToMany(mappedBy="unit")
 	private List<ProductProperty> productProperties;
 
+    @JsonIgnore
 	//bi-directional many-to-one association to ProductVariantOption
 	@OneToMany(mappedBy="unit")
 	private List<ProductVariantOption> productVariantOptions;

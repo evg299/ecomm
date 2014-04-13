@@ -92,38 +92,45 @@
                 </div>
             </c:if>
 
+            <c:if test="${fn:length(notSelectVariants) + fn:length(selectVariantDTOs) ne 0}">
+                <form id="variantForm">
+                    <h5>Выберите нужную вам разновидность товара:</h5>
 
-            <h5>Выберите нужную вам разновидность товара:</h5>
+                    <div class="product_detail">
+                        <table style="vertical-align: top;">
+                            <c:forEach items="${notSelectVariants}" var="notSelectVariant">
+                                <tr>
+                                    <td style="text-align: right; margin-right: 3px;"><b>${notSelectVariant.name}:</b>
+                                    </td>
+                                    <td><input id="nsv-${notSelectVariant.id}" class="prod_variant" type="text"
+                                               name="field-${notSelectVariant.id}"
+                                               value="${notSelectVariant.defaultValue}"/> ${notSelectVariant.unit.name}
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            <c:forEach items="${selectVariantDTOs}" var="selectVariantDTO">
+                                <tr>
+                                    <td style="text-align: right; margin-right: 3px;">
+                                        <b>${selectVariantDTO.productVariant.name}:</b></td>
+                                    <td>
+                                        <select name="field-${selectVariantDTO.productVariant.id}">
+                                            <c:forEach items="${selectVariantDTO.productVariantOptions}"
+                                                       var="productVariantOption">
+                                                <option value="val-${productVariantOption.id}">${productVariantOption.value} ${productVariantOption.unit.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </form>
+            </c:if>
 
-            <div class="product_detail">
-                <table style="vertical-align: top;">
-                    <c:forEach items="${notSelectVariants}" var="notSelectVariant">
-                        <tr>
-                            <td style="text-align: right; margin-right: 3px;"><b>${notSelectVariant.name}:</b> </td>
-                            <td><input id="nsv-${notSelectVariant.id}" class="prod_variant" type="text" value="${notSelectVariant.defaultValue}" /> ${notSelectVariant.unit.name}</td>
-                        </tr>
-                    </c:forEach>
-                </table>
-
-
-                <div>
-                    <b>Автор:</b> Дэвид Хеффельфингер
-                </div>
-                <div>
-                    <b>Переводчик:</b> Е. Карышев
-                </div>
-                <div>
-                    <b>Языки:</b> Русский
-                </div>
-                <div>
-                    <b>Издательство:</b> ДМК Пресс
-                </div>
-                <div>ISBN 978-5-94074-914-1, 978-5-94074-914-1; 2013 г.</div>
-            </div>
 
             <div class="bay">
                 <b>Цена:</b> <span class="price">${productPrice.integralPart}<sup> ${productPrice.fractionalPart}</sup></span> ${productPrice.currency}
-                <div class="button prod_button">Добавить в корзину</div>
+                <div id="bay_button" class="button prod_button">Добавить в корзину</div>
             </div>
         </td>
     </tr>

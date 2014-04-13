@@ -1,5 +1,7 @@
 package ru.ecom4u.web.domain.db.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,9 +23,7 @@ public class ProductVariantOption implements Serializable {
     @Column(nullable = false)
     private String value;
 
-    @Column(name = "pid")
-    private Integer pid;
-
+    @JsonIgnore
     //bi-directional many-to-one association to ProductVariant
     @ManyToOne
     @JoinColumn(name = "variant_id", nullable = false)
@@ -51,14 +51,6 @@ public class ProductVariantOption implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
     }
 
     public ProductVariant getProductVariant() {

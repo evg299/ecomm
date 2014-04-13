@@ -4,69 +4,40 @@
 <div id="comments">
 	<h3>Отзывы</h3>
 
-	<div class="comment">
-		<h5>Достойно внимания</h5>
-		<div class="datePublished">03 мая 2013 г.</div>
-		<div class="author">
-			Александр (22 года) <a
-				href="/context/client_opinion/ClientGuid/6cef5b06-a907-4768-9955-b4f586c419da/"
-				class="">все отзывы</a>
-		</div>
-		<div>
-			Содержимое пока в процессе изучения, впечатления приятные. <br>
-			Сходу можно сказать, что материал определенно полезен для первого
-			знакомства с EE, иными словами - вводный курс на Русском. <br> К
-			недостаткам, на мой взгляд, можно отнести разве что мизерный тираж
-			подобных изданий и не самый удачный переплёт
-		</div>
-	</div>
-
-	<div class="comment">
-		<h5>Достойно внимания</h5>
-		<div class="datePublished">03 мая 2013 г.</div>
-		<div class="author">
-			Александр (22 года) <a
-				href="/context/client_opinion/ClientGuid/6cef5b06-a907-4768-9955-b4f586c419da/"
-				class="">все отзывы</a>
-		</div>
-		<div>
-			Содержимое пока в процессе изучения, впечатления приятные. <br>
-			Сходу можно сказать, что материал определенно полезен для первого
-			знакомства с EE, иными словами - вводный курс на Русском. <br> К
-			недостаткам, на мой взгляд, можно отнести разве что мизерный тираж
-			подобных изданий и не самый удачный переплёт
-		</div>
-	</div>
-
-	<div class="comment">
-		<h5>Достойно внимания</h5>
-		<div class="datePublished">03 мая 2013 г.</div>
-		<div class="author">
-			Александр (22 года) <a
-				href="/context/client_opinion/ClientGuid/6cef5b06-a907-4768-9955-b4f586c419da/"
-				class="">все отзывы</a>
-		</div>
-		<div>
-			Содержимое пока в процессе изучения, впечатления приятные. <br>
-			Сходу можно сказать, что материал определенно полезен для первого
-			знакомства с EE, иными словами - вводный курс на Русском. <br> К
-			недостаткам, на мой взгляд, можно отнести разве что мизерный тираж
-			подобных изданий и не самый удачный переплёт
-		</div>
-	</div>
+    <c:choose>
+        <c:when test="${fn:length(comments) ne 0}">
+            <c:forEach items="${comments}" var="comment">
+                <div class="comment">
+                    <h5>${comment.title}</h5>
+                    <div class="datePublished"><s:eval expression="@dateFormatService.formatTimestamp(comment.creationDate)" /></div>
+                    <div class="author">
+                            ${comment.person.fname} ${comment.person.mname} ${comment.person.lname} (<s:eval expression="@dateFormatService.countYears(comment.creationDate, comment.person.birthDate)" />)
+                            <a href="${pageContext.request.contextPath}/person/${comment.person.id}/comments" class="">все отзывы</a>
+                    </div>
+                    <div>
+                            ${comment.content}
+                    </div>
+                </div>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            Отзывов пока нет.
+        </c:otherwise>
+    </c:choose>
 
 	<div id="addComment">
 		<h4>Оставить отзыв о товаре</h4>
-		<form>
-			<b>Заголовок:</b> <br /> <input type="text" style="width: 633px;" />
+		<form id="addCommentForm">
+			<b>Заголовок:</b>
+            <br />
+            <input name="title" type="text" style="width: 633px;" />
+            <br />
 
-			<br /> <b>Ваше имя:</b> <input type="text" style="width: 400px;" />
-			<b>Ваш возраст:</b> <input type="text" style="width: 60px;" /> <br />
-			<b>Содержание:</b> <br />
-			<textarea style="width: 633px; height: 300px;"></textarea>
+            <b>Содержание:</b> <br />
+			<textarea name="content" style="width: 633px; height: 300px;"></textarea>
+            <br />
 
-			<br /> <input type="submit" value="Отправить"
-				style="margin-top: 5px;" />
+            <input type="submit" value="Отправить" style="margin-top: 5px;" />
 		</form>
 	</div>
 

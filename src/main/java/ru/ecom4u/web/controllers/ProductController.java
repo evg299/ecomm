@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import ru.ecom4u.web.controllers.dto.services.SelectVariantDTO;
 import ru.ecom4u.web.domain.db.entities.Product;
-import ru.ecom4u.web.domain.db.services.ProductCategoryService;
-import ru.ecom4u.web.domain.db.services.ProductService;
-import ru.ecom4u.web.domain.db.services.ProductVariantService;
-import ru.ecom4u.web.domain.db.services.SitePropertiesService;
-import ru.ecom4u.web.utils.BreadcrumpUtil;
-import ru.ecom4u.web.utils.LastVisitedIdsUtil;
-import ru.ecom4u.web.utils.ProductUtil;
+import ru.ecom4u.web.domain.db.entities.ProductVariant;
+import ru.ecom4u.web.domain.db.entities.ProductVariantOption;
+import ru.ecom4u.web.domain.db.services.*;
+import ru.ecom4u.web.utils.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -34,6 +34,8 @@ public class ProductController {
     private ProductCategoryService productCategoryService;
     @Autowired
     private ProductVariantService productVariantService;
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "{productUuid}", method = RequestMethod.GET)
     public String product(@PathVariable(value = "productUuid") String productUuid, @CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
@@ -48,10 +50,19 @@ public class ProductController {
         model.asMap().put("productProperties", productService.getProductProperties(product));
         model.asMap().put("notSelectVariants", productVariantService.getNotSelectByProduct(product));
 
+        List<SelectVariantDTO> selectVariantDTOs = new ArrayList<SelectVariantDTO>();
+        List<ProductVariant> selectVariants = productVariantService.getSelectByProduct(product);
+        for (ProductVariant selectVariant : selectVariants) {
+            List<ProductVariantOption> variantOptions = productVariantService.getOptionsByProductVariant(selectVariant);
+            selectVariantDTOs.add(new SelectVariantDTO(selectVariant, variantOptions));
+        }
+        model.asMap().put("selectVariantDTOs", selectVariantDTOs);
+
         model.asMap().put("relatedProducts", productService.getRelatedProducts(product));
         model.asMap().put("breadcrump", BreadcrumpUtil.createByProductCategory(product, request, productCategoryService));
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
+        model.asMap().put("comments", commentService.getByProduct(product));
 
         Set<Integer> ids = LastVisitedIdsUtil.parceIds(lastVisitedIds);
         ids.add(product.getId());

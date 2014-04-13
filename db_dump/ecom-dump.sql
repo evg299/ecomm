@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 350 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 408 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -13833,19 +13833,25 @@ INSERT INTO `aux_product_related` (`id`, `product_id_1`, `product_id_2`) VALUES
 -- Дамп структуры для таблица ecom.comments
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) NOT NULL,
   `content` longtext NOT NULL,
-  `creation_date` datetime NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `stars` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_7mkhwfldsy6ure4nei4sgwvg0` (`person_id`),
-  KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`),
+  CONSTRAINT `FK_comments_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
+  CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.comments: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.comments: ~1 rows (приблизительно)
 DELETE FROM `comments`;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` (`id`, `title`, `content`, `creation_date`, `stars`, `person_id`, `product_id`) VALUES
+	(1, 'круто ', 'Этот фильм - продолжение истории о гитаристе Эль Марьячи. На этот раз он пытается помешать могущественному наркобарону Баррильо свергнуть президента Мексики.\r\nЭто задание он получает от продажного агента ЦРУ Сэндса, который не хочет рисковать собственной жизнью ради спасения жизни главы чужого государства. Приключения Эль Марьячи начинаются на фоне грядущей революции, всеобщей неразберихи и кровной мести.\r\nГлавный герой, ставший известным благодаря превосходной игре Антонио Бандераса, великолепно справляется как с гитарой, так и с пистолетом, и, несмотря на все трудности и раны, всегда добивается успеха.', '2014-04-13 20:03:11', 4, 1, 1),
+	(2, 'да хз', 'Both your select control and your submit button had the same name attribute, so the last one used was the submit button when you clicked it. All other syntax errors aside.', '2014-04-13 20:51:23', 3, 2, 1);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
 
@@ -13960,11 +13966,11 @@ DELETE FROM `order_statuses`;
 -- Дамп структуры для таблица ecom.persons
 CREATE TABLE IF NOT EXISTS `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fname` tinytext,
-  `lname` tinytext,
+  `fname` tinytext NOT NULL,
+  `lname` tinytext NOT NULL,
   `mname` tinytext,
-  `gender` bit(1) DEFAULT NULL,
-  `birth_date` date DEFAULT NULL,
+  `gender` bit(1) NOT NULL,
+  `birth_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `picture_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -13978,8 +13984,8 @@ CREATE TABLE IF NOT EXISTS `persons` (
 DELETE FROM `persons`;
 /*!40000 ALTER TABLE `persons` DISABLE KEYS */;
 INSERT INTO `persons` (`id`, `fname`, `lname`, `mname`, `gender`, `birth_date`, `picture_id`, `user_id`) VALUES
-	(1, 'qweqwe', 'qweqwe', NULL, NULL, NULL, NULL, 14),
-	(2, 'qweqwe', 'qweqwe', NULL, NULL, NULL, NULL, 15);
+	(1, 'Иван', 'Иванов', NULL, b'1', '2000-04-13 00:00:00', NULL, 14),
+	(2, 'Катерина', 'Топорова', NULL, b'0', '1987-04-13 00:00:00', NULL, 15);
 /*!40000 ALTER TABLE `persons` ENABLE KEYS */;
 
 
@@ -14039,7 +14045,7 @@ CREATE TABLE IF NOT EXISTS `prices` (
   CONSTRAINT `FK_prices_currencies` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.prices: ~1 077 rows (приблизительно)
+-- Дамп данных таблицы ecom.prices: ~1 324 rows (приблизительно)
 DELETE FROM `prices`;
 /*!40000 ALTER TABLE `prices` DISABLE KEYS */;
 INSERT INTO `prices` (`id`, `value`, `currency_id`) VALUES
@@ -15071,7 +15077,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   KEY `FK_m2wi2jkrcn171xn3tvfndwgxc` (`product_category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.products: ~1 039 rows (приблизительно)
+-- Дамп данных таблицы ecom.products: ~970 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `amt`, `description`, `name`, `uuid`, `date_of_receipt`, `main_pict_id`, `price_id`, `product_category_id`) VALUES
@@ -16198,7 +16204,7 @@ CREATE TABLE IF NOT EXISTS `product_pictures` (
   CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_pictures: ~2 809 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_pictures: ~1 405 rows (приблизительно)
 DELETE FROM `product_pictures`;
 /*!40000 ALTER TABLE `product_pictures` DISABLE KEYS */;
 INSERT INTO `product_pictures` (`product_id`, `picture_id`) VALUES
@@ -18518,7 +18524,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~1 937 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 323 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES
@@ -20754,7 +20760,7 @@ INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
-  `default_value` longtext NOT NULL,
+  `default_value` longtext,
   `product_id` int(11) NOT NULL,
   `unit_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -20762,15 +20768,16 @@ CREATE TABLE IF NOT EXISTS `product_variants` (
   KEY `FK_product_variants_products` (`product_id`),
   CONSTRAINT `FK_product_variants_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_product_variants_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_variants: ~3 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_variants: ~4 rows (приблизительно)
 DELETE FROM `product_variants`;
 /*!40000 ALTER TABLE `product_variants` DISABLE KEYS */;
 INSERT INTO `product_variants` (`id`, `name`, `default_value`, `product_id`, `unit_id`) VALUES
 	(1, 'Количество ног', '4', 1, 2),
 	(2, 'Вес', '80', 1, 4),
-	(3, 'Цвет', '', 1, NULL);
+	(3, 'Цвет', '', 1, NULL),
+	(4, 'Расцветка', NULL, 1, NULL);
 /*!40000 ALTER TABLE `product_variants` ENABLE KEYS */;
 
 
@@ -20779,17 +20786,23 @@ CREATE TABLE IF NOT EXISTS `product_variant_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` longtext NOT NULL,
   `variant_id` int(11) NOT NULL,
-  `pid` int(11) DEFAULT NULL,
   `unit_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_geflaxxhi6c23isrtyffxp9wi` (`variant_id`),
-  KEY `FK_jvbc4ug3foat0lkm45wkwuqt8` (`pid`),
-  KEY `FK_m8q0ptlv4wcfmn7l7ljdknety` (`unit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `FK_m8q0ptlv4wcfmn7l7ljdknety` (`unit_id`),
+  CONSTRAINT `FK_product_variant_options_product_variants` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`id`),
+  CONSTRAINT `FK_product_variant_options_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_variant_options: ~0 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_variant_options: ~5 rows (приблизительно)
 DELETE FROM `product_variant_options`;
 /*!40000 ALTER TABLE `product_variant_options` DISABLE KEYS */;
+INSERT INTO `product_variant_options` (`id`, `value`, `variant_id`, `unit_id`) VALUES
+	(1, 'Красный', 3, 1),
+	(2, 'Зеленый', 3, 1),
+	(3, 'Синий', 3, 1),
+	(4, 'В клетку', 4, 1),
+	(5, 'В полоску', 4, 1);
 /*!40000 ALTER TABLE `product_variant_options` ENABLE KEYS */;
 
 

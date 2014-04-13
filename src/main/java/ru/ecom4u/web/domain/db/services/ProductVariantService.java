@@ -2,6 +2,7 @@ package ru.ecom4u.web.domain.db.services;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +41,7 @@ public class ProductVariantService extends AbstractService {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(ProductVariantOption.class);
         criteria.add(Restrictions.eq("productVariant", productVariant));
+        criteria.addOrder(Order.asc("value"));
         return criteria.list();
     }
 

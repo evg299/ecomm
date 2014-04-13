@@ -2,6 +2,7 @@ package ru.ecom4u.web.domain.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,8 @@ public class Person implements Serializable {
 	@Column(unique = true, nullable = false)
 	private int id;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "birth_date")
-	private Date birthDate;
+	private Timestamp birthDate;
 
 	@Lob
 	private String fname;
@@ -71,11 +71,11 @@ public class Person implements Serializable {
 		this.id = id;
 	}
 
-	public Date getBirthDate() {
+	public Timestamp getBirthDate() {
 		return this.birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(Timestamp birthDate) {
 		this.birthDate = birthDate;
 	}
 
