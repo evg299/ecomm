@@ -27,18 +27,26 @@
 
 	<div id="addComment">
 		<h4>Оставить отзыв о товаре</h4>
-		<form id="addCommentForm">
-			<b>Заголовок:</b>
-            <br />
-            <input name="title" type="text" style="width: 633px;" />
-            <br />
-
-            <b>Содержание:</b> <br />
-			<textarea name="content" style="width: 633px; height: 300px;"></textarea>
-            <br />
-
-            <input type="submit" value="Отправить" style="margin-top: 5px;" />
-		</form>
+        <form:form id="addCommentForm" method="post" commandName="commentForm">
+            <%--<form:errors path="*" cssClass="error" />--%>
+            <table>
+                <tr style="vertical-align: top;">
+                    <td style="text-align: right;">*Заголовок:</td>
+                    <td><form:input path="title" style="width: 633px;" /></td>
+                    <td><form:errors cssClass="error" path="title" /></td>
+                </tr>
+                <tr style="vertical-align: top;">
+                    <td style="text-align: right;">*Содержание:</td>
+                    <td><form:textarea path="text" style="width: 633px; height: 300px;" /></td>
+                    <td><form:errors cssClass="error" path="text" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Отправить" style="margin-top: 5px;" /></td>
+                    <td></td>
+                </tr>
+            </table>
+		</form:form>
 	</div>
 
 </div>
