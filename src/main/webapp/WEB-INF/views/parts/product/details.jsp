@@ -2,7 +2,11 @@
          pageEncoding="UTF-8" %>
 
 <script type="text/javascript">
+    document.productID = ${product.id};
+
     $(document).ready(function () {
+        checkInCard();
+
         $('#thumbs_image img').click(function (e) {
             var urlName = $(this).attr("urlName");
             var extention = $(this).attr("extention");
@@ -41,6 +45,38 @@
         $('#dialog_close, #block_light').click(function (e) {
             $("#dialog, #block_light").hide();
         });
+
+        $('#bay_button').click(function (e) {
+            var variant = $('#variantForm').serialize();
+            var count = $('#count_product').val();
+
+            if (variant)
+                variant += "&";
+            variant += "count=" + count;
+            setCookie("card-" + document.productID, variant);
+
+            hideBay();
+        });
+
+        // отображение возможности добавить товар
+        function checkInCard() {
+            var cookies = getCookies();
+            for (var key in cookies) {
+                if (key.startsWith("card-")) {
+                    var id = key.substr("card-".length);
+                    if (document.productID == id) {
+                        hideBay();
+                        return;
+                    }
+                }
+            }
+        }
+
+        function hideBay() {
+            $('#bay_button').hide();
+            $('#productCounter').hide();
+            $('#bay_notification').show();
+        }
 
     });
 </script>
@@ -129,8 +165,15 @@
 
 
             <div class="bay">
-                <b>Цена:</b> <span class="price">${productPrice.integralPart}<sup> ${productPrice.fractionalPart}</sup></span> ${productPrice.currency}
-                <div id="bay_button" class="button prod_button">Добавить в корзину</div>
+                <div>
+                    <b>Цена:</b> ${productPrice.integralPart}<sup> ${productPrice.fractionalPart}</sup></span> ${productPrice.currency}
+                </div>
+                <div id="productCounter">
+                    <b>Кол-во:</b> <input id="count_product" type="number" min="1" value="1" style="width: 100px;"/>
+                </div>
+
+                <div id="bay_button" class="button prod_button" style="display: block;">Добавить в корзину</div>
+                <div id="bay_notification" style="display: none;">Товар уже в корзине</div>
             </div>
         </td>
     </tr>
