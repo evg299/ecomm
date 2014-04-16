@@ -10,8 +10,9 @@
         <div id="main_menu">
             <c:forEach items="${subCategories}" var="subCategory">
                 <div id="sm_<c:out value="${subCategory.id}"/>" class="main_menu_item">
-                    <a href="${pageContext.request.contextPath}/categories/<c:out value="${subCategory.urlName}"/>"> <c:out
-                            value="${subCategory.name}"/> </a>
+                    <a href="${pageContext.request.contextPath}/categories/<c:out value="${subCategory.urlName}"/>">
+                        <c:out value="${subCategory.name}"/>
+                    </a>
                 </div>
             </c:forEach>
         </div>

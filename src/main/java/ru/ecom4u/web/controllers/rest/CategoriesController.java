@@ -1,4 +1,4 @@
-package ru.ecom4u.web.controllers;
+package ru.ecom4u.web.controllers.rest;
 
 import java.util.ArrayList;
 import java.util.List;

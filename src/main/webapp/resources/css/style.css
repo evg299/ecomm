@@ -150,11 +150,11 @@ a {
 #sm_popup {
     position: absolute;
     z-index: 1000;
-    height: 490px;
     left: 310px;
     top: 202px;
     padding: 5px;
     width: 300px;
+    /*height: 490px;*/
     background-color: #eaf2f8;
     display: none;
     -webkit-border-top-right-radius: 5px;
@@ -702,5 +702,9 @@ img {
     text-align: center;
     padding-top: 20px;
     border: 5px solid coral;
+}
+
+.sm_popup_link {
+    padding: 3px;
 }
 

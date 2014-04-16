@@ -18,7 +18,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
-@ComponentScan(basePackages = { "ru.ecom4u.web.controllers" })
+@ComponentScan(basePackages = { "ru.ecom4u.web.controllers", "ru.ecom4u.web.controllers.rest" })
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
