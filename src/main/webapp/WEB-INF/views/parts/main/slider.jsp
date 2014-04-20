@@ -3,21 +3,15 @@
 
 <div id="slider">
 	<div id="gallery">
-		<a href="#"><img src="resources/img/slider/1.jpg" /></a> <a href="#"><img
-			src="resources/img/slider/2.jpg" /></a> <a href="#"><img
-			src="resources/img/slider/3.jpg" /></a> <a href="#"><img
-			src="resources/img/slider/4.jpg" /></a> <a href="#"><img
-			src="resources/img/slider/5.jpg" /></a> <a href="#"><img
-			src="resources/img/slider/6.jpg" /></a>
+        <c:forEach items="${sliderPictures}" var="sliderPicture">
+            <a href="${sliderPicture.href}" target="_blank"><img src="${pageContext.request.contextPath}/filestorage/download/${sliderPicture.picture.urlName}-o.${sliderPicture.picture.extention}" /></a>
+        </c:forEach>
 	</div>
 
 	<div id="thumbs">
-		<img src="resources/img/slider/11.jpg" /> <img
-			src="resources/img/slider/22.jpg" /> <img
-			src="resources/img/slider/33.jpg" /> <img
-			src="resources/img/slider/44.jpg" /> <img
-			src="resources/img/slider/55.jpg" /> <img
-			src="resources/img/slider/66.jpg" />
+        <c:forEach items="${sliderPictures}" var="sliderPicture">
+            <img src="${pageContext.request.contextPath}/filestorage/download/${sliderPicture.picture.urlName}-s.${sliderPicture.picture.extention}" />
+        </c:forEach>
 	</div>
 
 	<a href="#" id="next"></a>

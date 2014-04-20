@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import ru.ecom4u.web.domain.db.entities.Picture;
+import ru.ecom4u.web.domain.db.entities.SliderPicture;
 import ru.ecom4u.web.services.FileStorageService;
 import ru.ecom4u.web.utils.ImageUtil;
 
@@ -42,13 +43,19 @@ public class PictureService extends AbstractService {
     private int smallHeight;
 
     @Transactional(readOnly = true)
-    public List<Picture> getAll(){
+    public List<Picture> getAll() {
         Session session = getCurrentSession();
         return session.createCriteria(Picture.class).list();
     }
 
     @Transactional(readOnly = true)
-    public Picture getById(Integer id){
+    public List<SliderPicture> getAllSliderPictures() {
+        Session session = getCurrentSession();
+        return session.createCriteria(SliderPicture.class).list();
+    }
+
+    @Transactional(readOnly = true)
+    public Picture getById(Integer id) {
         Session session = getCurrentSession();
         return (Picture) session.get(Picture.class, id);
     }

@@ -9,16 +9,14 @@ import ru.ecom4u.web.controllers.dto.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.ProductCategory;
+import ru.ecom4u.web.domain.db.services.PictureService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
 import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 import ru.ecom4u.web.utils.LastVisitedIdsUtil;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -38,6 +36,9 @@ public class DefaultController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private PictureService pictureService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
                        Locale locale,
@@ -54,6 +55,8 @@ public class DefaultController {
 
         model.asMap().put("productsRecommended", productService.getRecommended(PRODUCTS_ON_MAIN));
         model.asMap().put("productsMaxSell", productService.getMaxSells(PRODUCTS_ON_MAIN));
+
+        model.asMap().put("sliderPictures", pictureService.getAllSliderPictures());
 
         return "main";
     }

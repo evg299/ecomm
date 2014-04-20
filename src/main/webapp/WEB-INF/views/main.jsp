@@ -20,8 +20,7 @@
 <table id="main" style="width: 100%;">
     <tr>
         <td style="width: 300px; vertical-align: top;">
-            <%@include
-                    file="parts/left.jsp" %>
+            <%@include file="parts/left.jsp" %>
         </td>
         <td style="vertical-align: top;">
             <div id="content">

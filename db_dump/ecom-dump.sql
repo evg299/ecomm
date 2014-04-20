@@ -16,6 +16,7 @@ USE `ecom`;
 
 
 -- Дамп структуры для таблица ecom.addresses
+DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE IF NOT EXISTS `addresses` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_satate_id` int(11) NOT NULL,
@@ -36,6 +37,7 @@ DELETE FROM `addresses`;
 
 
 -- Дамп структуры для таблица ecom.address_cities
+DROP TABLE IF EXISTS `address_cities`;
 CREATE TABLE IF NOT EXISTS `address_cities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_country_id` int(11) NOT NULL DEFAULT '0',
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 408 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 350 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -11027,6 +11029,7 @@ INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `n
 
 
 -- Дамп структуры для таблица ecom.address_countries
+DROP TABLE IF EXISTS `address_countries`;
 CREATE TABLE IF NOT EXISTS `address_countries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `short_name` tinytext,
@@ -11148,6 +11151,7 @@ INSERT INTO `address_countries` (`id`, `short_name`, `name`) VALUES
 
 
 -- Дамп структуры для таблица ecom.address_states
+DROP TABLE IF EXISTS `address_states`;
 CREATE TABLE IF NOT EXISTS `address_states` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `address_country_id` int(11) NOT NULL,
@@ -12090,6 +12094,7 @@ INSERT INTO `address_states` (`id`, `address_country_id`, `short_name`, `name`) 
 
 
 -- Дамп структуры для таблица ecom.aux_product_count
+DROP TABLE IF EXISTS `aux_product_count`;
 CREATE TABLE IF NOT EXISTS `aux_product_count` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
@@ -12684,6 +12689,7 @@ INSERT INTO `aux_product_count` (`id`, `product_id`, `sell_count`, `card_count`,
 
 
 -- Дамп структуры для таблица ecom.aux_product_recommended
+DROP TABLE IF EXISTS `aux_product_recommended`;
 CREATE TABLE IF NOT EXISTS `aux_product_recommended` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
@@ -12753,6 +12759,7 @@ INSERT INTO `aux_product_recommended` (`id`, `product_id`) VALUES
 
 
 -- Дамп структуры для таблица ecom.aux_product_related
+DROP TABLE IF EXISTS `aux_product_related`;
 CREATE TABLE IF NOT EXISTS `aux_product_related` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id_1` int(11) NOT NULL,
@@ -13831,6 +13838,7 @@ INSERT INTO `aux_product_related` (`id`, `product_id_1`, `product_id_2`) VALUES
 
 
 -- Дамп структуры для таблица ecom.comments
+DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(256) NOT NULL,
@@ -13846,7 +13854,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.comments: ~1 rows (приблизительно)
+-- Дамп данных таблицы ecom.comments: ~2 rows (приблизительно)
 DELETE FROM `comments`;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 INSERT INTO `comments` (`id`, `title`, `content`, `creation_date`, `stars`, `person_id`, `product_id`) VALUES
@@ -13856,6 +13864,7 @@ INSERT INTO `comments` (`id`, `title`, `content`, `creation_date`, `stars`, `per
 
 
 -- Дамп структуры для таблица ecom.contact_types
+DROP TABLE IF EXISTS `contact_types`;
 CREATE TABLE IF NOT EXISTS `contact_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(512) NOT NULL,
@@ -13870,6 +13879,7 @@ DELETE FROM `contact_types`;
 
 
 -- Дамп структуры для таблица ecom.currencies
+DROP TABLE IF EXISTS `currencies`;
 CREATE TABLE IF NOT EXISTS `currencies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
@@ -13887,6 +13897,7 @@ INSERT INTO `currencies` (`id`, `name`, `short_name`, `rate`) VALUES
 
 
 -- Дамп структуры для таблица ecom.deliveries
+DROP TABLE IF EXISTS `deliveries`;
 CREATE TABLE IF NOT EXISTS `deliveries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
@@ -13912,6 +13923,7 @@ DELETE FROM `deliveries`;
 
 
 -- Дамп структуры для таблица ecom.delivery_types
+DROP TABLE IF EXISTS `delivery_types`;
 CREATE TABLE IF NOT EXISTS `delivery_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
@@ -13927,6 +13939,7 @@ DELETE FROM `delivery_types`;
 
 
 -- Дамп структуры для таблица ecom.orders
+DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
@@ -13950,6 +13963,7 @@ DELETE FROM `orders`;
 
 
 -- Дамп структуры для таблица ecom.order_statuses
+DROP TABLE IF EXISTS `order_statuses`;
 CREATE TABLE IF NOT EXISTS `order_statuses` (
   `id` int(11) NOT NULL,
   `name` varchar(512) NOT NULL,
@@ -13964,6 +13978,7 @@ DELETE FROM `order_statuses`;
 
 
 -- Дамп структуры для таблица ecom.persons
+DROP TABLE IF EXISTS `persons`;
 CREATE TABLE IF NOT EXISTS `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` tinytext NOT NULL,
@@ -13990,6 +14005,7 @@ INSERT INTO `persons` (`id`, `fname`, `lname`, `mname`, `gender`, `birth_date`, 
 
 
 -- Дамп структуры для таблица ecom.person_contacts
+DROP TABLE IF EXISTS `person_contacts`;
 CREATE TABLE IF NOT EXISTS `person_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` longtext NOT NULL,
@@ -14007,6 +14023,7 @@ DELETE FROM `person_contacts`;
 
 
 -- Дамп структуры для таблица ecom.pictures
+DROP TABLE IF EXISTS `pictures`;
 CREATE TABLE IF NOT EXISTS `pictures` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url_name` varchar(128) NOT NULL,
@@ -14014,7 +14031,7 @@ CREATE TABLE IF NOT EXISTS `pictures` (
   `title` tinytext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `url_name_key` (`url_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы ecom.pictures: ~12 rows (приблизительно)
 DELETE FROM `pictures`;
@@ -14031,11 +14048,18 @@ INSERT INTO `pictures` (`id`, `url_name`, `extention`, `title`) VALUES
 	(30, 'DPJELVPOCIAYKUPUDVNCVRNFOSMFHNAL', 'jpg', 'aquilaeye11280.jpg'),
 	(31, 'RCPMSPXCPOBOQKTMKNBVEXCVORSDDVFR', 'jpg', 'arcana21280.jpg'),
 	(32, 'AGLFPLSOFTOTRRFIYELIQWCDEEIUYCYU', 'jpg', 'arcana31280.jpg'),
-	(33, 'GMTEVGKRTSRWEMHFMOKNRQVNPNENUIKS', 'jpg', 'archaea11280.jpg');
+	(33, 'GMTEVGKRTSRWEMHFMOKNRQVNPNENUIKS', 'jpg', 'archaea11280.jpg'),
+	(34, 'CKIQEMGIHJVTBMJDSCDJFGSRSMCQYDSP', 'jpg', '1.jpg'),
+	(35, 'CBIKXEVHLHYGOOXOUAILNFFPMXOIYCVE', 'jpg', '2.jpg'),
+	(36, 'DKNGJIDYIWAMPAIMNRRIIQEWQXUYCKSW', 'jpg', '3.jpg'),
+	(37, 'TCVQORMTNJKPRMQRWGVJGIGWSBUTVTLI', 'jpg', '4.jpg'),
+	(38, 'AJNGCUNXTAINGWHBCIOINRSGGWMLTNPA', 'jpg', '5.jpg'),
+	(39, 'KOPEFVJNRWGPWWVTIUYSRPDSBLLPSWBW', 'jpg', '6.jpg');
 /*!40000 ALTER TABLE `pictures` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица ecom.prices
+DROP TABLE IF EXISTS `prices`;
 CREATE TABLE IF NOT EXISTS `prices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` double NOT NULL,
@@ -15061,6 +15085,7 @@ INSERT INTO `prices` (`id`, `value`, `currency_id`) VALUES
 
 
 -- Дамп структуры для таблица ecom.products
+DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `amt` int(11) NOT NULL,
@@ -16093,6 +16118,7 @@ INSERT INTO `products` (`id`, `amt`, `description`, `name`, `uuid`, `date_of_rec
 
 
 -- Дамп структуры для таблица ecom.product_categories
+DROP TABLE IF EXISTS `product_categories`;
 CREATE TABLE IF NOT EXISTS `product_categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `url_name` varchar(256) NOT NULL,
@@ -16195,6 +16221,7 @@ INSERT INTO `product_categories` (`id`, `url_name`, `name`, `pid`) VALUES
 
 
 -- Дамп структуры для таблица ecom.product_pictures
+DROP TABLE IF EXISTS `product_pictures`;
 CREATE TABLE IF NOT EXISTS `product_pictures` (
   `product_id` int(11) NOT NULL,
   `picture_id` int(11) NOT NULL,
@@ -18513,6 +18540,7 @@ INSERT INTO `product_pictures` (`product_id`, `picture_id`) VALUES
 
 
 -- Дамп структуры для таблица ecom.product_properties
+DROP TABLE IF EXISTS `product_properties`;
 CREATE TABLE IF NOT EXISTS `product_properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
@@ -18524,7 +18552,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~2 323 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 291 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES
@@ -20757,6 +20785,7 @@ INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`
 
 
 -- Дамп структуры для таблица ecom.product_variants
+DROP TABLE IF EXISTS `product_variants`;
 CREATE TABLE IF NOT EXISTS `product_variants` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` longtext NOT NULL,
@@ -20782,6 +20811,7 @@ INSERT INTO `product_variants` (`id`, `name`, `default_value`, `product_id`, `un
 
 
 -- Дамп структуры для таблица ecom.product_variant_options
+DROP TABLE IF EXISTS `product_variant_options`;
 CREATE TABLE IF NOT EXISTS `product_variant_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `value` longtext NOT NULL,
@@ -20807,6 +20837,7 @@ INSERT INTO `product_variant_options` (`id`, `value`, `variant_id`, `unit_id`) V
 
 
 -- Дамп структуры для таблица ecom.roles
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
@@ -20826,6 +20857,7 @@ INSERT INTO `roles` (`id`, `name`, `description`) VALUES
 
 
 -- Дамп структуры для таблица ecom.site_properties
+DROP TABLE IF EXISTS `site_properties`;
 CREATE TABLE IF NOT EXISTS `site_properties` (
   `name` varchar(128) NOT NULL,
   `value` longtext,
@@ -20841,7 +20873,32 @@ INSERT INTO `site_properties` (`name`, `value`) VALUES
 /*!40000 ALTER TABLE `site_properties` ENABLE KEYS */;
 
 
+-- Дамп структуры для таблица ecom.slider_pictures
+DROP TABLE IF EXISTS `slider_pictures`;
+CREATE TABLE IF NOT EXISTS `slider_pictures` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `href` varchar(4096) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_slider_pictures_pictures` (`picture_id`),
+  CONSTRAINT `FK_slider_pictures_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы ecom.slider_pictures: ~0 rows (приблизительно)
+DELETE FROM `slider_pictures`;
+/*!40000 ALTER TABLE `slider_pictures` DISABLE KEYS */;
+INSERT INTO `slider_pictures` (`id`, `picture_id`, `href`) VALUES
+	(1, 34, '/products/845bdf56-ae83-455e-ac63-c6f7b9b6703f'),
+	(2, 35, 'http://ru.wikipedia.org/wiki/%D0%9C%D1%83%D1%80%D0%B0%D0%B2%D1%8C%D0%B8%D0%BD%D1%8B%D0%B9_%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC'),
+	(3, 36, 'https://www.google.ru/'),
+	(4, 37, '/products/172f5784-18af-4b7c-8e3c-c8953a451930'),
+	(5, 38, '/static/pay'),
+	(6, 39, 'http://seasonvar.ru/serial-1070-Spetcagent_Archer-1-season.html');
+/*!40000 ALTER TABLE `slider_pictures` ENABLE KEYS */;
+
+
 -- Дамп структуры для таблица ecom.static_page
+DROP TABLE IF EXISTS `static_page`;
 CREATE TABLE IF NOT EXISTS `static_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `creation_date` datetime DEFAULT NULL,
@@ -20863,6 +20920,7 @@ INSERT INTO `static_page` (`id`, `creation_date`, `html_content`, `title`, `url_
 
 
 -- Дамп структуры для таблица ecom.units
+DROP TABLE IF EXISTS `units`;
 CREATE TABLE IF NOT EXISTS `units` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `abbr` varchar(16) NOT NULL,
@@ -20884,6 +20942,7 @@ INSERT INTO `units` (`id`, `abbr`, `name`, `weight`) VALUES
 
 
 -- Дамп структуры для таблица ecom.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NOT NULL,
