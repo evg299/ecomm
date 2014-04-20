@@ -21,6 +21,9 @@ public class Product implements Serializable {
 
     private int amt;
 
+    @Column(name = "contains_variants")
+    private boolean containsVariants;
+
     @Lob
     private String description;
 
@@ -208,5 +211,13 @@ public class Product implements Serializable {
 
     public void setAdditionalPictures(List<Picture> additionalPictures) {
         this.additionalPictures = additionalPictures;
+    }
+
+    public boolean isContainsVariants() {
+        return containsVariants;
+    }
+
+    public void setContainsVariants(boolean containsVariants) {
+        this.containsVariants = containsVariants;
     }
 }

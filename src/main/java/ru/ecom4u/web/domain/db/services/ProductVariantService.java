@@ -3,6 +3,7 @@ package ru.ecom4u.web.domain.db.services;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ProductVariantService extends AbstractService {
 
     @Transactional(readOnly = true)
-    public List<ProductVariant> getNotSelectByProduct(Product product){
+    public List<ProductVariant> getNotSelectByProduct(Product product) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(ProductVariant.class);
         criteria.add(Restrictions.eq("product", product));
@@ -28,7 +29,7 @@ public class ProductVariantService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductVariant> getSelectByProduct(Product product){
+    public List<ProductVariant> getSelectByProduct(Product product) {
         Session session = getCurrentSession();
         Criteria criteria = session.createCriteria(ProductVariant.class);
         criteria.add(Restrictions.eq("product", product));
@@ -47,7 +48,7 @@ public class ProductVariantService extends AbstractService {
 
     @Transactional(readOnly = true)
     public List<ProductVariantOption> getOptionsByProductVariantList(List<ProductVariant> productVariants) {
-        if(0 == productVariants.size())
+        if (0 == productVariants.size())
             return null;
 
         Session session = getCurrentSession();
