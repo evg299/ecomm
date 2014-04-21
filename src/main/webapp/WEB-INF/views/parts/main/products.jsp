@@ -19,10 +19,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${product.containsVariants}">
-                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button" product-id="${product.id}"/>Подробнее</a>
+                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button product_list_button" product-id="${product.id}"/>Подробнее</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                            <a class="button product_list_button add_to_card" product-id="${product.id}"/>В корзину</a>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -49,10 +49,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${product.containsVariants}">
-                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button" product-id="${product.id}"/>Подробнее</a>
+                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button product_list_button" product-id="${product.id}"/>Подробнее</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                            <a class="button product_list_button add_to_card" product-id="${product.id}"/>В корзину</a>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -79,10 +79,10 @@
                 <div>
                     <c:choose>
                         <c:when test="${product.containsVariants}">
-                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button" product-id="${product.id}"/>Подробнее</a>
+                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button product_list_button" product-id="${product.id}"/>Подробнее</a>
                         </c:when>
                         <c:otherwise>
-                            <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                            <a class="button product_list_button add_to_card" product-id="${product.id}"/>В корзину</a>
                         </c:otherwise>
                     </c:choose>
                 </div>

@@ -41,7 +41,14 @@
                     ${product.price.value} <small>${product.price.currency.shortName}</small>
                 </div>
                 <div>
-                    <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>
+                    <c:choose>
+                        <c:when test="${product.containsVariants}">
+                            <a href="${pageContext.request.contextPath}/products/${product.uuid}" class="button product_list_button" product-id="${product.id}"/>Подробнее</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="button product_list_button add_to_card" product-id="${product.id}"/>В корзину</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </c:forEach>

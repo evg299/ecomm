@@ -704,6 +704,15 @@ img {
     border: 5px solid coral;
 }
 
+#bay_notification_small {
+    text-align: center;
+    border: 5px solid coral;
+    padding: 4px 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
 .sm_popup_link {
     padding: 3px;
 }
