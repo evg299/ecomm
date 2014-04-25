@@ -717,3 +717,9 @@ img {
     padding: 3px;
 }
 
+.delete_from_card {
+    cursor: pointer;
+    font-size: 11px;
+    margin: 10px;
+}
+

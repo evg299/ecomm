@@ -14,7 +14,6 @@ import ru.ecom4u.web.domain.db.entities.ProductVariantOption;
 import ru.ecom4u.web.domain.db.services.*;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 import ru.ecom4u.web.utils.LastVisitedIdsUtil;
-import ru.ecom4u.web.utils.ProductUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +23,10 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "products")
-public class ProductController {
+public class ProductController extends AbstractController{
 
     public static final int COOKIE_MAX_AGE = 3600;
 
-    @Autowired
-    private SitePropertiesService sitePropertiesService;
     @Autowired
     private ProductService productService;
     @Autowired
@@ -44,12 +41,10 @@ public class ProductController {
     @RequestMapping(value = "{productUuid}", method = RequestMethod.GET)
     public String product(@PathVariable(value = "productUuid") String productUuid,
                           @CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
-                          Locale locale,
                           Model model,
                           HttpServletRequest request,
                           HttpServletResponse response) {
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
+        globalModelService.populateModel(model);
 
         Product product = fillProductModel(model.asMap(), productUuid, request, response);
         model.asMap().put("comments", commentService.getByProduct(product));
@@ -71,9 +66,7 @@ public class ProductController {
                              Model model,
                              HttpServletRequest request,
                              HttpServletResponse response) {
-
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
+        globalModelService.populateModel(model);
 
         Product product = fillProductModel(model.asMap(), productUuid, request, response);
         if (!result.hasErrors()) {
@@ -96,7 +89,6 @@ public class ProductController {
     private Product fillProductModel(Map<String, Object> modelMap, String productUuid, HttpServletRequest request, HttpServletResponse response) {
         Product product = productService.getProductByUuid(productUuid);
         modelMap.put("product", product);
-        modelMap.put("productPrice", ProductUtil.convertPrice(product.getPrice()));
         modelMap.put("additionalPictures", productService.getAdditionalPictures(product));
         modelMap.put("productProperties", productService.getProductProperties(product));
         modelMap.put("notSelectVariants", productVariantService.getNotSelectByProduct(product));

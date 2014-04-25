@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
  * Created by Evgeny(e299792459@gmail.com) on 13.04.14.
  */
 @Service
-public class DateFormatService {
+public class FormatDateService {
 
     private static DateFormatSymbols rusDateFormatSymbols = new DateFormatSymbols() {
         @Override

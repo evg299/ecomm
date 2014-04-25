@@ -14,7 +14,7 @@
                     <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
                 </div>
                 <div class="prod_prise">
-                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                    <s:eval expression="@priceFormatter.format(product.price)" /> <small>${siteCurrency.shortName}</small>
                 </div>
                 <div>
                     <c:choose>
@@ -44,7 +44,7 @@
                     <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
                 </div>
                 <div class="prod_prise">
-                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                    <s:eval expression="@priceFormatter.format(product.price)" /> <small>${siteCurrency.shortName}</small>
                 </div>
                 <div>
                     <c:choose>
@@ -74,7 +74,7 @@
                     <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
                 </div>
                 <div class="prod_prise">
-                        ${product.price.value} <small>${product.price.currency.shortName}</small>
+                    <s:eval expression="@priceFormatter.format(product.price)" /> <small>${siteCurrency.shortName}</small>
                 </div>
                 <div>
                     <c:choose>

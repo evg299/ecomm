@@ -27,13 +27,6 @@ public class HomeController {
     @Autowired
     private SitePropertiesService sitePropertiesService;
 
-	@RequestMapping(value = "/card", method = RequestMethod.GET)
-	public String card(Locale locale, Model model) {
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
-		return "card";
-	}
-
 	@RequestMapping(value = "/myorders", method = RequestMethod.GET)
 	public String myorders(Locale locale, Model model) {
         model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));

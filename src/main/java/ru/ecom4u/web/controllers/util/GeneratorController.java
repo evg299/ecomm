@@ -82,12 +82,7 @@ public class GeneratorController {
                 product.setDescription("Отписание описание товара №" + count);
                 product.setUuid(UUID.randomUUID().toString());
 
-                Price price = new Price();
-                price.setValue(12.3 * count);
-                price.setCurrency(currency);
-                productService.save(price);
-
-                product.setPrice(price);
+                product.setPrice(12.3 * count);
                 product.setPicture(pictures.get(random.nextInt(pictCount)));
 
                 productService.save(product);

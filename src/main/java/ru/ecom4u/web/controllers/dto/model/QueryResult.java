@@ -1,4 +1,4 @@
-package ru.ecom4u.web.controllers.dto;
+package ru.ecom4u.web.controllers.dto.model;
 
 import java.util.List;
 

@@ -36,6 +36,6 @@ $(document).ready(function () {
         $(".image-" + num).stop().fadeIn(400);
         var scrollPos = (num + 1) * imgHeight;
         $("#thumbs").stop().animate({scrollTop: scrollPos}, 400);
-        console.log(scrollPos, "img.image-" + num);
+        // console.log(scrollPos, "img.image-" + num);
     }
 });

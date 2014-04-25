@@ -24,7 +24,7 @@
         });
 
         $(".add_to_card").click(function (e) {
-            setCookie("card-" + $(this).attr("product-id"), "count=1");
+            setCookie("card-" + $(this).attr("product-id"), "count=1&date=" + new Date().getTime());
             $(this).parent().append($("<div id='bay_notification_small'>Товар уже в корзине</div>"));
             $(this).remove();
         });

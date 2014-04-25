@@ -47,3 +47,9 @@ function setCookie(name, value, options) {
 
     document.cookie = updatedCookie;
 }
+
+function deleteCookie(name) {
+    setCookie(name, 0, {
+        expires: new Date(0)
+    });
+}

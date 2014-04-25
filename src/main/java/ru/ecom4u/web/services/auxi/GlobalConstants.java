@@ -1,4 +1,4 @@
-package ru.ecom4u.web.services;
+package ru.ecom4u.web.services.auxi;
 
 public class GlobalConstants {
 	public static final String MAIL_TPL_PACKAGE_LOACATION = "/ru/ecom4u/web/mailTemplates/";

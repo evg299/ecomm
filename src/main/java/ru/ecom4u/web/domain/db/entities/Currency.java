@@ -27,9 +27,6 @@ public class Currency implements Serializable {
 	@Column(name="short_name", nullable=false)
 	private String shortName;
 
-	//bi-directional many-to-one association to Price
-	@OneToMany(mappedBy="currency")
-	private List<Price> prices;
 
 	public Currency() {
 	}
@@ -64,28 +61,6 @@ public class Currency implements Serializable {
 
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
-	}
-
-	public List<Price> getPrices() {
-		return this.prices;
-	}
-
-	public void setPrices(List<Price> prices) {
-		this.prices = prices;
-	}
-
-	public Price addPrice(Price price) {
-		getPrices().add(price);
-		price.setCurrency(this);
-
-		return price;
-	}
-
-	public Price removePrice(Price price) {
-		getPrices().remove(price);
-		price.setCurrency(null);
-
-		return price;
 	}
 
 }

@@ -50,10 +50,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "main_pict_id")
     private Picture picture;
 
-    //bi-directional many-to-one association to Price
-    @ManyToOne
-    @JoinColumn(name = "price_id", nullable = false)
-    private Price price;
+    @Column(nullable = false)
+    private Double price;
+
+    private Double weight;
 
     //bi-directional many-to-one association to ProductCategory
     @ManyToOne
@@ -165,13 +165,6 @@ public class Product implements Serializable {
         this.picture = picture;
     }
 
-    public Price getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(Price price) {
-        this.price = price;
-    }
 
     public ProductCategory getProductCategory() {
         return this.productCategory;
@@ -219,5 +212,21 @@ public class Product implements Serializable {
 
     public void setContainsVariants(boolean containsVariants) {
         this.containsVariants = containsVariants;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }

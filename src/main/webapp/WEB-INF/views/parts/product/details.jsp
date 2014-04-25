@@ -52,7 +52,7 @@
 
             if (variant)
                 variant += "&";
-            variant += "count=" + count;
+            variant += "count=" + count + "&date=" + new Date().getTime();
             setCookie("card-" + document.productID, variant);
 
             hideBay();
@@ -166,7 +166,7 @@
 
             <div class="bay">
                 <div>
-                    <b>Цена:</b> ${productPrice.integralPart}<sup> ${productPrice.fractionalPart}</sup></span> ${productPrice.currency}
+                    <b>Цена:</b> <s:eval expression="@priceFormatter.format(product.price)" /> ${siteCurrency.shortName}
                 </div>
                 <div id="productCounter">
                     <b>Кол-во:</b> <input id="count_product" type="number" min="1" value="1" style="width: 100px;"/>

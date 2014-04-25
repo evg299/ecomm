@@ -16,7 +16,7 @@ import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 
 @Controller
 @RequestMapping(value = "categories-json")
-public class CategoriesController {
+public class CategoriesJsonController {
 
 	@Autowired
 	private ProductCategoryService productCategoryService;

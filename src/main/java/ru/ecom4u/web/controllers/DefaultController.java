@@ -5,47 +5,39 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.ecom4u.web.controllers.dto.PaginatorDTO;
-import ru.ecom4u.web.controllers.dto.QueryResult;
+import ru.ecom4u.web.controllers.dto.model.QueryResult;
 import ru.ecom4u.web.controllers.reqvalues.CategoryOrder;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.ProductCategory;
 import ru.ecom4u.web.domain.db.services.PictureService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
-import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 import ru.ecom4u.web.utils.LastVisitedIdsUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 @Controller
-public class DefaultController {
+public class DefaultController extends AbstractController {
 
     private static final int PRODUCTS_ON_PAGE = 28;
     private static final int PRODUCTS_ON_MAIN = 12;
 
     @Autowired
     private ProductCategoryService productCategoryService;
-
-    @Autowired
-    private SitePropertiesService sitePropertiesService;
-
     @Autowired
     private ProductService productService;
-
     @Autowired
     private PictureService pictureService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
-                       Locale locale,
                        Model model) {
+        globalModelService.populateModel(model);
+
         List<ProductCategory> subCategories = productCategoryService.getRootProductCategories();
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", subCategories);
 
@@ -65,14 +57,11 @@ public class DefaultController {
     public String categoryDefault(@PathVariable(value = "urlCategory") String urlCategory,
                                   @RequestParam(value = "order", required = false) CategoryOrder order,
                                   @RequestParam(value = "page", required = false) Integer page,
-                                  Locale locale, Model model, HttpServletRequest request) {
-        System.out.println(urlCategory + " ---> " + order);
-
+                                  Model model, HttpServletRequest request) {
         if (null == page)
             page = 0;
 
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
+        globalModelService.populateModel(model);
 
         if (!"".equals(urlCategory.trim())) {
             ProductCategory currentCategory = productCategoryService.getByUrlName(urlCategory);
@@ -92,6 +81,5 @@ public class DefaultController {
 
         return "category";
     }
-
 
 }

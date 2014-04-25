@@ -2,121 +2,120 @@ package ru.ecom4u.web.domain.db.entities;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 
 /**
  * The persistent class for the units database table.
- * 
  */
 @Entity
-@Table(name="units")
+@Table(name = "units")
 public class Unit implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	@Column(nullable=false, length=16)
-	private String abbr;
+    @Column(nullable = false, length = 16)
+    private String abbr;
 
-	@Column(nullable=true, length=128)
-	private String name;
+    @Column(nullable = true, length = 128)
+    private String name;
 
-	@Column(nullable=false)
-	private int weight;
-
-    @JsonIgnore
-	//bi-directional many-to-one association to ProductProperty
-	@OneToMany(mappedBy="unit")
-	private List<ProductProperty> productProperties;
+    @Column(nullable = false)
+    private int rate;
 
     @JsonIgnore
-	//bi-directional many-to-one association to ProductVariantOption
-	@OneToMany(mappedBy="unit")
-	private List<ProductVariantOption> productVariantOptions;
+    //bi-directional many-to-one association to ProductProperty
+    @OneToMany(mappedBy = "unit")
+    private List<ProductProperty> productProperties;
 
-	public Unit() {
-	}
+    @JsonIgnore
+    //bi-directional many-to-one association to ProductVariantOption
+    @OneToMany(mappedBy = "unit")
+    private List<ProductVariantOption> productVariantOptions;
 
-	public int getId() {
-		return this.id;
-	}
+    public Unit() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return this.id;
+    }
 
-	public String getAbbr() {
-		return this.abbr;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setAbbr(String abbr) {
-		this.abbr = abbr;
-	}
+    public String getAbbr() {
+        return this.abbr;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public void setAbbr(String abbr) {
+        this.abbr = abbr;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public int getWeight() {
-		return this.weight;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+    public int getRate() {
+        return rate;
+    }
 
-	public List<ProductProperty> getProductProperties() {
-		return this.productProperties;
-	}
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
 
-	public void setProductProperties(List<ProductProperty> productProperties) {
-		this.productProperties = productProperties;
-	}
+    public List<ProductProperty> getProductProperties() {
+        return this.productProperties;
+    }
 
-	public ProductProperty addProductProperty(ProductProperty productProperty) {
-		getProductProperties().add(productProperty);
-		productProperty.setUnit(this);
+    public void setProductProperties(List<ProductProperty> productProperties) {
+        this.productProperties = productProperties;
+    }
 
-		return productProperty;
-	}
+    public ProductProperty addProductProperty(ProductProperty productProperty) {
+        getProductProperties().add(productProperty);
+        productProperty.setUnit(this);
 
-	public ProductProperty removeProductProperty(ProductProperty productProperty) {
-		getProductProperties().remove(productProperty);
-		productProperty.setUnit(null);
+        return productProperty;
+    }
 
-		return productProperty;
-	}
+    public ProductProperty removeProductProperty(ProductProperty productProperty) {
+        getProductProperties().remove(productProperty);
+        productProperty.setUnit(null);
 
-	public List<ProductVariantOption> getProductVariantOptions() {
-		return this.productVariantOptions;
-	}
+        return productProperty;
+    }
 
-	public void setProductVariantOptions(List<ProductVariantOption> productVariantOptions) {
-		this.productVariantOptions = productVariantOptions;
-	}
+    public List<ProductVariantOption> getProductVariantOptions() {
+        return this.productVariantOptions;
+    }
 
-	public ProductVariantOption addProductVariantOption(ProductVariantOption productVariantOption) {
-		getProductVariantOptions().add(productVariantOption);
-		productVariantOption.setUnit(this);
+    public void setProductVariantOptions(List<ProductVariantOption> productVariantOptions) {
+        this.productVariantOptions = productVariantOptions;
+    }
 
-		return productVariantOption;
-	}
+    public ProductVariantOption addProductVariantOption(ProductVariantOption productVariantOption) {
+        getProductVariantOptions().add(productVariantOption);
+        productVariantOption.setUnit(this);
 
-	public ProductVariantOption removeProductVariantOption(ProductVariantOption productVariantOption) {
-		getProductVariantOptions().remove(productVariantOption);
-		productVariantOption.setUnit(null);
+        return productVariantOption;
+    }
 
-		return productVariantOption;
-	}
+    public ProductVariantOption removeProductVariantOption(ProductVariantOption productVariantOption) {
+        getProductVariantOptions().remove(productVariantOption);
+        productVariantOption.setUnit(null);
+
+        return productVariantOption;
+    }
 
 }

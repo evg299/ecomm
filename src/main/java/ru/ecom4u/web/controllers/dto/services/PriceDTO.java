@@ -4,31 +4,23 @@ package ru.ecom4u.web.controllers.dto.services;
  * Created by Evgeny(e299792459@gmail.com) on 27.03.14.
  */
 public class PriceDTO {
-    private int integralPart;
-    private int fractionalPart;
-    private String currency;
+    private String integralPart;
+    private String fractionalPart;
 
-    public int getIntegralPart() {
+    public String getIntegralPart() {
         return integralPart;
     }
 
-    public void setIntegralPart(int integralPart) {
+    public void setIntegralPart(String integralPart) {
         this.integralPart = integralPart;
     }
 
-    public int getFractionalPart() {
+    public String getFractionalPart() {
         return fractionalPart;
     }
 
-    public void setFractionalPart(int fractionalPart) {
+    public void setFractionalPart(String fractionalPart) {
         this.fractionalPart = fractionalPart;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 }

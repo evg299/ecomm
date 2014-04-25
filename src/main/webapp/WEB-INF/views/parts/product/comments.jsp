@@ -9,10 +9,10 @@
             <c:forEach items="${comments}" var="comment">
                 <div class="comment">
                     <h5>${comment.title}</h5>
-                    <div class="datePublished"><s:eval expression="@dateFormatService.formatTimestamp(comment.creationDate)" /></div>
+                    <div class="datePublished"><s:eval expression="@formatDateService.formatTimestamp(comment.creationDate)" /></div>
                     <div class="author">
-                            ${comment.person.fname} ${comment.person.mname} ${comment.person.lname} (<s:eval expression="@dateFormatService.countYears(comment.creationDate, comment.person.birthDate)" />)
-                            <a href="${pageContext.request.contextPath}/person/${comment.person.id}/comments" class="">все отзывы</a>
+                            ${comment.person.fname} ${comment.person.mname} ${comment.person.lname} (<s:eval expression="@formatDateService.countYears(comment.creationDate, comment.person.birthDate)" />)
+                            <a href="${pageContext.request.contextPath}/comments/${comment.person.id}/" class="">все отзывы</a>
                     </div>
                     <div>
                             ${comment.content}
@@ -28,7 +28,6 @@
 	<div id="addComment">
 		<h4>Оставить отзыв о товаре</h4>
         <form:form id="addCommentForm" method="post" commandName="commentForm">
-            <%--<form:errors path="*" cssClass="error" />--%>
             <table>
                 <tr style="vertical-align: top;">
                     <td style="text-align: right;">*Заголовок:</td>
