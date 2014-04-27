@@ -91,9 +91,7 @@ public class ProductService extends AbstractService {
         criteria.setProjection(null);
 
         if (CategoryOrder.price == order) {
-            criteria.createAlias("product.price", "price");
-            criteria.setResultTransformer(Criteria.ROOT_ENTITY);
-            criteria.addOrder(Order.asc("price.value"));
+            criteria.addOrder(Order.asc("price"));
         }
         if (CategoryOrder.receipt == order) {
             criteria.addOrder(Order.asc("dateOfReceipt"));
