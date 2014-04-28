@@ -22,8 +22,8 @@ import java.util.Set;
 @Controller
 public class DefaultController extends AbstractController {
 
-    private static final int PRODUCTS_ON_PAGE = 28;
-    private static final int PRODUCTS_ON_MAIN = 12;
+    public static final int PRODUCTS_ON_PAGE = 28;
+    public static final int PRODUCTS_ON_MAIN = 12;
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -43,7 +43,7 @@ public class DefaultController extends AbstractController {
 
         Set<Integer> ids = LastVisitedIdsUtil.parceIds(lastVisitedIds);
         System.err.println("ids: " + ids);
-        model.asMap().put("productsLastVisited", productService.getLastVisited(ids, PRODUCTS_ON_MAIN));
+        model.asMap().put("productsLastVisited", productService.getByCollectionId(ids, PRODUCTS_ON_MAIN));
 
         model.asMap().put("productsRecommended", productService.getRecommended(PRODUCTS_ON_MAIN));
         model.asMap().put("productsMaxSell", productService.getMaxSells(PRODUCTS_ON_MAIN));

@@ -126,7 +126,7 @@ public class ProductService extends AbstractService {
     }
 
     @Transactional(readOnly = true)
-    public List<Product> getLastVisited(Collection<Integer> ids, int maxLenght) {
+    public List<Product> getByCollectionId(Collection<Integer> ids, int maxLenght) {
         if (null == ids || 0 == ids.size())
             return null;
 

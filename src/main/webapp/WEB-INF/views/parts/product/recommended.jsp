@@ -15,7 +15,7 @@
                 <a href="${pageContext.request.contextPath}/products/${product.uuid}" title="${product.name}" target="_blank">${product.name}</a>
             </div>
             <div class="prod_prise">
-                <s:eval expression="@priceFormatter.format(product.price)" /> <small>${product.price.currency.shortName}</small>
+                <s:eval expression="@priceFormatter.format(product.price)" /> <small>${siteCurrency.shortName}</small>
             </div>
             <div>
                 <a href="#${product.uuid}" class="button" product-id="${product.id}"/>В корзину</a>

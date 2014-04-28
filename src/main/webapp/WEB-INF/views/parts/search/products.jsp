@@ -27,7 +27,7 @@
 </table>
 
 <div id="products" class="clear">
-    <h3>${productsCount} товаров</h3>
+    <h3>Найдено товаров: ${productsCount}</h3>
 
     <c:if test="${fn:length(products) ne 0}">
         <c:forEach items="${products}" var="product">
@@ -61,7 +61,7 @@
 
 </div>
 
-<div id="total_products">Найдено ${productsCount} товаров</div>
+<div id="total_products">Найдено товаров: ${productsCount}</div>
 
 <div id="paginator">
     Страницы:

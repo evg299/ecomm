@@ -40,6 +40,7 @@ public class RegistrationController extends AbstractController {
                                BindingResult result, Locale locale, Model model) {
         registrationValidator.validate(registrationForm, result);
         if (result.hasErrors()) {
+            globalModelService.populateModel(model);
             return "registration";
         } else {
             try {
