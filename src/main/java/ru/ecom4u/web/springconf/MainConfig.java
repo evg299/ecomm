@@ -13,8 +13,8 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
-@Import({ HibernateConfig.class, PropertiesConfig.class })
-@ComponentScan(value = { "ru.ecom4u.web.domain.db", "ru.ecom4u.web.services", "ru.ecom4u.web.view" })
+@Import({ HibernateConfig.class, PropertiesConfig.class, SecurityConfig.class })
+@ComponentScan(value = { "ru.ecom4u.web.domain.db", "ru.ecom4u.web.services", "ru.ecom4u.web.view", "ru.ecom4u.web.security" })
 public class MainConfig {
 
 	@Value("#{properties['mail.host']}")
