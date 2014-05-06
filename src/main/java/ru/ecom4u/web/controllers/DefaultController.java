@@ -1,6 +1,8 @@
 package ru.ecom4u.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,14 @@ public class DefaultController extends AbstractController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
                        Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+
+        System.err.println("name: " + name);
+        System.err.println(auth.getAuthorities());
+        System.err.println(auth.getCredentials());
+
+
         globalModelService.populateModel(model);
 
         List<ProductCategory> subCategories = productCategoryService.getRootProductCategories();

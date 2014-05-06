@@ -69,7 +69,7 @@
         <li><a href="${pageContext.request.contextPath}/static/pay">Оплата</a></li>
         <li><a href="${pageContext.request.contextPath}/static/delivery">Доставка</a></li>
         <li><a href="${pageContext.request.contextPath}/static/help">Помощь</a></li>
-        <li><a href="${pageContext.request.contextPath}/static/login" title="Вход" class="">Вход</a></li>
+        <li><a href="${pageContext.request.contextPath}/login" title="Вход" class="">Вход</a></li>
         <li><a href="${pageContext.request.contextPath}/registration" title="Регистрация" class="">Регистрация</a></li>
     </ul>
 

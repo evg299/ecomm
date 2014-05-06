@@ -8,8 +8,8 @@
                 <input type="submit" value="Найти" /></td>
 
             <td style="text-align: right; padding-right: 5px;"><a
-				href="/context/detail/id/2930837/">Заказы</a> &nbsp;&nbsp; <a
-				href="/context/detail/id/200890/">Личный кабинет</a></td>
+				href="${pageContext.request.contextPath}/private/orders/">Заказы</a> &nbsp;&nbsp; <a
+				href="${pageContext.request.contextPath}/private/">Личный кабинет</a></td>
 		</tr>
 	</table>
 </form>
