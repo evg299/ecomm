@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import ru.ecom4u.web.security.DBAuthenticationProvider;
@@ -20,6 +19,10 @@ import ru.ecom4u.web.security.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public static final String REMEMBER_ME_KEY = "rmk";
+    public static final String REMEMBER_ME_COOKIE = "rmc";
+    public static final String REMEMBER_ME_CHECKBOX = "remember_me";
 
     @Autowired
     private DBAuthenticationProvider dbAuthenticationProvider;
@@ -33,48 +36,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/resources/**"); // #3
+        web.ignoring().antMatchers("/resources/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
-                .authorizeRequests()
-                .anyRequest().hasAuthority("GUEST");*/
-
-
-
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
         http.authorizeRequests().antMatchers("/private/**").hasAnyRole("USER", "MANAGER", "ADMIN");
 
         // http.csrf().disable();
         http
-                .formLogin().loginProcessingUrl("/j_spring_security_check")
+                .formLogin()
+                .loginProcessingUrl("/j_spring_security_check")
                 .loginPage("/login")
                 .defaultSuccessUrl("/?login")
-                .failureUrl("/login")
+                .failureUrl("/login?error")
                 .permitAll()
 
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/?logout")
 
-        .and().rememberMe()
-                .key("your_key")
+                .and()
+                .rememberMe()
+                .key(REMEMBER_ME_KEY)
                 .rememberMeServices(rememberMeServices());
-        http.rememberMe();
-
-        // http.logout().logoutSuccessUrl("/");
     }
 
     @Bean
     public RememberMeServices rememberMeServices() {
-        // Key must be equal to rememberMe().key()
-        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices("your_key", userDetailServiceImpl);
-        rememberMeServices.setCookieName("remember_me_cookie");
-        rememberMeServices.setParameter("remember_me_checkbox");
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(REMEMBER_ME_KEY, userDetailServiceImpl);
+        rememberMeServices.setCookieName(REMEMBER_ME_COOKIE);
+        rememberMeServices.setParameter(REMEMBER_ME_CHECKBOX);
         rememberMeServices.setTokenValiditySeconds(2678400); // 1month
         return rememberMeServices;
     }

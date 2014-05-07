@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.UserService;
 
 /**
@@ -18,12 +17,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        final User user = userService.getByEmail(name);
-
-        if (user == null) {
-            return null;
-        }
-
-        return user;
+        return userService.getByEmail(name);
     }
 }

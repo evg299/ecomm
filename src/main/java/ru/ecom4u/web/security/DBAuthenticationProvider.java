@@ -30,11 +30,10 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
-        System.err.println("password: " + password);
 
         User user = userService.getByEmail(name);
 
-        if (user == null) {
+        if (null == user) {
             throw new BadCredentialsException("Username not found.");
         }
 

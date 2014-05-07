@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.ecom4u.web.domain.db.entities.*;
 import ru.ecom4u.web.domain.db.services.*;
+import ru.ecom4u.web.services.HasherService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,15 @@ public class GeneratorController {
 
     @Autowired
     private UnitService unitService;
+
+    @Autowired
+    private HasherService hasherService;
+
+    @RequestMapping(value = "util/getHash/{str}")
+    @ResponseBody
+    public String getHash(@PathVariable String str) {
+        return hasherService.calculateHash(str);
+    }
 
     @RequestMapping(value = "util/gencats")
     @ResponseBody
