@@ -27,15 +27,15 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <table>
             <tr>
-                <td>Username:</td>
-                <td><input type='text' name='username'/></td>
+                <td>*Мой логин:</td>
+                <td><input type='text' name='username' style="width: 150px;"/> (обычно совпадает с E-mail)</td>
             </tr>
             <tr>
-                <td>Password:</td>
-                <td><input type='password' name='password'></td>
+                <td>*Мой пароль:</td>
+                <td><input type='password' name='password' style="width: 150px;"></td>
             </tr>
             <tr>
-                <td>Remember me:</td>
+                <td>Запомнить меня:</td>
                 <td><input type="checkbox" name="remember_me"></td>
             </tr>
             <tr>

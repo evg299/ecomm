@@ -41,8 +41,8 @@ public class DefaultController extends AbstractController {
         String name = auth.getName(); //get logged in username
 
         System.err.println("name: " + name);
-        System.err.println(auth.getAuthorities());
-        System.err.println(auth.getCredentials());
+        System.err.println("authorities: " + auth.getAuthorities());
+        System.err.println("credentials: " + auth.getCredentials());
 
 
         globalModelService.populateModel(model);

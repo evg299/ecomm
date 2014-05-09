@@ -1,5 +1,7 @@
 package ru.ecom4u.web.domain.db.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
@@ -10,10 +12,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "roles")
-public class Role implements Serializable {
+public class Role implements Serializable, GrantedAuthority {
 	private static final long serialVersionUID = 1L;
 
-	public static enum MainRoles {
+    public static enum MainRoles {
 		GUEST, USER, MANAGER, ADMIN
 	}
 
@@ -31,6 +33,11 @@ public class Role implements Serializable {
 
 	public Role() {
 	}
+
+    @Override
+    public String getAuthority() {
+        return name;
+    }
 
 	public int getId() {
 		return this.id;

@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.UserService;
@@ -42,7 +43,7 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password.");
         }
 
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + user.getRole().getAuthority());
 
         return new UsernamePasswordAuthenticationToken(name, password, authorities);
     }

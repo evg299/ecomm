@@ -1,13 +1,13 @@
 package ru.ecom4u.web.domain.db.entities;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * The persistent class for the users database table.
@@ -116,16 +116,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>(1);
-
-        final User user = this;
-        grantedAuthorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return user.getRole().getName();
-            }
-        });
-
+        Collection<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList("ROLE_" +this.getRole().getAuthority());
         return grantedAuthorities;
     }
 
