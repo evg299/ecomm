@@ -72,7 +72,7 @@
             </c:when>
 
             <c:otherwise>
-                <a href="?page=${item.page}&order=${order}">${item.page + 1}</a>
+                <a href="?page=${item.page}&query=${query}&order=${order}">${item.page + 1}</a>
             </c:otherwise>
         </c:choose>
     </c:forEach>

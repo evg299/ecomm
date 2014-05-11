@@ -37,16 +37,6 @@ public class DefaultController extends AbstractController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
                        Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-
-        System.err.println("name: " + name);
-        System.err.println("authorities: " + auth.getAuthorities());
-        System.err.println("credentials: " + auth.getCredentials());
-
-
-        globalModelService.populateModel(model);
-
         List<ProductCategory> subCategories = productCategoryService.getRootProductCategories();
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", subCategories);
@@ -70,8 +60,6 @@ public class DefaultController extends AbstractController {
                                   Model model, HttpServletRequest request) {
         if (null == page)
             page = 0;
-
-        globalModelService.populateModel(model);
 
         if (!"".equals(urlCategory.trim())) {
             ProductCategory currentCategory = productCategoryService.getByUrlName(urlCategory);

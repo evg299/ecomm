@@ -30,7 +30,6 @@ public class RegistrationController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String main(Locale locale, Model model) {
-        globalModelService.populateModel(model);
         model.asMap().put("regform", new RegistrationForm());
         return "registration";
     }
@@ -40,7 +39,6 @@ public class RegistrationController extends AbstractController {
                                BindingResult result, Locale locale, Model model) {
         registrationValidator.validate(registrationForm, result);
         if (result.hasErrors()) {
-            globalModelService.populateModel(model);
             return "registration";
         } else {
             try {

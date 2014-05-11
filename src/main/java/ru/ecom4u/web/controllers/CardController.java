@@ -32,8 +32,6 @@ public class CardController extends AbstractController{
 
     @RequestMapping(method = RequestMethod.GET)
     public String card(Model model, HttpServletRequest request) {
-        globalModelService.populateModel(model);
-
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 

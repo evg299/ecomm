@@ -104,8 +104,6 @@ public class SearchController extends AbstractController {
                           @RequestParam(value = "page", required = false) Integer page,
                           @RequestParam(value = "order", required = false) CategoryOrder order,
                           Model model) throws ParseException, IOException {
-        globalModelService.populateModel(model);
-
         if (null == page)
             page = 0;
 
@@ -134,7 +132,11 @@ public class SearchController extends AbstractController {
             ids.add(Integer.parseInt(doc.get("id")));
         }
 
-        model.asMap().put("products", productService.getByCollectionId(ids, DefaultController.PRODUCTS_ON_PAGE));
+        int firstIdx = page * DefaultController.PRODUCTS_ON_PAGE;
+        int lastIdx = firstIdx + DefaultController.PRODUCTS_ON_PAGE;
+        lastIdx = ids.size() < lastIdx ? ids.size() : lastIdx;
+
+        model.asMap().put("products", productService.getByCollectionId(ids.subList(firstIdx, lastIdx), DefaultController.PRODUCTS_ON_PAGE));
         model.asMap().put("productsCount", ids.size());
         model.asMap().put("paginator", new PaginatorDTO(page, ids.size(), DefaultController.PRODUCTS_ON_PAGE));
 

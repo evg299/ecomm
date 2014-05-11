@@ -34,8 +34,6 @@ public class StaticController extends AbstractController {
             model.addAttribute("title", staticPage.getTitle());
             model.addAttribute("htmlContent", staticPage.getHtmlContent());
 
-            globalModelService.populateModel(model);
-
             model.asMap().put("categoryName", "Категории товаров");
             model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 

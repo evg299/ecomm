@@ -44,8 +44,6 @@ public class ProductController extends AbstractController{
                           Model model,
                           HttpServletRequest request,
                           HttpServletResponse response) {
-        globalModelService.populateModel(model);
-
         Product product = fillProductModel(model.asMap(), productUuid, request, response);
         model.asMap().put("comments", commentService.getByProduct(product));
         model.asMap().put("commentForm", new CommentForm());
@@ -66,8 +64,6 @@ public class ProductController extends AbstractController{
                              Model model,
                              HttpServletRequest request,
                              HttpServletResponse response) {
-        globalModelService.populateModel(model);
-
         Product product = fillProductModel(model.asMap(), productUuid, request, response);
         if (!result.hasErrors()) {
             Comment comment = new Comment();
