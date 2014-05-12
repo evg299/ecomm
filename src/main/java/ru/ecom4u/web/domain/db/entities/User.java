@@ -1,20 +1,15 @@
 package ru.ecom4u.web.domain.db.entities;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * The persistent class for the users database table.
  */
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -28,22 +23,22 @@ public class User implements Serializable, UserDetails {
     @Column(name = "confirmed_code", length = 256)
     private String confirmedCode;
 
-    @Column(nullable = false, length = 256)
+    @Column(nullable = false, length = 256, unique = true)
     private String email;
 
     @Column(name = "hash_passord", nullable = false, length = 256)
     private String hashPassord;
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = false, length = 32, unique = true)
     private String login;
 
     @OneToOne(mappedBy = "user")
     private Person person;
 
-    // bi-directional many-to-one association to Role
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false)})
+    private List<Role> roles;
 
     public User() {
     }
@@ -104,49 +99,11 @@ public class User implements Serializable, UserDetails {
         this.person = person;
     }
 
-    public Role getRole() {
-        return this.role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    // UserDetails implementation
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = AuthorityUtils.createAuthorityList("ROLE_" +this.getRole().getAuthority());
-        return grantedAuthorities;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.hashPassord;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

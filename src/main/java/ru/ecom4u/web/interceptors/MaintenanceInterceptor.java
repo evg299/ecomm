@@ -35,6 +35,7 @@ public class MaintenanceInterceptor extends HandlerInterceptorAdapter {
             System.err.println("url: " + request.getRequestURL());
             System.err.println("uri: " + request.getRequestURI());
 
+            // Данные header-а
             modelAndView.getModel().put("siteName", sitePropertiesService.getValue("site_name"));
             modelAndView.getModel().put("siteDesc", sitePropertiesService.getValue("site_desc"));
             modelAndView.getModel().put("siteCurrency", sitePropertiesService.getSiteCurrency());

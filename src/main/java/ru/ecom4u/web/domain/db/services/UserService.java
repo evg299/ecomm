@@ -32,4 +32,12 @@ public class UserService extends AbstractService {
         Session session = getCurrentSession();
         session.save(user);
     }
+
+    @Transactional
+    public User getByEmailOrLogin(String login) {
+        Session session = getCurrentSession();
+        return (User) session.createCriteria(User.class)
+                .add(Restrictions.or(Restrictions.eq("login", login).ignoreCase(), Restrictions.eq("email", login).ignoreCase()))
+                .uniqueResult();
+    }
 }

@@ -1,5 +1,6 @@
 package ru.ecom4u.web.domain.db.services;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
@@ -46,7 +47,8 @@ public class AuthenticationService extends AbstractService {
 		user.setEmail(form.getEmail());
 		user.setConfirmedFlag(new Boolean(false));
 		user.setHashPassord(hasherService.calculateHash(form.getPwd1()));
-		user.setRole(userRole);
+		user.setRoles(new ArrayList<Role>());
+        user.getRoles().add(userRole);
 		user.setConfirmedCode(confirmedCode);
 		session.save(user);
 

@@ -6,14 +6,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.UserService;
 import ru.ecom4u.web.services.HasherService;
-
-import java.util.Collection;
 
 /**
  * Created by Evgeny on 01.05.14.
@@ -32,7 +28,7 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User user = userService.getByEmail(name);
+        User user = userService.getByEmailOrLogin(name);
 
         if (null == user) {
             throw new BadCredentialsException("Username not found.");
@@ -43,9 +39,9 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Wrong password.");
         }
 
-        Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + user.getRole().getAuthority());
+        UserDetailsWrapper userDetailsWrapper = new UserDetailsWrapper(user);
 
-        return new UsernamePasswordAuthenticationToken(name, password, authorities);
+        return new UsernamePasswordAuthenticationToken(userDetailsWrapper.getUsername(), userDetailsWrapper.getPassword(), userDetailsWrapper.getAuthorities());
     }
 
     @Override
