@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~10 792 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~11 354 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -12764,7 +12764,7 @@ CREATE TABLE IF NOT EXISTS `aux_product_related` (
   CONSTRAINT `FK_aux_product_related_products_2` FOREIGN KEY (`product_id_2`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1060 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.aux_product_related: ~1 498 rows (приблизительно)
+-- Дамп данных таблицы ecom.aux_product_related: ~748 rows (приблизительно)
 DELETE FROM `aux_product_related`;
 /*!40000 ALTER TABLE `aux_product_related` DISABLE KEYS */;
 INSERT INTO `aux_product_related` (`id`, `product_id_1`, `product_id_2`) VALUES
@@ -13844,15 +13844,17 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`),
   CONSTRAINT `FK_comments_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
   CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.comments: ~3 rows (приблизительно)
+-- Дамп данных таблицы ecom.comments: ~5 rows (приблизительно)
 DELETE FROM `comments`;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 INSERT INTO `comments` (`id`, `title`, `content`, `creation_date`, `stars`, `person_id`, `product_id`) VALUES
 	(1, 'круто ', 'Этот фильм - продолжение истории о гитаристе Эль Марьячи. На этот раз он пытается помешать могущественному наркобарону Баррильо свергнуть президента Мексики.\r\nЭто задание он получает от продажного агента ЦРУ Сэндса, который не хочет рисковать собственной жизнью ради спасения жизни главы чужого государства. Приключения Эль Марьячи начинаются на фоне грядущей революции, всеобщей неразберихи и кровной мести.\r\nГлавный герой, ставший известным благодаря превосходной игре Антонио Бандераса, великолепно справляется как с гитарой, так и с пистолетом, и, несмотря на все трудности и раны, всегда добивается успеха.', '2014-04-13 20:03:11', 4, 1, 1),
 	(2, 'да хз', 'Both your select control and your submit button had the same name attribute, so the last one used was the submit button when you clicked it. All other syntax errors aside.', '2014-04-13 20:51:23', 3, 2, 1),
-	(3, 'йцуйцу', 'фвфывфывфыв', '2014-04-23 10:59:22', 0, 1, 2);
+	(3, 'йцуйцу', 'фвфывфывфыв', '2014-04-23 10:59:22', 0, 1, 2),
+	(4, 'fgdfgdfg', 'Семейство Симпсонов известно на весь мир! Стандартная семья, состоящая из пяти членов: веселый и неунывающий папа Гомер, мудрая и рассудительная мама Мардж, их дочка отличница Лиза, несносный мальчишка Барт и маленькая Мэгги. Мультфильм - это настоящая пародия на американскую жизнь, на американский шоу бизнес и устройство. Здесь зрители повстречают множество мультяшных прототипов реально существующих персонажей, окунутся в решение насущных проблем, а т', '2014-05-13 21:51:55', 0, 3, 2),
+	(5, 'нгнг', 'жение истории о гитаристе Эль Марьячи. На этот раз он пытается помешать могущественному наркобарону Баррильо свергнуть президента Мексики. Это задание он получает от продажного агента ЦРУ Сэндса, который не хочет рисковать собственной жизнью ради спасения жизни главы чужого государства. Приключения Эль Марьячи начинаются на фоне грядущей революции, всеобщей неразберихи и кровной мести. Главный герой, ставший известным благодаря превосходной игре Антонио Бандераса, великолепно справляется как с гитарой, так и с пи', '2014-05-13 22:05:39', 0, 3, 1);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
 
@@ -13979,14 +13981,15 @@ CREATE TABLE IF NOT EXISTS `persons` (
   KEY `FK_ck2ybawdmh3xbhdq4lq3lu1pa` (`picture_id`),
   CONSTRAINT `FK_persons_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
   CONSTRAINT `FK_persons_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.persons: ~2 rows (приблизительно)
+-- Дамп данных таблицы ecom.persons: ~3 rows (приблизительно)
 DELETE FROM `persons`;
 /*!40000 ALTER TABLE `persons` DISABLE KEYS */;
 INSERT INTO `persons` (`id`, `fname`, `lname`, `mname`, `gender`, `birth_date`, `picture_id`, `user_id`) VALUES
 	(1, 'Иван', 'Иванов', NULL, b'1', '2000-04-13 00:00:00', NULL, 14),
-	(2, 'Катерина', 'Топорова', NULL, b'0', '1987-04-13 00:00:00', NULL, 15);
+	(2, 'Катерина', 'Топорова', NULL, b'0', '1987-04-13 00:00:00', NULL, 15),
+	(3, 'Evgeny', 'Knpl', NULL, b'1', '1987-10-17 11:30:00', 39, 5);
 /*!40000 ALTER TABLE `persons` ENABLE KEYS */;
 
 
@@ -14062,7 +14065,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `FK_products_product_categories` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.products: ~1 117 rows (приблизительно)
+-- Дамп данных таблицы ecom.products: ~979 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `amt`, `contains_variants`, `description`, `name`, `uuid`, `date_of_receipt`, `main_pict_id`, `price`, `weight`, `product_category_id`) VALUES
@@ -15189,7 +15192,7 @@ CREATE TABLE IF NOT EXISTS `product_pictures` (
   CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_pictures: ~2 809 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_pictures: ~1 756 rows (приблизительно)
 DELETE FROM `product_pictures`;
 /*!40000 ALTER TABLE `product_pictures` DISABLE KEYS */;
 INSERT INTO `product_pictures` (`product_id`, `picture_id`) VALUES
@@ -17509,7 +17512,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~2 087 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 173 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES
@@ -19926,13 +19929,15 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.user_roles: ~1 rows (приблизительно)
+-- Дамп данных таблицы ecom.user_roles: ~3 rows (приблизительно)
 DELETE FROM `user_roles`;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
 INSERT INTO `user_roles` (`id`, `user_id`, `role_id`) VALUES
-	(2, 5, 4);
+	(2, 5, 4),
+	(3, 5, 2),
+	(4, 5, 3);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

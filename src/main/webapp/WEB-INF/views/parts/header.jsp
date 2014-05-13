@@ -65,12 +65,25 @@
     </div>
 
     <ul id="header_menu" class="horlist">
+        <c:choose>
+            <c:when test="${isAuth}">
+                <li style="font-size: 15px; margin-right: 100px;">Вы вошли как <a href="${pageContext.request.contextPath}/private/" class="">${currentUser.login}</a></li>
+            </c:when>
+        </c:choose>
+
         <li><a href="${pageContext.request.contextPath}/static/howto">Как заказать</a></li>
         <li><a href="${pageContext.request.contextPath}/static/pay">Оплата</a></li>
         <li><a href="${pageContext.request.contextPath}/static/delivery">Доставка</a></li>
         <li><a href="${pageContext.request.contextPath}/static/help">Помощь</a></li>
-        <li><a href="${pageContext.request.contextPath}/login" title="Вход" class="">Вход</a></li>
-        <li><a href="${pageContext.request.contextPath}/registration" title="Регистрация" class="">Регистрация</a></li>
+        <c:choose>
+            <c:when test="${isAuth}">
+                <li><a href="${pageContext.request.contextPath}/logout" title="Выход" class="">Выход</a></li>
+            </c:when>
+            <c:otherwise>
+                <li><a href="${pageContext.request.contextPath}/login" title="Вход" class="">Вход</a></li>
+                <li><a href="${pageContext.request.contextPath}/registration" title="Регистрация" class="">Регистрация</a></li>
+            </c:otherwise>
+        </c:choose>
     </ul>
 
     <a href="#"><img id="top_banner" src="${pageContext.request.contextPath}/resources/img/_banner_.gif"/></a>

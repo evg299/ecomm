@@ -32,7 +32,7 @@ public class User implements Serializable {
     @Column(nullable = false, length = 32, unique = true)
     private String login;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
     private Person person;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

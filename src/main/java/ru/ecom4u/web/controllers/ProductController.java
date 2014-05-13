@@ -1,6 +1,8 @@
 package ru.ecom4u.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,8 +72,8 @@ public class ProductController extends AbstractController{
             comment.setProduct(product);
             comment.setTitle(commentForm.getTitle());
             comment.setContent(commentForm.getText());
-            // TODO: пользователя надо извлекать из контекста
-            comment.setPerson(userService.getById(14).getPerson());
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            comment.setPerson(userService.getByEmailOrLogin(auth.getName()).getPerson());
             commentService.save(comment);
 
             model.asMap().put("commentForm", new CommentForm());

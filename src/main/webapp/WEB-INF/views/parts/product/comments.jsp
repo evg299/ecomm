@@ -25,27 +25,35 @@
         </c:otherwise>
     </c:choose>
 
-	<div id="addComment">
-		<h4>Оставить отзыв о товаре</h4>
-        <form:form id="addCommentForm" method="post" commandName="commentForm">
-            <table>
-                <tr style="vertical-align: top;">
-                    <td style="text-align: right;">*Заголовок:</td>
-                    <td><form:input path="title" style="width: 633px;" /></td>
-                    <td><form:errors cssClass="error" path="title" /></td>
-                </tr>
-                <tr style="vertical-align: top;">
-                    <td style="text-align: right;">*Содержание:</td>
-                    <td><form:textarea path="text" style="width: 633px; height: 300px;" /></td>
-                    <td><form:errors cssClass="error" path="text" /></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Отправить" style="margin-top: 5px;" /></td>
-                    <td></td>
-                </tr>
-            </table>
-		</form:form>
-	</div>
+    <c:choose>
+        <c:when test="${isAuth}">
+            <div id="addComment">
+                <h4>Оставить отзыв о товаре</h4>
+                <form:form id="addCommentForm" method="post" commandName="commentForm">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <table>
+                        <tr style="vertical-align: top;">
+                            <td style="text-align: right;">*Заголовок:</td>
+                            <td><form:input path="title" style="width: 633px;" /></td>
+                            <td><form:errors cssClass="error" path="title" /></td>
+                        </tr>
+                        <tr style="vertical-align: top;">
+                            <td style="text-align: right;">*Содержание:</td>
+                            <td><form:textarea path="text" style="width: 633px; height: 300px;" /></td>
+                            <td><form:errors cssClass="error" path="text" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Отправить" style="margin-top: 5px;" /></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </form:form>
+            </div>
+        </c:when>
+        <c:otherwise>
+            Чтобы оставить отзыв вам нужно залогиниться
+        </c:otherwise>
+    </c:choose>
 
 </div>
