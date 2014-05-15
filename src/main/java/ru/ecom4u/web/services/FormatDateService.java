@@ -26,6 +26,10 @@ public class FormatDateService {
         return dateFormat.format(timestamp);
     }
 
+    public String countYears( Timestamp birthTimestamp) {
+        return countYears(new Timestamp(System.currentTimeMillis()), birthTimestamp);
+    }
+
     public String countYears(Timestamp currentTimestamp, Timestamp birthTimestamp) {
         long millsCurrent = currentTimestamp.getTime();
         long millsBirth = birthTimestamp.getTime();

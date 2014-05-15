@@ -55,6 +55,10 @@ public class Person implements Serializable {
 	@JoinColumn(name = "picture_id")
 	private Picture picture;
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
+
 	// bi-directional many-to-one association to User
 	@OneToOne
 	@JoinColumn(name = "user_id")
@@ -215,4 +219,11 @@ public class Person implements Serializable {
 		this.user = user;
 	}
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

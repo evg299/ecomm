@@ -105,4 +105,19 @@ public class Address implements Serializable {
 		return delivery;
 	}
 
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        AddressCountry country = addressState.getAddressCountry();
+
+        sb.append(country.getName());
+        sb.append(", ");
+        sb.append(addressState.getName());
+        sb.append(", ");
+        sb.append(addressCity.getName());
+        sb.append(", ");
+        sb.append(address);
+
+        return sb.toString();
+    }
 }
