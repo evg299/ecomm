@@ -46,6 +46,8 @@
             </tr>
         </table>
     </form>
+
+    <a href="${pageContext.request.contextPath}/registration" title="Регистрация" class="">Регистрация</a>
 </div>
 
 <%@include file="parts/footer.jsp" %>

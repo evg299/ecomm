@@ -227,6 +227,12 @@
             <version>${spring.security.version}</version>
         </dependency>
 
+        <!-- Delivery types -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.9-RC1</version>
+        </dependency>
 
         <!-- Test -->
         <dependency>
@@ -234,13 +240,6 @@
             <artifactId>junit</artifactId>
             <version>4.7</version>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Generate DAO -->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.9-RC1</version>
         </dependency>
     </dependencies>
 

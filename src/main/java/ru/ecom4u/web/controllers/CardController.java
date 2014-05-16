@@ -51,8 +51,6 @@ public class CardController extends AbstractController{
                     cardProductDTO.setCount(Integer.parseInt(parmMap.get("count")));
                     cardProductDTO.setAddedDate(new Date(Long.parseLong(parmMap.get("date"))));
                     cardProducts.add(cardProductDTO);
-
-                    System.err.println("" + name + ": " + value);
                 }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

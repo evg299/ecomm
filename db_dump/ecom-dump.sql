@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `address_cities` (
   CONSTRAINT `FK_address_cities_address_states` FOREIGN KEY (`address_state_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10972 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_cities: ~11 332 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_cities: ~10 733 rows (приблизительно)
 DELETE FROM `address_cities`;
 /*!40000 ALTER TABLE `address_cities` DISABLE KEYS */;
 INSERT INTO `address_cities` (`id`, `address_country_id`, `address_state_id`, `name`) VALUES
@@ -12766,7 +12766,7 @@ CREATE TABLE IF NOT EXISTS `aux_product_related` (
   CONSTRAINT `FK_aux_product_related_products_2` FOREIGN KEY (`product_id_2`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1060 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.aux_product_related: ~934 rows (приблизительно)
+-- Дамп данных таблицы ecom.aux_product_related: ~1 498 rows (приблизительно)
 DELETE FROM `aux_product_related`;
 /*!40000 ALTER TABLE `aux_product_related` DISABLE KEYS */;
 INSERT INTO `aux_product_related` (`id`, `product_id_1`, `product_id_2`) VALUES
@@ -13901,15 +13901,13 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
   `person_id` int(11) NOT NULL,
   `address_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `weight_kg` double NOT NULL,
-  `delivery_type_id` int(11) NOT NULL,
+  `weight` double NOT NULL,
+  `delivery_class` tinytext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_546e7d7d3qu5v7lsdtxih7nhm` (`address_id`),
-  KEY `FK_nco7git1vf8l6d7o60a1nvs0g` (`delivery_type_id`),
   KEY `FK_k36n9p5v7dd96hpgkwybvbogt` (`order_id`),
   KEY `FK_pm25xo0fbcmg7u5wtmv1k6rud` (`person_id`),
   CONSTRAINT `FK_delivery_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
-  CONSTRAINT `FK_delivery_delivery_types` FOREIGN KEY (`delivery_type_id`) REFERENCES `delivery_types` (`id`),
   CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   CONSTRAINT `FK_delivery_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -13918,21 +13916,6 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
 DELETE FROM `deliveries`;
 /*!40000 ALTER TABLE `deliveries` DISABLE KEYS */;
 /*!40000 ALTER TABLE `deliveries` ENABLE KEYS */;
-
-
--- Дамп структуры для таблица ecom.delivery_types
-CREATE TABLE IF NOT EXISTS `delivery_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` tinytext NOT NULL,
-  `description` text,
-  `properties_json` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Дамп данных таблицы ecom.delivery_types: ~0 rows (приблизительно)
-DELETE FROM `delivery_types`;
-/*!40000 ALTER TABLE `delivery_types` DISABLE KEYS */;
-/*!40000 ALTER TABLE `delivery_types` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица ecom.orders
@@ -14080,7 +14063,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   CONSTRAINT `FK_products_product_categories` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.products: ~1 117 rows (приблизительно)
+-- Дамп данных таблицы ecom.products: ~841 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `amt`, `contains_variants`, `description`, `name`, `uuid`, `date_of_receipt`, `main_pict_id`, `price`, `weight`, `product_category_id`) VALUES
@@ -15207,7 +15190,7 @@ CREATE TABLE IF NOT EXISTS `product_pictures` (
   CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_pictures: ~2 809 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_pictures: ~1 405 rows (приблизительно)
 DELETE FROM `product_pictures`;
 /*!40000 ALTER TABLE `product_pictures` DISABLE KEYS */;
 INSERT INTO `product_pictures` (`product_id`, `picture_id`) VALUES
@@ -17527,7 +17510,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~2 388 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 389 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES
@@ -19839,6 +19822,8 @@ CREATE TABLE IF NOT EXISTS `site_properties` (
 DELETE FROM `site_properties`;
 /*!40000 ALTER TABLE `site_properties` DISABLE KEYS */;
 INSERT INTO `site_properties` (`name`, `value`) VALUES
+	('delivery_fixprice_price', '777'),
+	('delivery_fixprice_traveltime', '3-7 дней'),
 	('site_desc', 'Новая восьмисерийная программа Discovery Channel «Как устроена Земля» посвящена группе увлеченных своим делом ученых, отправившихся в путешествие по нашей планете, чтобы найти ответы на самые интересные научные загадки современности.'),
 	('site_name', 'Онлайн магазин'),
 	('site_price_currency_id', '1'),

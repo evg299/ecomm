@@ -19,8 +19,8 @@ public class Delivery implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(name="weight_kg", nullable=false)
-	private double weightKg;
+	@Column(name="weight", nullable=false)
+	private double weight;
 
 	//bi-directional many-to-one association to Address
 	@ManyToOne
@@ -28,9 +28,8 @@ public class Delivery implements Serializable {
 	private Address address;
 
 	//bi-directional many-to-one association to DeliveryType
-	@ManyToOne
-	@JoinColumn(name="delivery_type_id", nullable=false)
-	private DeliveryType deliveryType;
+    @Column(name="delivery_class", nullable=false)
+	private String deliveryClass;
 
 	//bi-directional many-to-one association to Order
 	@ManyToOne
@@ -57,12 +56,12 @@ public class Delivery implements Serializable {
 		this.id = id;
 	}
 
-	public double getWeightKg() {
-		return this.weightKg;
+	public double getWeight() {
+		return this.weight;
 	}
 
-	public void setWeightKg(double weightKg) {
-		this.weightKg = weightKg;
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 
 	public Address getAddress() {
@@ -71,14 +70,6 @@ public class Delivery implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public DeliveryType getDeliveryType() {
-		return this.deliveryType;
-	}
-
-	public void setDeliveryType(DeliveryType deliveryType) {
-		this.deliveryType = deliveryType;
 	}
 
 	public Order getOrder() {

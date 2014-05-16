@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8"%>
 
 <script type="text/javascript">
     var fillData = function () {
         var formData = $("#card_form").serializeArray();
 
-        var orderUrl = "${pageContext.request.contextPath}/order/?";
+        var orderUrl = "${pageContext.request.contextPath}/order?";
         var sumPrice = 0;
         var sumWeight = 0;
         $(".product_row").each(function (index) {
@@ -94,30 +94,19 @@
 </script>
 
 <div id="card_content">
-    <h3 style="margin-left: 10px;">Корзина</h3>
+    <h3 style="margin-left: 10px;">Оформление заказа</h3>
 
     <div id="card_card">
         <form id="card_form">
-            <table style="width: 100%;">
-                <tr>
-                    <td><input id="check_all" type="checkbox"/> <big>Выделить все</big></td>
-                    <td style="text-align: right;"><a id="product_delete" class="delete_from_card">Удалить</a></td>
-                </tr>
-            </table>
-
             <table id="card_table">
                 <tr>
-                    <th></th>
-                    <th>Название товара, когда добавлен</th>
+                    <th>Название товара</th>
                     <th>Вес</th>
-                    <th>Наличие</th>
                     <th>Кол-во</th>
                     <th style="width: 145px;">Стоимость</th>
                 </tr>
                 <c:forEach items="${cardProducts}" var="cardProduct">
                     <tr id="rowid-${cardProduct.product.id}" class="product_row">
-                        <td><input id="product-${cardProduct.product.id}" name="product-${cardProduct.product.id}"
-                                   type="checkbox" class="card_product_checkbox"/></td>
                         <td>
                             <table>
                                 <tr>
@@ -132,7 +121,6 @@
                                             <a href="${pageContext.request.contextPath}/products/${cardProduct.product.uuid}"
                                                target="_blank">${cardProduct.product.name}</a>
                                         </div>
-                                        <div class="card_product_added">Добавлен ${cardProduct.addedDate}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -148,16 +136,16 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td style="text-align: center;">На складе</td>
                         <td style="text-align: center;">
                             <input id="picker-${cardProduct.product.id}" name="picker-${cardProduct.product.id}"
-                                   class="count_picker" type="number" value="${cardProduct.count}" min="1"
-                                   style="width: 40px;"/>
+                                   type="hidden"
+                                   value="${cardProduct.count}" />
                             <input id="price-${cardProduct.product.id}" name="price-${cardProduct.product.id}"
                                    type="hidden"
                                    value="<s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)" />"/>
-                            <span style="padding: 5px;">x</span> <s:eval
-                                expression="@priceFormatter.formatInCard(cardProduct.product.price)"/>
+                            <span style="padding: 5px; font-weight: bold;">${cardProduct.count}</span>
+                            <span style="padding: 5px;">x</span>
+                            <s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)" />
                         </td>
                         <td style="text-align: center;">
                             = <span id="multuPrice-${cardProduct.product.id}" class="card_price">0</span>
@@ -179,13 +167,49 @@
                             <span class="card_sum_unit">${siteWeightUnit.abbr}</span>
                         </div>
                     </td>
-                    <td style="text-align: right; vertical-align: bottom;">
-                        <a id="toOrderLink" class="button">
-                            Заказать
-                        </a>
-                    </td>
                 </tr>
             </table>
         </form>
     </div>
+
+    <table style="width: 100%;">
+        <tr style="vertical-align: top;">
+            <td style="width: 50%;">
+                <fieldset class="radiogroup">
+                    <legend>Выберите способ доставки</legend>
+                    <ul class="radio">
+                        <li><input type="radio" name="a" id="a1" value="1" checked="true"/><label for="a1">Самовывоз</label></li>
+                        <li><input type="radio" name="a" id="a5" value="1" checked="true"/><label for="a5">Курьером</label></li>
+                        <li><input type="radio" name="a" id="a2" value="2" /><label for="a2">Фиксированная ставка</label></li>
+                        <li><input type="radio" name="a" id="a3" value="3" /><label for="a3">Бесплатная доставка</label></li>
+                        <li><input type="radio" name="a" id="a4" value="4" /><label for="a4">EMC</label></li>
+                    </ul>
+                </fieldset>
+                Адрес доставки: <input /> (введите ваш адрес)
+                <br/>
+                Цена доставки: 12.34 руб.
+                <br/>
+                Цена вместе с доставкой: 124.68 руб.
+            </td>
+            <td>
+                <fieldset class="radiogroup">
+                    <legend>Выберите способ оплаты</legend>
+                    <ul class="radio">
+                        <li><input type="radio" name="a1" id="a11" value="1" checked="true"/><label for="a11">Оплата при получении</label></li>
+                        <li><input type="radio" name="a1" id="a21" value="2" /><label for="a21">Yandex деньги</label></li>
+                        <li><input type="radio" name="a1" id="a31" value="3" /><label for="a31">Webmoney</label></li>
+                        <li><input type="radio" name="a1" id="a41" value="4" /><label for="a41">PayPal</label></li>
+                        <li><input type="radio" name="a1" id="a51" value="4" /><label for="a51">Visa или Mastercard</label></li>
+                    </ul>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+
+    <div style="text-align: right;">
+        <a id="toOrderLink" class="button">
+            Оформить заказ
+        </a>
+    </div>
+
 </div>

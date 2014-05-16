@@ -26,8 +26,6 @@ import java.util.Locale;
 public class PrivateController {
 
     @Autowired
-    private SitePropertiesService sitePropertiesService;
-    @Autowired
     private ProductCategoryService productCategoryService;
     @Autowired
     private UserService userService;
@@ -36,9 +34,6 @@ public class PrivateController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model) {
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
-
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
@@ -57,9 +52,6 @@ public class PrivateController {
 
     @RequestMapping(value = "orders",method = RequestMethod.GET)
     public String orders(Locale locale, Model model) {
-        model.asMap().put("siteName", sitePropertiesService.getValue("site_name"));
-        model.asMap().put("siteDesc", sitePropertiesService.getValue("site_desc"));
-
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
         return "myorders";
