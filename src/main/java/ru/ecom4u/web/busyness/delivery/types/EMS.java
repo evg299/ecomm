@@ -8,9 +8,9 @@ import ru.ecom4u.web.domain.db.entities.Address;
 import java.util.List;
 
 /**
- * Created by Evgeny on 16.05.14.
+ * Created by Evgeny on 17.05.14.
  */
-public class Pickup implements IDelivery {
+public class EMS implements IDelivery {
 
     @Override
     public DeliveryForecast deliveryForecast(Address from, Address to, List<CardProductDTO> content) {
@@ -19,12 +19,12 @@ public class Pickup implements IDelivery {
 
     @Override
     public String getDeliveryName() {
-        return "Самовывоз";
+        return "ЕМС";
     }
 
     @Override
     public String getDeliveryLogoUrl() {
-        return null;
+        return "http://www.emspost.ru/images/logo.png";
     }
 
     @Override

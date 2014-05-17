@@ -11,7 +11,9 @@ import java.util.List;
 public interface IDelivery {
     public DeliveryForecast deliveryForecast(Address from, Address to, List<CardProductDTO> content);
 
-    public String deliveryName();
+    public String getDeliveryName();
 
-    public String deliveryLogoUrl();
+    public String getDeliveryLogoUrl();
+
+    public String getUnicName();
 }

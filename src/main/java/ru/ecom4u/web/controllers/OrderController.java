@@ -1,6 +1,8 @@
 package ru.ecom4u.web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.busyness.DeliveryLogic;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
 import ru.ecom4u.web.controllers.dto.CardProductDTO;
+import ru.ecom4u.web.domain.db.entities.User;
+import ru.ecom4u.web.domain.db.services.PersonService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
+import ru.ecom4u.web.domain.db.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Created by Evgeny on 15.05.14.
@@ -30,6 +32,10 @@ public class OrderController {
     private ProductService productService;
     @Autowired
     private DeliveryLogic deliveryLogic;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PersonService personService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model) {
@@ -56,8 +62,22 @@ public class OrderController {
 
         List<IDelivery> deliveries = deliveryLogic.getAvailableDeliveries();
         for(IDelivery delivery: deliveries){
-            System.err.println("delivery: " + delivery.deliveryName());
+            System.err.println("delivery: " + delivery.getDeliveryName());
         }
+
+        Collections.sort(deliveries, new Comparator<IDelivery>() {
+            @Override
+            public int compare(IDelivery delivery1, IDelivery delivery2) {
+                return delivery1.getDeliveryName().compareTo(delivery2.getDeliveryName());
+            }
+        });
+
+        model.asMap().put("deliveries", deliveries);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getByEmailOrLogin(auth.getName());
+        model.asMap().put("person", user.getPerson());
+        model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
 
         return "order";
     }

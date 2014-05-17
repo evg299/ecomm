@@ -172,41 +172,157 @@
         </form>
     </div>
 
-    <table style="width: 100%;">
-        <tr style="vertical-align: top;">
-            <td style="width: 50%;">
-                <fieldset class="radiogroup">
-                    <legend>Выберите способ доставки</legend>
-                    <ul class="radio">
-                        <li><input type="radio" name="a" id="a1" value="1" checked="true"/><label for="a1">Самовывоз</label></li>
-                        <li><input type="radio" name="a" id="a5" value="1" checked="true"/><label for="a5">Курьером</label></li>
-                        <li><input type="radio" name="a" id="a2" value="2" /><label for="a2">Фиксированная ставка</label></li>
-                        <li><input type="radio" name="a" id="a3" value="3" /><label for="a3">Бесплатная доставка</label></li>
-                        <li><input type="radio" name="a" id="a4" value="4" /><label for="a4">EMC</label></li>
-                    </ul>
-                </fieldset>
-                Адрес доставки: <input /> (введите ваш адрес)
-                <br/>
-                Цена доставки: 12.34 руб.
-                <br/>
-                Цена вместе с доставкой: 124.68 руб.
-            </td>
-            <td>
-                <fieldset class="radiogroup">
-                    <legend>Выберите способ оплаты</legend>
-                    <ul class="radio">
-                        <li><input type="radio" name="a1" id="a11" value="1" checked="true"/><label for="a11">Оплата при получении</label></li>
-                        <li><input type="radio" name="a1" id="a21" value="2" /><label for="a21">Yandex деньги</label></li>
-                        <li><input type="radio" name="a1" id="a31" value="3" /><label for="a31">Webmoney</label></li>
-                        <li><input type="radio" name="a1" id="a41" value="4" /><label for="a41">PayPal</label></li>
-                        <li><input type="radio" name="a1" id="a51" value="4" /><label for="a51">Visa или Mastercard</label></li>
-                    </ul>
-                </fieldset>
-            </td>
-        </tr>
-    </table>
+    <div style="padding: 10px; margin: 8px;">
+        <table style="width: 100%; border-spacing: 15px;">
+            <tr style="vertical-align: top;">
+                <td style="width: 50%; background-color: #E0EDF5; padding: 10px;">
+                    <h3>Выберите способ доставки</h3>
+                    <c:set var="count" value="0" scope="page" />
+                    <c:forEach items="${deliveries}" var="delivery">
+                        <div>
+                            <c:choose>
+                                <c:when test="${count eq 0}">
+                                    <input type="radio" name="delivery" id="d-${count}" value="${delivery.unicName}" checked="true"/><label for="d-${count}">${delivery.deliveryName}</label>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="radio" name="delivery" id="d-${count}" value="${delivery.unicName}"/><label for="d-${count}">${delivery.deliveryName}</label>
+                                </c:otherwise>
+                            </c:choose>
 
-    <div style="text-align: right;">
+                        </div>
+                        <c:set var="count" value="${count + 1}" scope="page"/>
+                    </c:forEach>
+
+                    <div class="address">
+                        <b>Адрес доставки:</b>
+                        <table>
+                            <tr>
+                                <td>Страна:</td>
+                                <td>
+                                    <select name="hero[]">
+                                        <option disabled>Выберите страну</option>
+
+                                        <option value="Чебурашка">Чебурашка</option>
+                                        <option value="Крокодил Гена">Крокодил Гена</option>
+                                        <option value="Шапокляк">Шапокляк</option>
+                                        <option value="Крыса Лариса">Крыса Лариса</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Регион:</td>
+                                <td>
+                                    <select name="hero[]">
+                                        <option disabled>Выберите регион</option>
+
+                                        <option value="Чебурашка">Чебурашка</option>
+                                        <option value="Крокодил Гена">Крокодил Гена</option>
+                                        <option value="Шапокляк">Шапокляк</option>
+                                        <option value="Крыса Лариса">Крыса Лариса</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Город:</td>
+                                <td>
+                                    <select name="hero[]">
+                                        <option disabled>Выберите город</option>
+
+                                        <option value="Чебурашка">Чебурашка</option>
+                                        <option value="Крокодил Гена">Крокодил Гена</option>
+                                        <option value="Шапокляк">Шапокляк</option>
+                                        <option value="Крыса Лариса">Крыса Лариса</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Адрес:</td>
+                                <td>
+                                    <input style="width: 300px;" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <table style="width: 100%; margin-top: 15px;">
+                        <tr>
+                            <td class="card_score">
+                                <div>
+                                    <b>Цена доставки:</b> <span>12.34</span>
+                                    <span class="card_sum_currency">${siteCurrency.shortName}</span>
+                                </div>
+                                <div>
+                                    <b>Цена вместе с доставкой:</b> <span>124.68</span>
+                                    <span class="card_sum_unit">${siteCurrency.shortName}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="background-color: #E0EDF5; padding: 10px;">
+                    <h3>Выберите способ оплаты</h3>
+
+                    <div><input type="radio" name="a1" id="a11" value="1" checked="true"/><label for="a11">Оплата при получении</label></div>
+                    <div><input type="radio" name="a1" id="a21" value="2" /><label for="a21">Yandex деньги</label></div>
+                    <div><input type="radio" name="a1" id="a31" value="3" /><label for="a31">Webmoney</label></div>
+                    <div><input type="radio" name="a1" id="a41" value="4" /><label for="a41">PayPal</label></div>
+                    <div><input type="radio" name="a1" id="a51" value="4" /><label for="a51">Visa или Mastercard</label></div>
+                </td>
+            </tr>
+            <tr style="vertical-align: top;">
+                <td style="width: 50%; background-color: #E0EDF5; padding: 10px;">
+                    <h3>Ваши контактные данные:</h3>
+
+                    <div class="pers_photo">
+                        <img src="${pageContext.request.contextPath}/filestorage/download/${person.picture.urlName}-b.${person.picture.extention}" />
+                    </div>
+                    <div class="pers_data">
+                        <div class="pers_data_head">Общее</div>
+                        <b>ФИО:</b> ${person.lname} ${person.fname} ${person.mname} <br />
+
+                        <b>Пол:</b>
+                        <c:choose>
+                            <c:when test="${person.gender}">
+                                мужской
+                            </c:when>
+                            <c:otherwise>
+                                женский
+                            </c:otherwise>
+                        </c:choose>
+                        <br />
+
+                        <b>Дата рождения:</b> <s:eval expression="@formatDateService.formatTimestamp(person.birthDate)" /> (<s:eval expression="@formatDateService.countYears(person.birthDate)" />) <br />
+
+                        <b>Адрес:</b>
+                        ${person.address}
+
+                        <div style="min-height: 6px;"></div>
+
+                        <c:choose>
+                            <c:when test="${fn:length(personContacts) ne 0}">
+                                <div class="pers_data_head">Контакты</div>
+                                <c:forEach items="${personContacts}" var="personContact">
+                                    <b>${personContact.contactType.name}:</b> ${personContact.value} <br />
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                Контактов не оставлено.
+                            </c:otherwise>
+                        </c:choose>
+
+                        <div style="min-height: 20px;"></div>
+                    </div>
+                </td>
+                <td style="background-color: #E0EDF5; padding: 10px;">
+                    <h3>Примечание к заказу:</h3>
+
+                    <textarea style="width: 100%; height: 120px;"></textarea>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align: right; padding-right: 35px;">
         <a id="toOrderLink" class="button">
             Оформить заказ
         </a>

@@ -28,12 +28,17 @@ public class FixPrice implements IDelivery {
     }
 
     @Override
-    public String deliveryName() {
+    public String getDeliveryName() {
         return "Фиксированная ставка";
     }
 
     @Override
-    public String deliveryLogoUrl() {
+    public String getDeliveryLogoUrl() {
         return null;
+    }
+
+    @Override
+    public String getUnicName() {
+        return this.getClass().getName();
     }
 }
