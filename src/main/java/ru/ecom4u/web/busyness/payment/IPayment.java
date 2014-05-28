@@ -6,5 +6,4 @@ package ru.ecom4u.web.busyness.payment;
 public interface IPayment {
     public boolean supportDelivery(Class<?> deliveryClass);
 
-
 }
