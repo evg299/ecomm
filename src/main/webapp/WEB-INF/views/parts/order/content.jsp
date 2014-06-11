@@ -341,15 +341,12 @@
 
                         document.getElementById("country_house").value = currentNode.Premise.PremiseNumber;
 
-
-
-
                         myPlacemark.properties.set({
                             // iconContent: firstGeoObject.properties.get('name'),
                             balloonContent: firstGeoObject.properties.get('text')
                         });
 
-                        checkDeliveryPrice();
+                        // checkDeliveryPrice();
                     });
                 }
             }
@@ -357,13 +354,20 @@
         }
 
         function checkDeliveryPrice(){
-            alert(document.getElementById("country_input").value);
+            var upAddress = {
+                country: document.getElementById("country_input").value,
+                region: document.getElementById("country_region").value,
+                city: document.getElementById("country_location").value.split(", ")[0]
+            };
+
+            console.log(upAddress);
         }
     </script>
 
     <%--<input type="button" value="⇈"/> <input type="button" value="⇊"/>--%>
 
     <div id="map"></div>
+    <input type="button" value="Расчитать" onclick="checkDeliveryPrice();"/>
 </div>
 
 <table style="width: 100%; margin-top: 15px;">
