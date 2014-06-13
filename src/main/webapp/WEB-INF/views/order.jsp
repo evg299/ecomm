@@ -12,6 +12,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
     <script src="${pageContext.request.contextPath}/resources/js/left-menu.js"></script>
+
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
 </head>
 <body>
 <%@include file="parts/header.jsp"%>

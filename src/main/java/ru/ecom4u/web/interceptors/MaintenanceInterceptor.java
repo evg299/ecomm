@@ -76,6 +76,9 @@ public class MaintenanceInterceptor extends HandlerInterceptorAdapter {
         if (uri.startsWith("/categories-json/"))
             return false;
 
+        if (uri.startsWith("/deliveryCalculate/"))
+            return false;
+
         return true;
     }
 

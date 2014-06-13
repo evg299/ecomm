@@ -96,80 +96,80 @@
 <div id="card_content">
 <h3 style="margin-left: 10px;">Оформление заказа</h3>
 
+<form id="card_form">
 <div id="card_card">
-    <form id="card_form">
-        <table id="card_table">
-            <tr>
-                <th>Название товара</th>
-                <th>Вес</th>
-                <th>Кол-во</th>
-                <th style="width: 145px;">Стоимость</th>
-            </tr>
-            <c:forEach items="${cardProducts}" var="cardProduct">
-                <tr id="rowid-${cardProduct.product.id}" class="product_row">
-                    <td>
-                        <table>
-                            <tr>
-                                <td>
-                                    <img
-                                            src="${pageContext.request.contextPath}/filestorage/download/${cardProduct.product.picture.urlName}-m.${cardProduct.product.picture.extention}"
-                                            alt="${cardProduct.product.name}"
-                                            style="width: 60px; border-width: 0px;"/>
-                                </td>
-                                <td>
-                                    <div class="card_product_name">
-                                        <a href="${pageContext.request.contextPath}/products/${cardProduct.product.uuid}"
-                                           target="_blank">${cardProduct.product.name}</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td style="text-align: center;">
-                        <c:choose>
-                            <c:when test="${cardProduct.product.weight ne null}">
-                                <span id="weight-${cardProduct.product.id}">${cardProduct.product.weight}</span>
-                                <span id="weight-unit-${cardProduct.product.id}">${siteWeightUnit.abbr}</span>
-                            </c:when>
-                            <c:otherwise>
-                                не указан
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <td style="text-align: center;">
-                        <input id="picker-${cardProduct.product.id}" name="picker-${cardProduct.product.id}"
-                               type="hidden"
-                               value="${cardProduct.count}"/>
-                        <input id="price-${cardProduct.product.id}" name="price-${cardProduct.product.id}"
-                               type="hidden"
-                               value="<s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)" />"/>
-                        <span style="padding: 5px; font-weight: bold;">${cardProduct.count}</span>
-                        <span style="padding: 5px;">x</span>
-                        <s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)"/>
-                    </td>
-                    <td style="text-align: center;">
-                        = <span id="multuPrice-${cardProduct.product.id}" class="card_price">0</span>
-                        <span class="card_currency">${siteCurrency.shortName}</span>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-
-        <table style="width: 100%; margin-top: 15px;">
-            <tr>
-                <td class="card_score">
-                    <div>
-                        <b>Цена без доставки:</b> <span id="card_sum_price"></span>
-                        <span class="card_sum_currency">${siteCurrency.shortName}</span>
-                    </div>
-                    <div id="sum_weight">
-                        <b>Суммарный вес:</b> <span id="card_sum_weight"></span>
-                        <span class="card_sum_unit">${siteWeightUnit.abbr}</span>
-                    </div>
+    <table id="card_table">
+        <tr>
+            <th>Название товара</th>
+            <th>Вес</th>
+            <th>Кол-во</th>
+            <th style="width: 145px;">Стоимость</th>
+        </tr>
+        <c:forEach items="${cardProducts}" var="cardProduct">
+            <tr id="rowid-${cardProduct.product.id}" class="product_row">
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <img
+                                        src="${pageContext.request.contextPath}/filestorage/download/${cardProduct.product.picture.urlName}-m.${cardProduct.product.picture.extention}"
+                                        alt="${cardProduct.product.name}"
+                                        style="width: 60px; border-width: 0px;"/>
+                            </td>
+                            <td>
+                                <div class="card_product_name">
+                                    <a href="${pageContext.request.contextPath}/products/${cardProduct.product.uuid}"
+                                       target="_blank">${cardProduct.product.name}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align: center;">
+                    <c:choose>
+                        <c:when test="${cardProduct.product.weight ne null}">
+                            <span id="weight-${cardProduct.product.id}">${cardProduct.product.weight}</span>
+                            <span id="weight-unit-${cardProduct.product.id}">${siteWeightUnit.abbr}</span>
+                        </c:when>
+                        <c:otherwise>
+                            не указан
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td style="text-align: center;">
+                    <input id="picker-${cardProduct.product.id}" name="picker-${cardProduct.product.id}"
+                           type="hidden"
+                           value="${cardProduct.count}"/>
+                    <input id="price-${cardProduct.product.id}" name="price-${cardProduct.product.id}"
+                           type="hidden"
+                           value="<s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)" />"/>
+                    <span style="padding: 5px; font-weight: bold;">${cardProduct.count}</span>
+                    <span style="padding: 5px;">x</span>
+                    <s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)"/>
+                </td>
+                <td style="text-align: center;">
+                    = <span id="multuPrice-${cardProduct.product.id}" class="card_price">0</span>
+                    <span class="card_currency">${siteCurrency.shortName}</span>
                 </td>
             </tr>
-        </table>
-    </form>
+        </c:forEach>
+    </table>
+
+    <table style="width: 100%; margin-top: 15px;">
+        <tr>
+            <td class="card_score">
+                <div>
+                    <b>Цена без доставки:</b> <span id="card_sum_price"></span>
+                    <span class="card_sum_currency">${siteCurrency.shortName}</span>
+                </div>
+                <div id="sum_weight">
+                    <b>Суммарный вес:</b> <span id="card_sum_weight"></span>
+                    <span class="card_sum_unit">${siteWeightUnit.abbr}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
 </div>
 
 <div style="padding: 10px; margin: 8px;">
@@ -177,6 +177,9 @@
 <tr style="vertical-align: top;">
 <td style="width: 50%; background-color: #E0EDF5; padding: 10px;">
 <h3>Выберите способ доставки</h3>
+<script type="text/javascript">
+
+</script>
 <c:set var="count" value="0" scope="page"/>
 <c:forEach items="${deliveries}" var="delivery">
     <div>
@@ -262,13 +265,13 @@
                 });
             });
 
-            function createMap (state) {
+            function createMap(state) {
                 state.controls = ['zoomControl', 'typeSelector', 'fullscreenControl'];
                 myMap = new ymaps.Map('map', state);
                 createPlaceMarkLogic();
             }
 
-            function createPlaceMarkLogic(){
+            function createPlaceMarkLogic() {
                 var myPlacemark;
                 myMap.cursors.push('arrow');
 
@@ -353,14 +356,41 @@
 
         }
 
-        function checkDeliveryPrice(){
+        function checkDeliveryPrice() {
             var upAddress = {
                 country: document.getElementById("country_input").value,
                 region: document.getElementById("country_region").value,
                 city: document.getElementById("country_location").value.split(", ")[0]
             };
 
+            var form = $("#card_form").serializeArray();
+            var delType = null;
+            form.forEach(function (entry) {
+                if ("delivery" == entry.name) {
+                    delType = entry.value;
+                }
+            });
+
             console.log(upAddress);
+            console.log(form);
+
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            $.ajax({
+                url: "/deliveryCalculate/" + delType,
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(upAddress),
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                    xhr.setRequestHeader("Accept", "application/json");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                },
+                success: function(data) {
+                    console.log(data);
+                }
+            });
         }
     </script>
 
@@ -456,5 +486,5 @@
         Оформить заказ
     </a>
 </div>
-
+</form>
 </div>
