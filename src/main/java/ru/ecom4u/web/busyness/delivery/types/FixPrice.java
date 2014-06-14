@@ -2,43 +2,55 @@ package ru.ecom4u.web.busyness.delivery.types;
 
 import org.springframework.context.ApplicationContext;
 import ru.ecom4u.web.busyness.ApplicationContextProvider;
-import ru.ecom4u.web.busyness.delivery.DeliveryForecast;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
-import ru.ecom4u.web.controllers.dto.CardProductDTO;
-import ru.ecom4u.web.domain.db.entities.Address;
-import ru.ecom4u.web.domain.db.entities.SiteProperty;
+import ru.ecom4u.web.controllers.dto.json.DeliveryAddress;
+import ru.ecom4u.web.controllers.dto.json.DeliveryCalcResult;
 import ru.ecom4u.web.domain.db.services.SitePropertiesService;
-
-import java.util.List;
 
 /**
  * Created by Evgeny on 15.05.14.
  */
-public class FixPrice implements IDelivery {
+public class FixPrice implements IDelivery
+{
 
     @Override
-    public DeliveryForecast deliveryForecast(Address from, Address to, List<CardProductDTO> content) {
-        ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
-
-        SitePropertiesService sitePropertiesService = applicationContext.getBean(SitePropertiesService.class);
-        Integer price = Integer.parseInt(sitePropertiesService.getValue("delivery_fixprice_price"));
-        String travelTime = sitePropertiesService.getValue("delivery_fixprice_traveltime");
-
-        return new DeliveryForecast(price, travelTime);
-    }
-
-    @Override
-    public String getDeliveryName() {
+    public String getDeliveryName()
+    {
         return "Фиксированная ставка";
     }
 
     @Override
-    public String getDeliveryLogoUrl() {
+    public String getDeliveryLogoUrl()
+    {
         return null;
     }
 
     @Override
-    public String getUnicName() {
+    public String getUnicName()
+    {
         return this.getClass().getName();
+    }
+
+    @Override
+    public DeliveryCalcResult forecast(DeliveryAddress warehouseAddress, DeliveryAddress deliveryAddress, double weight)
+    {
+        ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
+
+        SitePropertiesService sitePropertiesService = applicationContext.getBean(SitePropertiesService.class);
+        Integer price = Integer.parseInt(sitePropertiesService.getValue("delivery_fixprice_price"));
+        Integer minDays = Integer.parseInt(sitePropertiesService.getValue("delivery_fixprice_min_days"));
+        Integer maxDays = Integer.parseInt(sitePropertiesService.getValue("delivery_fixprice_max_days"));
+
+        DeliveryCalcResult result = new DeliveryCalcResult();
+        result.setPrice(price);
+        result.setMinDays(minDays);
+        result.setMaxDays(maxDays);
+        return result;
+    }
+
+    @Override
+    public boolean isNeedMap()
+    {
+        return true;
     }
 }

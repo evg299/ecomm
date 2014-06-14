@@ -1,5 +1,8 @@
 package ru.ecom4u.web.utils;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,5 +39,11 @@ public class HTTPUtil {
         in.close();
 
         return response.toString();
+    }
+
+    public static String requestGETByJsoup(String url) throws IOException
+    {
+        Document doc = Jsoup.connect(url).get();
+        return doc.text();
     }
 }

@@ -38,6 +38,7 @@
 
         $("#card_sum_price")[0].innerHTML = Math.round(sumPrice * 100) / 100;
         $("#card_sum_weight")[0].innerHTML = Math.round(sumWeight * 100) / 100;
+        $("#order_sum_price")[0].innerHTML = $("#card_sum_price")[0].innerHTML;
 
         orderUrl = orderUrl.substr(0, orderUrl.length - 1);
         $("a#toOrderLink")[0].href = orderUrl;
@@ -178,237 +179,254 @@
 <td style="width: 50%; background-color: #E0EDF5; padding: 10px;">
 <h3>Выберите способ доставки</h3>
 <script type="text/javascript">
+    var needMap = {};
+    <c:forEach items="${deliveries}" var="delivery">
+    needMap["${delivery.unicName}"] = ${delivery.needMap};
+    </c:forEach>
 
+    $(document).ready(function () {
+        $("#select_delivery").change(function () {
+            var name = $(this)[0].value;
+            console.log(name);
+            console.log(needMap[name]);
+
+            if(needMap[name]) {
+                $("#address_selector").show();
+            } else {
+                $("#address_selector").hide();
+            }
+        });
+    });
 </script>
-<c:set var="count" value="0" scope="page"/>
-<c:forEach items="${deliveries}" var="delivery">
-    <div>
+
+<select id="select_delivery" name="delivery">
+    <c:forEach items="${deliveries}" var="delivery">
         <c:choose>
             <c:when test="${count eq 0}">
-                <input type="radio" name="delivery" id="d-${count}" value="${delivery.unicName}"
-                       checked="true"/><label for="d-${count}">${delivery.deliveryName}</label>
+                <option value="${delivery.unicName}" selected="true">${delivery.deliveryName}</option>
             </c:when>
             <c:otherwise>
-                <input type="radio" name="delivery" id="d-${count}" value="${delivery.unicName}"/><label
-                    for="d-${count}">${delivery.deliveryName}</label>
+                <option value="${delivery.unicName}">${delivery.deliveryName}</option>
             </c:otherwise>
         </c:choose>
+    </c:forEach>
+</select>
 
-    </div>
-    <c:set var="count" value="${count + 1}" scope="page"/>
-</c:forEach>
+<div id="address_selector" class="address">
+<b>Адрес доставки:</b>
+<table>
+    <tr>
+        <td>Страна:</td>
+        <td>
+            <input id="country_input" style="width: 300px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Регион:</td>
+        <td>
+            <input id="country_region" style="width: 300px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Район:</td>
+        <td>
+            <input id="country_raion" style="width: 300px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Нас. пункт:</td>
+        <td>
+            <input id="country_location" style="width: 300px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Адрес:</td>
+        <td>
+            <input id="country_street" style="width: 300px;"/>
+        </td>
+        <td>
+            <input id="country_house" style="width: 100px;"/>
+        </td>
+    </tr>
+    <tr>
+        <td>Квартира:</td>
+        <td>
+            <input id="country_apartments" style="width: 300px;"/>
+        </td>
+    </tr>
+</table>
 
-<div class="address">
-    <b>Адрес доставки:</b>
-    <table>
-        <tr>
-            <td>Страна:</td>
-            <td>
-                <input id="country_input" style="width: 300px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Регион:</td>
-            <td>
-                <input id="country_region" style="width: 300px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Район:</td>
-            <td>
-                <input id="country_raion" style="width: 300px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Нас. пункт:</td>
-            <td>
-                <input id="country_location" style="width: 300px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес:</td>
-            <td>
-                <input id="country_street" style="width: 300px;"/>
-            </td>
-            <td>
-                <input id="country_house" style="width: 100px;"/>
-            </td>
-        </tr>
-        <tr>
-            <td>Квартира:</td>
-            <td>
-                <input id="country_apartments" style="width: 300px;"/>
-            </td>
-        </tr>
-    </table>
+<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script type="text/javascript">
+    ymaps.ready(init);
 
-    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <script type="text/javascript">
-        ymaps.ready(init);
-
-        function init() {
-            var myMap;
-            ymaps.geolocation.get().then(function (res) {
-                var mapContainer = $('#map'),
-                        bounds = res.geoObjects.get(0).properties.get('boundedBy'),
-                // Рассчитываем видимую область для текущей положения пользователя.
-                        mapState = ymaps.util.bounds.getCenterAndZoom(
-                                bounds,
-                                [mapContainer.width(), mapContainer.height()]
-                        );
-                createMap(mapState);
-            }, function (e) {
-                // Если место положение невозможно получить, то просто создаем карту.
-                createMap({
-                    center: [55.751574, 37.573856],
-                    zoom: 2
-                });
+    function init() {
+        var myMap;
+        ymaps.geolocation.get().then(function (res) {
+            var mapContainer = $('#map'),
+                    bounds = res.geoObjects.get(0).properties.get('boundedBy'),
+            // Рассчитываем видимую область для текущей положения пользователя.
+                    mapState = ymaps.util.bounds.getCenterAndZoom(
+                            bounds,
+                            [mapContainer.width(), mapContainer.height()]
+                    );
+            createMap(mapState);
+        }, function (e) {
+            // Если место положение невозможно получить, то просто создаем карту.
+            createMap({
+                center: [55.751574, 37.573856],
+                zoom: 2
             });
+        });
 
-            function createMap(state) {
-                state.controls = ['zoomControl', 'typeSelector', 'fullscreenControl'];
-                myMap = new ymaps.Map('map', state);
-                createPlaceMarkLogic();
-            }
-
-            function createPlaceMarkLogic() {
-                var myPlacemark;
-                myMap.cursors.push('arrow');
-
-                // Слушаем клик на карте
-                myMap.events.add('click', function (e) {
-                    var coords = e.get('coords');
-
-                    // Если метка уже создана – просто передвигаем ее
-                    if (myPlacemark) {
-                        myPlacemark.geometry.setCoordinates(coords);
-                    }
-                    // Если нет – создаем.
-                    else {
-                        myPlacemark = createPlacemark(coords);
-                        myMap.geoObjects.add(myPlacemark);
-                        // Слушаем событие окончания перетаскивания на метке.
-                        myPlacemark.events.add('dragend', function () {
-                            getAddress(myPlacemark.geometry.getCoordinates());
-                        });
-                    }
-                    getAddress(coords);
-                });
-
-                // Создание метки
-                function createPlacemark(coords) {
-                    return new ymaps.Placemark(coords, { }, {
-                        preset: 'islands#violetStretchyIcon',
-                        draggable: true
-                    });
-                }
-
-                // Определяем адрес по координатам (обратное геокодирование)
-                function getAddress(coords) {
-                    ymaps.geocode(coords).then(function (res) {
-                        var firstGeoObject = res.geoObjects.get(0);
-
-                        // console.log(firstGeoObject.properties.get('name'));
-                        // console.log(firstGeoObject.properties.get('metaDataProperty'));
-                        var metaDataProperty = firstGeoObject.properties.get('metaDataProperty');
-                        var addressDetails = metaDataProperty.GeocoderMetaData.AddressDetails;
-
-                        var fullAddress = {};
-
-                        // Country
-                        var currentNode = addressDetails.Country;
-                        document.getElementById("country_input").value = currentNode.CountryName;
-                        fullAddress.country = currentNode.CountryName;
-
-                        // AdministrativeArea
-                        currentNode = addressDetails.Country.AdministrativeArea;
-                        document.getElementById("country_region").value = currentNode.AdministrativeAreaName;
-
-                        if (currentNode.SubAdministrativeArea) {
-                            document.getElementById("country_raion").value = currentNode.SubAdministrativeArea.SubAdministrativeAreaName;
-                            currentNode = currentNode.SubAdministrativeArea;
-                        } else {
-                            document.getElementById("country_raion").value = "";
-                        }
-
-                        document.getElementById("country_location").value = currentNode.Locality.LocalityName;
-                        currentNode = currentNode.Locality;
-
-                        if (currentNode.DependentLocality) {
-                            document.getElementById("country_location").value += ", " + currentNode.DependentLocality.DependentLocalityName;
-                            currentNode = currentNode.DependentLocality;
-                        }
-
-                        document.getElementById("country_street").value = currentNode.Thoroughfare.ThoroughfareName;
-                        currentNode = currentNode.Thoroughfare;
-
-                        document.getElementById("country_house").value = currentNode.Premise.PremiseNumber;
-
-                        myPlacemark.properties.set({
-                            // iconContent: firstGeoObject.properties.get('name'),
-                            balloonContent: firstGeoObject.properties.get('text')
-                        });
-
-                        // checkDeliveryPrice();
-                    });
-                }
-            }
-
+        function createMap(state) {
+            state.controls = ['zoomControl', 'typeSelector', 'fullscreenControl'];
+            myMap = new ymaps.Map('map', state);
+            createPlaceMarkLogic();
         }
 
-        function checkDeliveryPrice() {
-            var upAddress = {
-                country: document.getElementById("country_input").value,
-                region: document.getElementById("country_region").value,
-                city: document.getElementById("country_location").value.split(", ")[0]
-            };
+        function createPlaceMarkLogic() {
+            var myPlacemark;
+            myMap.cursors.push('arrow');
 
-            var form = $("#card_form").serializeArray();
-            var delType = null;
-            form.forEach(function (entry) {
-                if ("delivery" == entry.name) {
-                    delType = entry.value;
+            // Слушаем клик на карте
+            myMap.events.add('click', function (e) {
+                var coords = e.get('coords');
+
+                // Если метка уже создана – просто передвигаем ее
+                if (myPlacemark) {
+                    myPlacemark.geometry.setCoordinates(coords);
                 }
+                // Если нет – создаем.
+                else {
+                    myPlacemark = createPlacemark(coords);
+                    myMap.geoObjects.add(myPlacemark);
+                    // Слушаем событие окончания перетаскивания на метке.
+                    myPlacemark.events.add('dragend', function () {
+                        getAddress(myPlacemark.geometry.getCoordinates());
+                    });
+                }
+                getAddress(coords);
             });
 
-            console.log(upAddress);
-            console.log(form);
+            // Создание метки
+            function createPlacemark(coords) {
+                return new ymaps.Placemark(coords, { }, {
+                    preset: 'islands#violetStretchyIcon',
+                    draggable: true
+                });
+            }
 
-            var token = $("meta[name='_csrf']").attr("content");
-            var header = $("meta[name='_csrf_header']").attr("content");
+            // Определяем адрес по координатам (обратное геокодирование)
+            function getAddress(coords) {
+                ymaps.geocode(coords).then(function (res) {
+                    var firstGeoObject = res.geoObjects.get(0);
 
-            $.ajax({
-                url: "/deliveryCalculate/" + delType,
-                type: 'POST',
-                dataType: 'json',
-                data: JSON.stringify(upAddress),
-                beforeSend: function(xhr) {
-                    xhr.setRequestHeader(header, token);
-                    xhr.setRequestHeader("Accept", "application/json");
-                    xhr.setRequestHeader("Content-Type", "application/json");
-                },
-                success: function(data) {
-                    console.log(data);
-                }
-            });
+                    // console.log(firstGeoObject.properties.get('name'));
+                    // console.log(firstGeoObject.properties.get('metaDataProperty'));
+                    var metaDataProperty = firstGeoObject.properties.get('metaDataProperty');
+                    var addressDetails = metaDataProperty.GeocoderMetaData.AddressDetails;
+
+                    var fullAddress = {};
+
+                    // Country
+                    var currentNode = addressDetails.Country;
+                    document.getElementById("country_input").value = currentNode.CountryName;
+                    fullAddress.country = currentNode.CountryName;
+
+                    // AdministrativeArea
+                    currentNode = addressDetails.Country.AdministrativeArea;
+                    document.getElementById("country_region").value = currentNode.AdministrativeAreaName;
+
+                    if (currentNode.SubAdministrativeArea) {
+                        document.getElementById("country_raion").value = currentNode.SubAdministrativeArea.SubAdministrativeAreaName;
+                        currentNode = currentNode.SubAdministrativeArea;
+                    } else {
+                        document.getElementById("country_raion").value = "";
+                    }
+
+                    document.getElementById("country_location").value = currentNode.Locality.LocalityName;
+                    currentNode = currentNode.Locality;
+
+                    if (currentNode.DependentLocality) {
+                        document.getElementById("country_location").value += ", " + currentNode.DependentLocality.DependentLocalityName;
+                        currentNode = currentNode.DependentLocality;
+                    }
+
+                    document.getElementById("country_street").value = currentNode.Thoroughfare.ThoroughfareName;
+                    currentNode = currentNode.Thoroughfare;
+
+                    document.getElementById("country_house").value = currentNode.Premise.PremiseNumber;
+
+                    myPlacemark.properties.set({
+                        // iconContent: firstGeoObject.properties.get('name'),
+                        balloonContent: firstGeoObject.properties.get('text')
+                    });
+
+                    // checkDeliveryPrice();
+                });
+            }
         }
-    </script>
 
-    <%--<input type="button" value="⇈"/> <input type="button" value="⇊"/>--%>
+    }
 
-    <div id="map"></div>
-    <input type="button" value="Расчитать" onclick="checkDeliveryPrice();"/>
+    function checkDeliveryPrice() {
+        var upAddress = {
+            country: document.getElementById("country_input").value,
+            region: document.getElementById("country_region").value,
+            city: document.getElementById("country_location").value.split(", ")[0]
+        };
+
+        var form = $("#card_form").serializeArray();
+        var delType = null;
+        form.forEach(function (entry) {
+            if ("delivery" == entry.name) {
+                delType = entry.value;
+            }
+        });
+
+        console.log(upAddress);
+        console.log(form);
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            url: "/deliveryCalculate/" + delType,
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(upAddress),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (data) {
+                console.log(data);
+                $("#delivery_price").text(data["price"]);
+                var cardPrice = parseFloat($("#card_sum_price").text());
+                $("#order_sum_price").text(data["price"] + cardPrice);
+            }
+        });
+    }
+
+</script>
+
+<%--<input type="button" value="⇈"/> <input type="button" value="⇊"/>--%>
+
+<div id="map"></div>
+<input type="button" value="Расчитать" onclick="checkDeliveryPrice();"/>
 </div>
 
 <table style="width: 100%; margin-top: 15px;">
     <tr>
         <td class="card_score">
             <div>
-                <b>Цена доставки:</b> <span>12.34</span>
+                <b>Цена доставки:</b> <span id="delivery_price">0.0</span>
                 <span class="card_sum_currency">${siteCurrency.shortName}</span>
             </div>
             <div>
-                <b>Цена вместе с доставкой:</b> <span>124.68</span>
+                <b>Цена вместе с доставкой:</b> <span id="order_sum_price">124.68</span>
                 <span class="card_sum_unit">${siteCurrency.shortName}</span>
             </div>
         </td>
