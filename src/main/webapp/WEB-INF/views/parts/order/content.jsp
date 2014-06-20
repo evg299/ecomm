@@ -190,6 +190,8 @@
             console.log(name);
             console.log(needMap[name]);
 
+            checkDeliveryPrice();
+
             if(needMap[name]) {
                 $("#address_selector").show();
             } else {
@@ -406,6 +408,10 @@
                 $("#delivery_price").text(data["price"]);
                 var cardPrice = parseFloat($("#card_sum_price").text());
                 $("#order_sum_price").text(data["price"] + cardPrice);
+            },
+            error: function(err) {
+                console.log(err);
+                alert("Ошибка расчета стоимости");
             }
         });
     }
