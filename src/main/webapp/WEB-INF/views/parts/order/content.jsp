@@ -442,13 +442,18 @@
 <td style="background-color: #E0EDF5; padding: 10px;">
     <h3>Выберите способ оплаты</h3>
 
-    <div><input type="radio" name="a1" id="a11" value="1" checked="true"/><label for="a11">Оплата при
-        получении</label></div>
-    <div><input type="radio" name="a1" id="a21" value="2"/><label for="a21">Yandex деньги</label></div>
-    <div><input type="radio" name="a1" id="a31" value="3"/><label for="a31">Webmoney</label></div>
-    <div><input type="radio" name="a1" id="a41" value="4"/><label for="a41">PayPal</label></div>
-    <div><input type="radio" name="a1" id="a51" value="4"/><label for="a51">Visa или Mastercard</label>
-    </div>
+    <select id="select_payment" name="payment">
+        <c:forEach items="${payments}" var="payment">
+            <c:choose>
+                <c:when test="${count eq 0}">
+                    <option value="${payment.unicName}" selected="true">${payment.paymentName}</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="${payment.unicName}">${payment.paymentName}</option>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </select>
 </td>
 </tr>
 <tr style="vertical-align: top;">

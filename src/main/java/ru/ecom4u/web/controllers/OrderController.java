@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.busyness.DeliveryLogic;
+import ru.ecom4u.web.busyness.PaymentLogic;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
+import ru.ecom4u.web.busyness.payment.IPayment;
 import ru.ecom4u.web.controllers.dto.CardProductDTO;
 import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.PersonService;
@@ -32,6 +34,8 @@ public class OrderController {
     private ProductService productService;
     @Autowired
     private DeliveryLogic deliveryLogic;
+    @Autowired
+    private PaymentLogic paymentLogic;
     @Autowired
     private UserService userService;
     @Autowired
@@ -73,6 +77,16 @@ public class OrderController {
         });
 
         model.asMap().put("deliveries", deliveries);
+
+        List<IPayment> payments = paymentLogic.getAllIPayments();
+        Collections.sort(payments, new Comparator<IPayment>() {
+            @Override
+            public int compare(IPayment iPayment1, IPayment iPayment2) {
+                return iPayment1.getPaymentName().compareTo(iPayment2.getPaymentName());
+            }
+        });
+
+        model.asMap().put("payments", payments);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getByEmailOrLogin(auth.getName());
