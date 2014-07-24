@@ -25,8 +25,8 @@ import java.util.*;
  * Created by Evgeny on 15.05.14.
  */
 @Controller
-@RequestMapping(value = "order")
-public class OrderController {
+public class OrderController
+{
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -41,19 +41,22 @@ public class OrderController {
     @Autowired
     private PersonService personService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String home(HttpServletRequest request, Locale locale, Model model) {
+    @RequestMapping(value = "order", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, Locale locale, Model model)
+    {
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
         Enumeration<String> parameterNames = request.getParameterNames();
-        while (parameterNames.hasMoreElements()) {
+        while (parameterNames.hasMoreElements())
+        {
             String paramName = parameterNames.nextElement();
             String[] paramValues = request.getParameterValues(paramName);
             String paramValue = paramValues[0];
 
-            if (paramName.startsWith("pr")) {
+            if (paramName.startsWith("pr"))
+            {
                 Integer productId = Integer.parseInt(paramName.substring("pr".length()));
                 CardProductDTO cardProductDTO = new CardProductDTO();
                 cardProductDTO.setProduct(productService.getProductById(productId));
@@ -65,13 +68,16 @@ public class OrderController {
         model.asMap().put("cardProducts", cardProducts);
 
         List<IDelivery> deliveries = deliveryLogic.getAvailableDeliveries();
-        for(IDelivery delivery: deliveries){
+        for (IDelivery delivery : deliveries)
+        {
             System.err.println("delivery: " + delivery.getDeliveryName());
         }
 
-        Collections.sort(deliveries, new Comparator<IDelivery>() {
+        Collections.sort(deliveries, new Comparator<IDelivery>()
+        {
             @Override
-            public int compare(IDelivery delivery1, IDelivery delivery2) {
+            public int compare(IDelivery delivery1, IDelivery delivery2)
+            {
                 return delivery1.getDeliveryName().compareTo(delivery2.getDeliveryName());
             }
         });
@@ -79,9 +85,11 @@ public class OrderController {
         model.asMap().put("deliveries", deliveries);
 
         List<IPayment> payments = paymentLogic.getAllIPayments();
-        Collections.sort(payments, new Comparator<IPayment>() {
+        Collections.sort(payments, new Comparator<IPayment>()
+        {
             @Override
-            public int compare(IPayment iPayment1, IPayment iPayment2) {
+            public int compare(IPayment iPayment1, IPayment iPayment2)
+            {
                 return iPayment1.getPaymentName().compareTo(iPayment2.getPaymentName());
             }
         });
@@ -94,5 +102,23 @@ public class OrderController {
         model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
 
         return "order";
+    }
+
+    @RequestMapping(value = "order-created", method = RequestMethod.POST)
+    public String createOrder(HttpServletRequest request, Locale locale, Model model)
+    {
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements())
+        {
+            String paramName = parameterNames.nextElement();
+            String[] paramValues = request.getParameterValues(paramName);
+            String paramValue = paramValues[0];
+
+            System.out.println(paramName + ": " + paramValue);
+        }
+
+        //todo
+
+        return "order-created";
     }
 }

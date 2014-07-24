@@ -5,7 +5,6 @@
     var fillData = function () {
         var formData = $("#card_form").serializeArray();
 
-        var orderUrl = "${pageContext.request.contextPath}/order?";
         var sumPrice = 0;
         var sumWeight = 0;
         $(".product_row").each(function (index) {
@@ -20,8 +19,6 @@
 
                 var count = parseInt(countCnt.value);
                 var price = parseFloat(priceCnt.value);
-
-                orderUrl += "pr" + id + "=" + count + "&";
 
                 console.log(countCnt.value, priceCnt.value, multiPriceCnt);
 
@@ -39,9 +36,7 @@
         $("#card_sum_price")[0].innerHTML = Math.round(sumPrice * 100) / 100;
         $("#card_sum_weight")[0].innerHTML = Math.round(sumWeight * 100) / 100;
         $("#order_sum_price")[0].innerHTML = $("#card_sum_price")[0].innerHTML;
-
-        orderUrl = orderUrl.substr(0, orderUrl.length - 1);
-        $("a#toOrderLink")[0].href = orderUrl;
+        $("#card_sum_price_hidden")[0].value = $("#card_sum_price")[0].innerHTML;
     };
 
     $(document).ready(function () {
@@ -97,7 +92,8 @@
 <div id="card_content">
 <h3 style="margin-left: 10px;">Оформление заказа</h3>
 
-<form id="card_form">
+<form id="card_form" action="${pageContext.request.contextPath}/order-created" method="post">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <div id="card_card">
     <table id="card_table">
         <tr>
@@ -162,6 +158,7 @@
                 <div>
                     <b>Цена без доставки:</b> <span id="card_sum_price"></span>
                     <span class="card_sum_currency">${siteCurrency.shortName}</span>
+                    <input id="card_sum_price_hidden" type="hidden" name="card_sum" value="0" />
                 </div>
                 <div id="sum_weight">
                     <b>Суммарный вес:</b> <span id="card_sum_weight"></span>
@@ -253,10 +250,13 @@
     <tr>
         <td>Квартира:</td>
         <td>
-            <input id="country_apartments" style="width: 300px;"/>
+            <input id="country_apartments" name="country_apartments" style="width: 300px;"/>
         </td>
     </tr>
 </table>
+
+<input type="hidden" id="geo_name" name="geo_name" />
+
 
 <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 <script type="text/javascript">
@@ -329,6 +329,8 @@
                     var metaDataProperty = firstGeoObject.properties.get('metaDataProperty');
                     var addressDetails = metaDataProperty.GeocoderMetaData.AddressDetails;
 
+                    $("#geo_name").val(firstGeoObject.properties.get('text'));
+
                     var fullAddress = {};
 
                     // Country
@@ -365,7 +367,7 @@
                         balloonContent: firstGeoObject.properties.get('text')
                     });
 
-                    // checkDeliveryPrice();
+                    checkDeliveryPrice();
                 });
             }
         }
@@ -406,6 +408,7 @@
             success: function (data) {
                 console.log(data);
                 $("#delivery_price").text(data["price"]);
+                $("#delivery_price_hidden").val(data["price"]);
                 var cardPrice = parseFloat($("#card_sum_price").text());
                 $("#order_sum_price").text(data["price"] + cardPrice);
             },
@@ -430,6 +433,7 @@
             <div>
                 <b>Цена доставки:</b> <span id="delivery_price">0.0</span>
                 <span class="card_sum_currency">${siteCurrency.shortName}</span>
+                <input id="delivery_price_hidden" type="hidden" name="delivery_price" value="0" />
             </div>
             <div>
                 <b>Цена вместе с доставкой:</b> <span id="order_sum_price">124.68</span>
@@ -511,9 +515,7 @@
 </div>
 
 <div style="text-align: right; padding-right: 35px;">
-    <a id="toOrderLink" class="button">
-        Оформить заказ
-    </a>
+    <input type="submit" class="button" value="Оформить заказ" />
 </div>
 </form>
 </div>
