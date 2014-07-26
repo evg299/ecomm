@@ -234,6 +234,14 @@
             <version>0.9.9-RC1</version>
         </dependency>
 
+        <!-- Jsoap -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

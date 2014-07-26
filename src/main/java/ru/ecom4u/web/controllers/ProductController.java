@@ -110,7 +110,6 @@ public class ProductController extends AbstractController{
     private void setCookieToResponse(HttpServletResponse response, String name, String value) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
-        cookie.setHttpOnly(true);
         cookie.setMaxAge(COOKIE_MAX_AGE);
         response.addCookie(cookie);
     }

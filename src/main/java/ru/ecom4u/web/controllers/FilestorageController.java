@@ -28,7 +28,7 @@ public class FilestorageController {
 
     @RequestMapping(value = "download/{filename:.+}")
     public void downloadFile(@PathVariable(value = "filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-        ServletContext context = request.getServletContext();
+        ServletContext context = request.getSession().getServletContext();
         File file = fileStorageService.getFile(filename);
 
         if (null != file) {
