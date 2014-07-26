@@ -11,6 +11,7 @@ public class CardProductDTO {
     private Product product;
     private int count;
     private Date addedDate;
+    private Double price;
 
     public Product getProduct() {
         return product;
@@ -34,5 +35,15 @@ public class CardProductDTO {
 
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
+    }
+
+    public Double getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(Double price)
+    {
+        this.price = price;
     }
 }

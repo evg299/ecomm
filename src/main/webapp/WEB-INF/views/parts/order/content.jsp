@@ -223,34 +223,34 @@
     <tr>
         <td>Регион:</td>
         <td>
-            <input id="country_region" style="width: 300px;"/>
+            <input id="region_input" style="width: 300px;"/>
         </td>
     </tr>
     <tr>
         <td>Район:</td>
         <td>
-            <input id="country_raion" style="width: 300px;"/>
+            <input id="raion_input" style="width: 300px;"/>
         </td>
     </tr>
     <tr>
         <td>Нас. пункт:</td>
         <td>
-            <input id="country_location" style="width: 300px;"/>
+            <input id="location_input" style="width: 300px;"/>
         </td>
     </tr>
     <tr>
         <td>Адрес:</td>
         <td>
-            <input id="country_street" style="width: 300px;"/>
+            <input id="street_input" style="width: 300px;"/>
         </td>
         <td>
-            <input id="country_house" style="width: 100px;"/>
+            <input id="house_input" style="width: 100px;"/>
         </td>
     </tr>
     <tr>
         <td>Квартира:</td>
         <td>
-            <input id="country_apartments" name="country_apartments" style="width: 300px;"/>
+            <input id="apartments_input" name="apartments_input" style="width: 300px;"/>
         </td>
     </tr>
 </table>
@@ -267,7 +267,7 @@
         ymaps.geolocation.get().then(function (res) {
             var mapContainer = $('#map'),
                     bounds = res.geoObjects.get(0).properties.get('boundedBy'),
-            // Рассчитываем видимую область для текущей положения пользователя.
+                    // Рассчитываем видимую область для текущей положения пользователя.
                     mapState = ymaps.util.bounds.getCenterAndZoom(
                             bounds,
                             [mapContainer.width(), mapContainer.height()]
@@ -340,27 +340,27 @@
 
                     // AdministrativeArea
                     currentNode = addressDetails.Country.AdministrativeArea;
-                    document.getElementById("country_region").value = currentNode.AdministrativeAreaName;
+                    document.getElementById("region_input").value = currentNode.AdministrativeAreaName;
 
                     if (currentNode.SubAdministrativeArea) {
-                        document.getElementById("country_raion").value = currentNode.SubAdministrativeArea.SubAdministrativeAreaName;
+                        document.getElementById("raion_input").value = currentNode.SubAdministrativeArea.SubAdministrativeAreaName;
                         currentNode = currentNode.SubAdministrativeArea;
                     } else {
-                        document.getElementById("country_raion").value = "";
+                        document.getElementById("raion_input").value = "";
                     }
 
-                    document.getElementById("country_location").value = currentNode.Locality.LocalityName;
+                    document.getElementById("location_input").value = currentNode.Locality.LocalityName;
                     currentNode = currentNode.Locality;
 
                     if (currentNode.DependentLocality) {
-                        document.getElementById("country_location").value += ", " + currentNode.DependentLocality.DependentLocalityName;
+                        document.getElementById("location_input").value += ", " + currentNode.DependentLocality.DependentLocalityName;
                         currentNode = currentNode.DependentLocality;
                     }
 
-                    document.getElementById("country_street").value = currentNode.Thoroughfare.ThoroughfareName;
+                    document.getElementById("street_input").value = currentNode.Thoroughfare.ThoroughfareName;
                     currentNode = currentNode.Thoroughfare;
 
-                    document.getElementById("country_house").value = currentNode.Premise.PremiseNumber;
+                    document.getElementById("house_input").value = currentNode.Premise.PremiseNumber;
 
                     myPlacemark.properties.set({
                         // iconContent: firstGeoObject.properties.get('name'),
@@ -377,8 +377,8 @@
     function checkDeliveryPrice() {
         var upAddress = {
             country: document.getElementById("country_input").value,
-            region: document.getElementById("country_region").value,
-            city: document.getElementById("country_location").value.split(", ")[0]
+            region: document.getElementById("region_input").value,
+            city: document.getElementById("location_input").value.split(", ")[0]
         };
 
         var form = $("#card_form").serializeArray();
