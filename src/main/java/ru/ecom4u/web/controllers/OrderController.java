@@ -174,6 +174,11 @@ public class OrderController
         model.asMap().put("deliveryAddress", String.format("%s, %s", address, apartments));
         model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(deliveryUnicName));
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.getByEmailOrLogin(auth.getName());
+        model.asMap().put("person", user.getPerson());
+        model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
+
         return "order-created";
     }
 }
