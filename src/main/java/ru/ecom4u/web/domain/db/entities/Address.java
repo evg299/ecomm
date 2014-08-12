@@ -26,11 +26,6 @@ public class Address implements Serializable {
 	@Column(name = "hierarhy_json")
 	private String hierarhyJson;
 
-	// bi-directional many-to-one association to AddressCity
-	@ManyToOne
-	@JoinColumn(name = "address_city_id")
-	private AddressCity addressCity;
-
 	// bi-directional many-to-one association to AddressState
 	@ManyToOne
 	@JoinColumn(name = "address_satate_id", nullable = false)
@@ -67,13 +62,7 @@ public class Address implements Serializable {
 		this.hierarhyJson = hierarhyJson;
 	}
 
-	public AddressCity getAddressCity() {
-		return this.addressCity;
-	}
 
-	public void setAddressCity(AddressCity addressCity) {
-		this.addressCity = addressCity;
-	}
 
 	public AddressState getAddressState() {
 		return this.addressState;
@@ -113,8 +102,6 @@ public class Address implements Serializable {
         sb.append(country.getName());
         sb.append(", ");
         sb.append(addressState.getName());
-        sb.append(", ");
-        sb.append(addressCity.getName());
         sb.append(", ");
         sb.append(address);
 

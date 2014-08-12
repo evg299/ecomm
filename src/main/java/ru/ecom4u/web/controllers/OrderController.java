@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.busyness.DeliveryLogic;
@@ -12,6 +13,7 @@ import ru.ecom4u.web.busyness.PaymentLogic;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
 import ru.ecom4u.web.busyness.payment.IPayment;
 import ru.ecom4u.web.controllers.dto.CardProductDTO;
+import ru.ecom4u.web.domain.db.entities.Delivery;
 import ru.ecom4u.web.domain.db.entities.Product;
 import ru.ecom4u.web.domain.db.entities.User;
 import ru.ecom4u.web.domain.db.services.PersonService;
@@ -26,6 +28,7 @@ import java.util.*;
  * Created by Evgeny on 15.05.14.
  */
 @Controller
+@RequestMapping(value = "order")
 public class OrderController
 {
 
@@ -42,7 +45,7 @@ public class OrderController
     @Autowired
     private PersonService personService;
 
-    @RequestMapping(value = "order", method = RequestMethod.GET)
+    @RequestMapping(value = "new", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
         model.asMap().put("categoryName", "Категории товаров");
@@ -105,9 +108,13 @@ public class OrderController
         return "order";
     }
 
-    @RequestMapping(value = "order-created", method = RequestMethod.POST)
+    @RequestMapping(value = "new", method = RequestMethod.POST)
     public String createOrder(HttpServletRequest request, Locale locale, Model model)
     {
+        String uuid = UUID.randomUUID().toString();
+
+
+
         List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
         Double sumPrice = 0.0;
         Double sumWeight = 0.0;
@@ -158,10 +165,28 @@ public class OrderController
             {
                 deliveryUnicName = paramValue;
             }
+
+            if (paramName.equalsIgnoreCase("addr_country"))
+            {
+                System.err.println("" + paramValue);
+            }
+
+            if (paramName.equalsIgnoreCase("addr_region"))
+            {
+                System.err.println("" + paramValue);
+            }
         }
         model.asMap().put("cardProducts", cardProducts);
 
         //todo
+        Delivery delivery = new Delivery();
+        /*delivery.setCoast();
+        delivery.setAddress();
+        delivery.setWeight();
+        delivery.setPerson();*/
+
+
+
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
@@ -180,5 +205,10 @@ public class OrderController
         model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
 
         return "order-created";
+    }
+
+    @RequestMapping(value = "{orderUUID}", method = RequestMethod.GET)
+    public String viewOrder(@PathVariable String orderUUID, HttpServletRequest request, Locale locale, Model model) {
+        return null;
     }
 }
