@@ -5,7 +5,7 @@
     var fillData = function () {
         var formData = $("#card_form").serializeArray();
 
-        var orderUrl = "${pageContext.request.contextPath}/order/?";
+        var orderUrl = "${pageContext.request.contextPath}/order/new/?";
         var sumPrice = 0;
         var sumWeight = 0;
         $(".product_row").each(function (index) {

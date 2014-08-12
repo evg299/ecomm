@@ -1,121 +1,170 @@
 package ru.ecom4u.web.domain.db.entities;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 
 /**
  * The persistent class for the orders database table.
- * 
  */
 @Entity
-@Table(name="orders")
-public class Order implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "orders")
+public class Order implements Serializable
+{
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
-	private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private int id;
 
-	@Lob
-	private String comment;
+    @Column(nullable = false)
+    private String uuid;
 
-	@Column(name="creation_date", nullable=false)
-	private Timestamp creationDate;
+    @Lob
+    private String comment;
 
-	//bi-directional many-to-one association to Delivery
-	@OneToMany(mappedBy="order")
-	private List<Delivery> deliveries;
+    @Column(name = "creation_date", nullable = false)
+    private Timestamp creationDate;
 
-	//bi-directional many-to-one association to Delivery
-	@ManyToOne
-	@JoinColumn(name="delivery_id", nullable=false)
-	private Delivery delivery;
+    //bi-directional many-to-one association to Delivery
+    @OneToOne(mappedBy = "order")
+    private Delivery delivery;
 
-	//bi-directional many-to-one association to OrderStatus
-	@ManyToOne
-	@JoinColumn(name="order_status_id", nullable=false)
-	private OrderStatus orderStatus;
+    @Column(nullable = false)
+    private Double coast;
 
-	//bi-directional many-to-one association to Person
-	@ManyToOne
-	@JoinColumn(name="person_id", nullable=false)
-	private Person person;
+    @Column(name = "sum_coast", nullable = false)
+    private Double sumCoast;
 
-	public Order() {
-	}
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "order_status")
+    private OrderStatus orderStatus;
 
-	public int getId() {
-		return this.id;
-	}
+    @Column(name = "payment_class", nullable = false)
+    private String paymentClass;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    //bi-directional many-to-one association to Person
+    @ManyToOne
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
-	public String getComment() {
-		return this.comment;
-	}
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private List<OrderProduct> orderProducts;
 
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    public Order()
+    {
+    }
 
-	public Timestamp getCreationDate() {
-		return this.creationDate;
-	}
+    public int getId()
+    {
+        return this.id;
+    }
 
-	public void setCreationDate(Timestamp creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	public List<Delivery> getDeliveries() {
-		return this.deliveries;
-	}
+    public String getComment()
+    {
+        return this.comment;
+    }
 
-	public void setDeliveries(List<Delivery> deliveries) {
-		this.deliveries = deliveries;
-	}
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
 
-	public Delivery addDelivery(Delivery delivery) {
-		getDeliveries().add(delivery);
-		delivery.setOrder(this);
+    public Timestamp getCreationDate()
+    {
+        return this.creationDate;
+    }
 
-		return delivery;
-	}
+    public void setCreationDate(Timestamp creationDate)
+    {
+        this.creationDate = creationDate;
+    }
 
-	public Delivery removeDelivery(Delivery delivery) {
-		getDeliveries().remove(delivery);
-		delivery.setOrder(null);
+    public Delivery getDelivery()
+    {
+        return this.delivery;
+    }
 
-		return delivery;
-	}
+    public void setDelivery(Delivery delivery)
+    {
+        this.delivery = delivery;
+    }
 
-	public Delivery getDelivery() {
-		return this.delivery;
-	}
+    public OrderStatus getOrderStatus()
+    {
+        return this.orderStatus;
+    }
 
-	public void setDelivery(Delivery delivery) {
-		this.delivery = delivery;
-	}
+    public void setOrderStatus(OrderStatus orderStatus)
+    {
+        this.orderStatus = orderStatus;
+    }
 
-	public OrderStatus getOrderStatus() {
-		return this.orderStatus;
-	}
+    public Person getPerson()
+    {
+        return this.person;
+    }
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
-	}
+    public void setPerson(Person person)
+    {
+        this.person = person;
+    }
 
-	public Person getPerson() {
-		return this.person;
-	}
+    public Double getCoast()
+    {
+        return coast;
+    }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+    public void setCoast(Double coast)
+    {
+        this.coast = coast;
+    }
 
+    public Double getSumCoast()
+    {
+        return sumCoast;
+    }
+
+    public void setSumCoast(Double sumCoast)
+    {
+        this.sumCoast = sumCoast;
+    }
+
+    public String getUuid()
+    {
+        return uuid;
+    }
+
+    public void setUuid(String uuid)
+    {
+        this.uuid = uuid;
+    }
+
+    public String getPaymentClass()
+    {
+        return paymentClass;
+    }
+
+    public void setPaymentClass(String paymentClass)
+    {
+        this.paymentClass = paymentClass;
+    }
+
+    public List<OrderProduct> getOrderProducts()
+    {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProduct> orderProducts)
+    {
+        this.orderProducts = orderProducts;
+    }
 }
