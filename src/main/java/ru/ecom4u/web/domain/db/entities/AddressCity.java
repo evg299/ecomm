@@ -6,12 +6,12 @@ import java.util.List;
 
 
 /**
- * The persistent class for the address_states database table.
+ * The persistent class for the address_cities database table.
  * 
  */
 @Entity
-@Table(name="address_states")
-public class AddressState implements Serializable {
+@Table(name="address_cities")
+public class AddressCity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,24 +23,21 @@ public class AddressState implements Serializable {
 	@Column(nullable=false)
 	private String name;
 
-	@Lob
-	@Column(name="short_name")
-	private String shortName;
-
-	//bi-directional many-to-one association to AddressCity
-	@OneToMany(mappedBy="addressState")
-	private List<AddressCity> addressCities;
-
 	//bi-directional many-to-one association to AddressCountry
 	@ManyToOne
 	@JoinColumn(name="address_country_id", nullable=false)
 	private AddressCountry addressCountry;
 
+	//bi-directional many-to-one association to AddressState
+	@ManyToOne
+	@JoinColumn(name="address_state_id", nullable=false)
+	private AddressState addressState;
+
 	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="addressState")
+	@OneToMany(mappedBy="addressCity")
 	private List<Address> addresses;
 
-	public AddressState() {
+	public AddressCity() {
 	}
 
 	public int getId() {
@@ -59,42 +56,20 @@ public class AddressState implements Serializable {
 		this.name = name;
 	}
 
-	public String getShortName() {
-		return this.shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public List<AddressCity> getAddressCities() {
-		return this.addressCities;
-	}
-
-	public void setAddressCities(List<AddressCity> addressCities) {
-		this.addressCities = addressCities;
-	}
-
-	public AddressCity addAddressCity(AddressCity addressCity) {
-		getAddressCities().add(addressCity);
-		addressCity.setAddressState(this);
-
-		return addressCity;
-	}
-
-	public AddressCity removeAddressCity(AddressCity addressCity) {
-		getAddressCities().remove(addressCity);
-		addressCity.setAddressState(null);
-
-		return addressCity;
-	}
-
 	public AddressCountry getAddressCountry() {
 		return this.addressCountry;
 	}
 
 	public void setAddressCountry(AddressCountry addressCountry) {
 		this.addressCountry = addressCountry;
+	}
+
+	public AddressState getAddressState() {
+		return this.addressState;
+	}
+
+	public void setAddressState(AddressState addressState) {
+		this.addressState = addressState;
 	}
 
 	public List<Address> getAddresses() {
@@ -107,14 +82,14 @@ public class AddressState implements Serializable {
 
 	public Address addAddress(Address address) {
 		getAddresses().add(address);
-		address.setAddressState(this);
+		address.setAddressCity(this);
 
 		return address;
 	}
 
 	public Address removeAddress(Address address) {
 		getAddresses().remove(address);
-		address.setAddressState(null);
+		address.setAddressCity(null);
 
 		return address;
 	}

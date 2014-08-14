@@ -92,7 +92,7 @@
 <div id="card_content">
 <h3 style="margin-left: 10px;">Оформление заказа</h3>
 
-<form id="card_form" action="${pageContext.request.contextPath}/order/new" method="post">
+<form id="card_form" action="${pageContext.request.contextPath}/order-created" method="post">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 <div id="card_card">
     <table id="card_table">
@@ -108,7 +108,8 @@
                     <table>
                         <tr>
                             <td>
-                                <img src="${pageContext.request.contextPath}/filestorage/download/${cardProduct.product.picture.urlName}-m.${cardProduct.product.picture.extention}"
+                                <img
+                                        src="${pageContext.request.contextPath}/filestorage/download/${cardProduct.product.picture.urlName}-m.${cardProduct.product.picture.extention}"
                                         alt="${cardProduct.product.name}"
                                         style="width: 60px; border-width: 0px;"/>
                             </td>
@@ -323,13 +324,10 @@
                 ymaps.geocode(coords).then(function (res) {
                     var firstGeoObject = res.geoObjects.get(0);
 
-                    console.log(firstGeoObject.properties.get('name'));
-                    console.log(firstGeoObject.properties.get('metaDataProperty'));
-
+                    // console.log(firstGeoObject.properties.get('name'));
+                    // console.log(firstGeoObject.properties.get('metaDataProperty'));
                     var metaDataProperty = firstGeoObject.properties.get('metaDataProperty');
                     var addressDetails = metaDataProperty.GeocoderMetaData.AddressDetails;
-
-                    $("#hierarhy_addr_input").val(JSON.stringify(addressDetails));
 
                     $("#geo_name").val(firstGeoObject.properties.get('text'));
 
@@ -362,9 +360,7 @@
                     document.getElementById("street_input").value = currentNode.Thoroughfare.ThoroughfareName;
                     currentNode = currentNode.Thoroughfare;
 
-                    if (currentNode.Premise) {
-                        document.getElementById("house_input").value = currentNode.Premise.PremiseNumber;
-                    }
+                    document.getElementById("house_input").value = currentNode.Premise.PremiseNumber;
 
                     myPlacemark.properties.set({
                         // iconContent: firstGeoObject.properties.get('name'),
@@ -379,16 +375,11 @@
     }
 
     function checkDeliveryPrice() {
-        console.log("checkDeliveryPrice");
         var upAddress = {
             country: document.getElementById("country_input").value,
             region: document.getElementById("region_input").value,
             city: document.getElementById("location_input").value.split(", ")[0]
         };
-
-        $("#addr_country_input").val(upAddress.country);
-        $("#addr_region_input").val(upAddress.region);
-
 
         var form = $("#card_form").serializeArray();
         var delType = null;
@@ -431,13 +422,10 @@
 </script>
 
 <%--<input type="button" value="⇈"/> <input type="button" value="⇊"/>--%>
-<div id="map"></div>
-<%--<input type="button" value="Расчитать" onclick="checkDeliveryPrice();"/>--%>
-</div>
 
-<input type="hidden" name="addr_country" id="addr_country_input"/>
-<input type="hidden" name="addr_region" id="addr_region_input"/>
-<input type="hidden" name="hierarhy_addr" id="hierarhy_addr_input"/>
+<div id="map"></div>
+<input type="button" value="Расчитать" onclick="checkDeliveryPrice();"/>
+</div>
 
 <table style="width: 100%; margin-top: 15px;">
     <tr>
@@ -520,7 +508,7 @@
     <td style="background-color: #E0EDF5; padding: 10px;">
         <h3>Примечание к заказу:</h3>
 
-        <textarea name="comment" style="width: 100%; height: 120px;"></textarea>
+        <textarea style="width: 100%; height: 120px;"></textarea>
     </td>
 </tr>
 </table>
