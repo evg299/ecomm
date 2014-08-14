@@ -218,6 +218,7 @@ public class OrderController
 
         }
 
+        // не работает изза редиректа
         Cookie cookies[] = request.getCookies();
         for (int i = 0; i < cookies.length; i++)
         {
