@@ -23,6 +23,14 @@ public class AddressState implements Serializable {
 	@Column(nullable=false)
 	private String name;
 
+	@Lob
+	@Column(name="short_name")
+	private String shortName;
+
+	//bi-directional many-to-one association to AddressCity
+	@OneToMany(mappedBy="addressState")
+	private List<AddressCity> addressCities;
+
 	//bi-directional many-to-one association to AddressCountry
 	@ManyToOne
 	@JoinColumn(name="address_country_id", nullable=false)
@@ -49,6 +57,36 @@ public class AddressState implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getShortName() {
+		return this.shortName;
+	}
+
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public List<AddressCity> getAddressCities() {
+		return this.addressCities;
+	}
+
+	public void setAddressCities(List<AddressCity> addressCities) {
+		this.addressCities = addressCities;
+	}
+
+	public AddressCity addAddressCity(AddressCity addressCity) {
+		getAddressCities().add(addressCity);
+		addressCity.setAddressState(this);
+
+		return addressCity;
+	}
+
+	public AddressCity removeAddressCity(AddressCity addressCity) {
+		getAddressCities().remove(addressCity);
+		addressCity.setAddressState(null);
+
+		return addressCity;
 	}
 
 	public AddressCountry getAddressCountry() {
