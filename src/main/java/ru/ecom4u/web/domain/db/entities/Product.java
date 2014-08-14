@@ -11,7 +11,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "products")
-public class Product implements Serializable {
+public class Product implements Serializable
+{
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -70,163 +71,213 @@ public class Product implements Serializable {
     @JoinTable(name = "product_pictures", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "picture_id")})
     private List<Picture> additionalPictures;
 
-    public Product() {
+    @OneToMany(mappedBy = "product")
+    private List<OrderProduct> orderProducts;
+
+    public Product()
+    {
     }
 
-    public int getId() {
+    public int getId()
+    {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public int getAmt() {
+    public int getAmt()
+    {
         return this.amt;
     }
 
-    public void setAmt(int amt) {
+    public void setAmt(int amt)
+    {
         this.amt = amt;
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getUuid() {
+    public String getUuid()
+    {
         return this.uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(String uuid)
+    {
         this.uuid = uuid;
     }
 
-    public List<Comment> getComments() {
+    public List<Comment> getComments()
+    {
         return this.comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<Comment> comments)
+    {
         this.comments = comments;
     }
 
-    public Comment addComment(Comment comment) {
+    public Comment addComment(Comment comment)
+    {
         getComments().add(comment);
         comment.setProduct(this);
 
         return comment;
     }
 
-    public Comment removeComment(Comment comment) {
+    public Comment removeComment(Comment comment)
+    {
         getComments().remove(comment);
         comment.setProduct(null);
 
         return comment;
     }
 
-    public List<ProductProperty> getProductProperties() {
+    public List<ProductProperty> getProductProperties()
+    {
         return this.productProperties;
     }
 
-    public void setProductProperties(List<ProductProperty> productProperties) {
+    public void setProductProperties(List<ProductProperty> productProperties)
+    {
         this.productProperties = productProperties;
     }
 
-    public ProductProperty addProductProperty(ProductProperty productProperty) {
+    public ProductProperty addProductProperty(ProductProperty productProperty)
+    {
         getProductProperties().add(productProperty);
         productProperty.setProduct(this);
 
         return productProperty;
     }
 
-    public ProductProperty removeProductProperty(ProductProperty productProperty) {
+    public ProductProperty removeProductProperty(ProductProperty productProperty)
+    {
         getProductProperties().remove(productProperty);
         productProperty.setProduct(null);
 
         return productProperty;
     }
 
-    public Picture getPicture() {
+    public Picture getPicture()
+    {
         return this.picture;
     }
 
-    public void setPicture(Picture picture) {
+    public void setPicture(Picture picture)
+    {
         this.picture = picture;
     }
 
 
-    public ProductCategory getProductCategory() {
+    public ProductCategory getProductCategory()
+    {
         return this.productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(ProductCategory productCategory)
+    {
         this.productCategory = productCategory;
     }
 
-    public Timestamp getDateOfReceipt() {
+    public Timestamp getDateOfReceipt()
+    {
         return dateOfReceipt;
     }
 
-    public void setDateOfReceipt(Timestamp dateOfReceipt) {
+    public void setDateOfReceipt(Timestamp dateOfReceipt)
+    {
         this.dateOfReceipt = dateOfReceipt;
     }
 
-    public AuxProductCount getAuxProductCount() {
+    public AuxProductCount getAuxProductCount()
+    {
         return auxProductCount;
     }
 
-    public void setAuxProductCount(AuxProductCount auxProductCount) {
+    public void setAuxProductCount(AuxProductCount auxProductCount)
+    {
         this.auxProductCount = auxProductCount;
     }
 
-    public AuxProductRecommended getAuxProductRecommended() {
+    public AuxProductRecommended getAuxProductRecommended()
+    {
         return auxProductRecommended;
     }
 
-    public void setAuxProductRecommended(AuxProductRecommended auxProductRecommended) {
+    public void setAuxProductRecommended(AuxProductRecommended auxProductRecommended)
+    {
         this.auxProductRecommended = auxProductRecommended;
     }
 
-    public List<Picture> getAdditionalPictures() {
+    public List<Picture> getAdditionalPictures()
+    {
         return additionalPictures;
     }
 
-    public void setAdditionalPictures(List<Picture> additionalPictures) {
+    public void setAdditionalPictures(List<Picture> additionalPictures)
+    {
         this.additionalPictures = additionalPictures;
     }
 
-    public boolean isContainsVariants() {
+    public boolean isContainsVariants()
+    {
         return containsVariants;
     }
 
-    public void setContainsVariants(boolean containsVariants) {
+    public void setContainsVariants(boolean containsVariants)
+    {
         this.containsVariants = containsVariants;
     }
 
-    public Double getPrice() {
+    public Double getPrice()
+    {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Double price)
+    {
         this.price = price;
     }
 
-    public Double getWeight() {
+    public Double getWeight()
+    {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Double weight)
+    {
         this.weight = weight;
+    }
+
+    public List<OrderProduct> getOrderProducts()
+    {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(List<OrderProduct> orderProducts)
+    {
+        this.orderProducts = orderProducts;
     }
 }

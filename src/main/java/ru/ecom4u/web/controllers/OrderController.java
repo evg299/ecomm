@@ -5,35 +5,33 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.ecom4u.web.busyness.DeliveryLogic;
 import ru.ecom4u.web.busyness.PaymentLogic;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
 import ru.ecom4u.web.busyness.payment.IPayment;
 import ru.ecom4u.web.controllers.dto.CardProductDTO;
-<<<<<<< HEAD
 import ru.ecom4u.web.domain.db.entities.*;
 import ru.ecom4u.web.domain.db.services.*;
-=======
-import ru.ecom4u.web.domain.db.entities.Product;
-import ru.ecom4u.web.domain.db.entities.User;
-import ru.ecom4u.web.domain.db.services.PersonService;
-import ru.ecom4u.web.domain.db.services.ProductCategoryService;
-import ru.ecom4u.web.domain.db.services.ProductService;
-import ru.ecom4u.web.domain.db.services.UserService;
->>>>>>> f13c0105780753766da1b5b461e5ac3f65071602
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
  * Created by Evgeny on 15.05.14.
  */
 @Controller
+@RequestMapping(value = "order")
 public class OrderController
 {
-
     @Autowired
     private ProductCategoryService productCategoryService;
     @Autowired
@@ -46,8 +44,12 @@ public class OrderController
     private UserService userService;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private OrderService orderService;
 
-    @RequestMapping(value = "order", method = RequestMethod.GET)
+    @RequestMapping(value = "new", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
         model.asMap().put("categoryName", "Категории товаров");
@@ -110,7 +112,6 @@ public class OrderController
         return "order";
     }
 
-<<<<<<< HEAD
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public ModelAndView createOrder(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model, RedirectAttributes redirectAttributes) throws IOException
     {
@@ -126,18 +127,17 @@ public class OrderController
         orderService.save(order);
 
         List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
-=======
-    @RequestMapping(value = "order-created", method = RequestMethod.POST)
-    public String createOrder(HttpServletRequest request, Locale locale, Model model)
-    {
-        List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
->>>>>>> f13c0105780753766da1b5b461e5ac3f65071602
         Double sumPrice = 0.0;
         Double sumWeight = 0.0;
         Double deliveryPrice = 0.0;
-        String address = "";
+        String addr = "";
         String apartments = "";
         String deliveryUnicName = "";
+        String addrCountry = "";
+        String addrRegion = "";
+        String hierarhyJson = "";
+        String comment = "";
+        String payment = "";
         Enumeration<String> parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements())
         {
@@ -152,14 +152,23 @@ public class OrderController
                 int count = Integer.parseInt(paramValue);
 
                 System.err.println(String.format("prs: %s; %s", prId, count));
-                CardProductDTO cardProductDTO = new CardProductDTO();
+
                 Product product = productService.getProductById(prId);
+
+                OrderProduct orderProduct = new OrderProduct();
+                orderProduct.setProduct(product);
+                orderProduct.setCount(count);
+                orderProduct.setOrder(order);
+                orderService.save(orderProduct);
+                orderProducts.add(orderProduct);
+
+                CardProductDTO cardProductDTO = new CardProductDTO();
                 cardProductDTO.setProduct(product);
                 cardProductDTO.setCount(count);
                 cardProductDTO.setPrice(count * product.getPrice());
+
                 sumPrice += cardProductDTO.getPrice();
                 sumWeight += count * product.getWeight();
-                cardProducts.add(cardProductDTO);
             }
 
             if (paramName.equalsIgnoreCase("delivery_price"))
@@ -169,7 +178,7 @@ public class OrderController
 
             if (paramName.equalsIgnoreCase("geo_name"))
             {
-                address = paramValue;
+                addr = paramValue;
             }
 
             if (paramName.equalsIgnoreCase("apartments_input"))
@@ -181,7 +190,6 @@ public class OrderController
             {
                 deliveryUnicName = paramValue;
             }
-<<<<<<< HEAD
 
             if (paramName.equalsIgnoreCase("addr_country"))
             {
@@ -220,13 +228,9 @@ public class OrderController
                 c.setMaxAge(0);
                 response.addCookie(c);
             }
-=======
->>>>>>> f13c0105780753766da1b5b461e5ac3f65071602
         }
-        model.asMap().put("cardProducts", cardProducts);
 
         //todo
-<<<<<<< HEAD
         AddressCountry country = addressService.getAddressCountry(addrCountry);
         AddressState state = addressService.getAddressState(addrRegion, country);
         Address address = addressService.getOrCreateAddress(addr, apartments, hierarhyJson, state);
@@ -271,28 +275,23 @@ public class OrderController
             sumPrice += cardProductDTO.getPrice();
         }
         model.asMap().put("cardProducts", cardProducts);
-=======
->>>>>>> f13c0105780753766da1b5b461e5ac3f65071602
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
-        model.asMap().put("orderNum", UUID.randomUUID().toString().toUpperCase());
+        Delivery delivery = order.getDelivery();
+        Address address = delivery.getAddress();
+
+        model.asMap().put("orderNum", orderUUID.toUpperCase());
         model.asMap().put("sumPrice", sumPrice);
-        model.asMap().put("deliveryPrice", deliveryPrice);
-        model.asMap().put("allPrice", deliveryPrice + sumPrice);
-        model.asMap().put("sumWeight", sumWeight);
+        model.asMap().put("deliveryPrice", delivery.getCoast());
+        model.asMap().put("allPrice", delivery.getCoast() + sumPrice);
+        model.asMap().put("sumWeight", delivery.getWeight());
+        model.asMap().put("deliveryAddress", String.format("%s, %s", address.getAddress(), address.getApartments()));
+        model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(delivery.getDeliveryClass()));
+        model.asMap().put("person", order.getPerson());
+        model.asMap().put("personContacts", personService.getPersonContacts(order.getPerson()));
 
-        model.asMap().put("deliveryAddress", String.format("%s, %s", address, apartments));
-        model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(deliveryUnicName));
 
-<<<<<<< HEAD
-=======
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.getByEmailOrLogin(auth.getName());
-        model.asMap().put("person", user.getPerson());
-        model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
-
->>>>>>> f13c0105780753766da1b5b461e5ac3f65071602
         return "order-created";
     }
 }
