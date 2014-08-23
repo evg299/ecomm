@@ -21,7 +21,8 @@
                 var count = parseInt(countCnt.value);
                 var price = parseFloat(priceCnt.value);
 
-                orderUrl += "pr" + id + "=" + count + "&";
+                var variant = "count=" + count + "&date=" + new Date().getTime();
+                setCookie("card-" + id, variant);
 
                 console.log(countCnt.value, priceCnt.value, multiPriceCnt);
 
@@ -38,9 +39,6 @@
 
         $("#card_sum_price")[0].innerHTML = Math.round(sumPrice * 100) / 100;
         $("#card_sum_weight")[0].innerHTML = Math.round(sumWeight * 100) / 100;
-
-        orderUrl = orderUrl.substr(0, orderUrl.length - 1);
-        $("a#toOrderLink")[0].href = orderUrl;
     };
 
     $(document).ready(function () {
@@ -97,7 +95,7 @@
     <h3 style="margin-left: 10px;">Корзина</h3>
 
     <div id="card_card">
-        <form id="card_form">
+        <form id="card_form" action="${pageContext.request.contextPath}/order/new/">
             <table style="width: 100%;">
                 <tr>
                     <td><input id="check_all" type="checkbox"/> <big>Выделить все</big></td>
@@ -150,10 +148,10 @@
                         </td>
                         <td style="text-align: center;">На складе</td>
                         <td style="text-align: center;">
-                            <input id="picker-${cardProduct.product.id}" name="picker-${cardProduct.product.id}"
+                            <input id="picker-${cardProduct.product.id}"
                                    class="count_picker" type="number" value="${cardProduct.count}" min="1"
                                    style="width: 40px;"/>
-                            <input id="price-${cardProduct.product.id}" name="price-${cardProduct.product.id}"
+                            <input id="price-${cardProduct.product.id}"
                                    type="hidden"
                                    value="<s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)" />"/>
                             <span style="padding: 5px;">x</span> <s:eval
@@ -180,7 +178,7 @@
                         </div>
                     </td>
                     <td style="text-align: right; vertical-align: bottom;">
-                        <a id="toOrderLink" class="button">
+                        <a id="toOrderLink" class="button" onclick="document.getElementById('card_form').submit();">
                             Заказать
                         </a>
                     </td>

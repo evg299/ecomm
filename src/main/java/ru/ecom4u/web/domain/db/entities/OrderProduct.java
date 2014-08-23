@@ -2,6 +2,7 @@ package ru.ecom4u.web.domain.db.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Evgeny on 14.08.14.
@@ -25,6 +26,8 @@ public class OrderProduct implements Serializable
     private Product product;
 
     private int count;
+
+    private Date addedDate;
 
     public int getId()
     {
@@ -64,5 +67,15 @@ public class OrderProduct implements Serializable
     public void setCount(int count)
     {
         this.count = count;
+    }
+
+    public Date getAddedDate()
+    {
+        return addedDate;
+    }
+
+    public void setAddedDate(Date addedDate)
+    {
+        this.addedDate = addedDate;
     }
 }

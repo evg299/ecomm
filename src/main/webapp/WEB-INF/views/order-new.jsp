@@ -25,7 +25,7 @@
     <%@include file="parts/search-form.jsp"%>
 </div>
 
-<%@include file="parts/order-created/content.jsp"%>
+<%@include file="parts/order/content-new.jsp"%>
 
 <%@include file="parts/footer.jsp"%>
 </body>

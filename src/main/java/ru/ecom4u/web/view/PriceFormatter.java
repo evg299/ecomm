@@ -28,7 +28,11 @@ public class PriceFormatter {
 
     public String formatInCard(Double price) {
         Currency siteCurrency = sitePropertiesService.getSiteCurrency();
-        Double convertedPrice = price + siteCurrency.getRate();
+
+        if(null == price)
+            price = 0.0;
+
+        Double convertedPrice = price * siteCurrency.getRate();
 
         DecimalFormat df = new DecimalFormat("0.00");
         return df.format(convertedPrice).replace(",", ".");

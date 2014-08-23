@@ -8,8 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.ecom4u.web.busyness.DeliveryLogic;
 import ru.ecom4u.web.busyness.PaymentLogic;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
@@ -21,7 +20,8 @@ import ru.ecom4u.web.domain.db.services.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -56,21 +56,34 @@ public class OrderController
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
-        Enumeration<String> parameterNames = request.getParameterNames();
-        while (parameterNames.hasMoreElements())
+        Cookie cookies[] = request.getCookies();
+        for (int i = 0; i < cookies.length; i++)
         {
-            String paramName = parameterNames.nextElement();
-            String[] paramValues = request.getParameterValues(paramName);
-            String paramValue = paramValues[0];
-
-            if (paramName.startsWith("pr"))
+            Cookie c = cookies[i];
+            try
             {
-                Integer productId = Integer.parseInt(paramName.substring("pr".length()));
-                CardProductDTO cardProductDTO = new CardProductDTO();
-                cardProductDTO.setProduct(productService.getProductById(productId));
-                cardProductDTO.setCount(Integer.parseInt(paramValue));
-                cardProducts.add(cardProductDTO);
+                String name = c.getName();
+                if (name.startsWith("card-"))
+                {
+                    String idString = name.substring("card-".length(), name.length());
+                    String value = URLDecoder.decode(c.getValue(), "UTF-8");
+                    Map<String, String> parmMap = parseCookieValue(value);
+
+                    CardProductDTO cardProductDTO = new CardProductDTO();
+                    cardProductDTO.setProduct(productService.getProductById(Integer.parseInt(idString)));
+                    cardProductDTO.setCount(Integer.parseInt(parmMap.get("count")));
+                    cardProductDTO.setAddedDate(new Date(Long.parseLong(parmMap.get("date"))));
+                    cardProducts.add(cardProductDTO);
+                }
+            } catch (UnsupportedEncodingException e)
+            {
+                e.printStackTrace();
             }
+        }
+
+        if (0 == cardProducts.size())
+        {
+            return "redirect:/";
         }
 
         model.asMap().put("cardProducts", cardProducts);
@@ -109,11 +122,20 @@ public class OrderController
         model.asMap().put("person", user.getPerson());
         model.asMap().put("personContacts", personService.getPersonContacts(user.getPerson()));
 
-        return "order";
+        return "order-new";
     }
 
-    @RequestMapping(value = "new", method = RequestMethod.POST)
-    public ModelAndView createOrder(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model, RedirectAttributes redirectAttributes) throws IOException
+    @RequestMapping(method = RequestMethod.POST)
+    public String addOrder(@RequestParam(value = "delivery_price", required = false) Double deliveryPrice,
+                           @RequestParam(value = "geo_name", required = false) String address,
+                           @RequestParam(value = "apartments_input", required = false) String apartments,
+                           @RequestParam(value = "delivery", required = false) String deliveryUnicName,
+                           @RequestParam(value = "addr_country", required = false) String addressCountry,
+                           @RequestParam(value = "addr_region", required = false) String addressRegion,
+                           @RequestParam(value = "hierarhy_addr", required = false) String hierarchyJson,
+                           @RequestParam(value = "comment", required = false) String comment,
+                           @RequestParam(value = "payment", required = false) String payment,
+                           HttpServletRequest request, HttpServletResponse response, Locale locale, Model model)
     {
         String uuid = UUID.randomUUID().toString();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -126,38 +148,29 @@ public class OrderController
         order.setOrderStatus(OrderStatus.expects);
         orderService.save(order);
 
-        List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+
         Double sumPrice = 0.0;
         Double sumWeight = 0.0;
-        Double deliveryPrice = 0.0;
-        String addr = "";
-        String apartments = "";
-        String deliveryUnicName = "";
-        String addrCountry = "";
-        String addrRegion = "";
-        String hierarhyJson = "";
-        String comment = "";
-        String payment = "";
-        Enumeration<String> parameterNames = request.getParameterNames();
-        while (parameterNames.hasMoreElements())
+        List<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
+        Cookie cookies[] = request.getCookies();
+        for (int i = 0; i < cookies.length; i++)
         {
-            String paramName = parameterNames.nextElement();
-            String[] paramValues = request.getParameterValues(paramName);
-            String paramValue = paramValues[0];
-
-            System.err.println(paramName + ": " + paramValue);
-            if (paramName.startsWith("picker-"))
+            Cookie c = cookies[i];
+            String name = c.getName();
+            if (name.startsWith("card-"))
             {
-                int prId = Integer.parseInt(paramName.substring("picker-".length()));
-                int count = Integer.parseInt(paramValue);
+                String idString = name.substring("card-".length(), name.length());
+                String value = getCookieValue(c);
+                Map<String, String> parmMap = parseCookieValue(value);
 
-                System.err.println(String.format("prs: %s; %s", prId, count));
-
-                Product product = productService.getProductById(prId);
+                Product product = productService.getProductById(Integer.parseInt(idString));
+                Integer count = Integer.parseInt(parmMap.get("count"));
+                Long dateMS = Long.parseLong(parmMap.get("date"));
 
                 OrderProduct orderProduct = new OrderProduct();
                 orderProduct.setProduct(product);
                 orderProduct.setCount(count);
+                orderProduct.setAddedDate(new Date(dateMS));
                 orderProduct.setOrder(order);
                 orderService.save(orderProduct);
                 orderProducts.add(orderProduct);
@@ -169,72 +182,15 @@ public class OrderController
 
                 sumPrice += cardProductDTO.getPrice();
                 sumWeight += count * product.getWeight();
-            }
 
-            if (paramName.equalsIgnoreCase("delivery_price"))
-            {
-                deliveryPrice = Double.parseDouble(paramValue);
-            }
-
-            if (paramName.equalsIgnoreCase("geo_name"))
-            {
-                addr = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("apartments_input"))
-            {
-                apartments = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("delivery"))
-            {
-                deliveryUnicName = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("addr_country"))
-            {
-                addrCountry = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("addr_region"))
-            {
-                addrRegion = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("hierarhy_addr"))
-            {
-                hierarhyJson = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("comment"))
-            {
-                comment = paramValue;
-            }
-
-            if (paramName.equalsIgnoreCase("payment"))
-            {
-                payment = paramValue;
-            }
-
-        }
-
-        // не работает изза редиректа
-        Cookie cookies[] = request.getCookies();
-        for (int i = 0; i < cookies.length; i++)
-        {
-            Cookie c = cookies[i];
-            String name = c.getName();
-            if (name.startsWith("card-"))
-            {
                 c.setMaxAge(0);
                 response.addCookie(c);
             }
         }
 
-        //todo
-        AddressCountry country = addressService.getAddressCountry(addrCountry);
-        AddressState state = addressService.getAddressState(addrRegion, country);
-        Address address = addressService.getOrCreateAddress(addr, apartments, hierarhyJson, state);
+        AddressCountry country = addressService.getAddressCountry(addressCountry);
+        AddressState state = addressService.getAddressState(addressRegion, country);
+        Address addressDelivery = addressService.getOrCreateAddress(address, apartments, hierarchyJson, state);
 
         order.setCoast(sumPrice);
         order.setSumCoast(sumPrice + deliveryPrice);
@@ -245,16 +201,38 @@ public class OrderController
 
         Delivery delivery = new Delivery();
         delivery.setCoast(deliveryPrice);
-        delivery.setAddress(address);
+        delivery.setAddress(addressDelivery);
         delivery.setWeight(sumWeight);
         delivery.setPerson(user.getPerson());
         delivery.setDeliveryClass(deliveryUnicName);
         delivery.setOrder(order);
         orderService.save(delivery);
 
-        redirectAttributes.asMap().clear();
+        List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
+        for(OrderProduct orderProduct: order.getOrderProducts()){
+            CardProductDTO cardProductDTO = new CardProductDTO();
+            cardProductDTO.setProduct(orderProduct.getProduct());
+            cardProductDTO.setCount(orderProduct.getCount());
+            cardProductDTO.setAddedDate(orderProduct.getAddedDate());
+            cardProducts.add(cardProductDTO);
+        }
 
-        return new ModelAndView(String.format("redirect:/order/%s", uuid));
+        model.asMap().put("cardProducts", cardProducts);
+        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
+
+        model.asMap().put("message", "Заказ создан");
+        model.asMap().put("orderNum", uuid.toUpperCase());
+        model.asMap().put("sumPrice", sumPrice);
+        model.asMap().put("deliveryPrice", delivery.getCoast());
+        model.asMap().put("allPrice", delivery.getCoast() + sumPrice);
+        model.asMap().put("sumWeight", delivery.getWeight());
+        model.asMap().put("deliveryAddress", String.format("%s, %s", addressDelivery.getAddress(), addressDelivery.getApartments()));
+        model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(delivery.getDeliveryClass()));
+        model.asMap().put("person", order.getPerson());
+        model.asMap().put("personContacts", personService.getPersonContacts(order.getPerson()));
+
+        return "order";
     }
 
     @RequestMapping(value = "{orderUUID}", method = RequestMethod.GET)
@@ -292,7 +270,30 @@ public class OrderController
         model.asMap().put("person", order.getPerson());
         model.asMap().put("personContacts", personService.getPersonContacts(order.getPerson()));
 
+        return "order";
+    }
 
-        return "order-created";
+    private String getCookieValue(Cookie c)
+    {
+        try
+        {
+            return URLDecoder.decode(c.getValue(), "UTF-8");
+        } catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Map<String, String> parseCookieValue(String value)
+    {
+        Map<String, String> result = new TreeMap<String, String>();
+        String[] couples = value.split("&");
+        for (String couple : couples)
+        {
+            String[] parts = couple.split("=");
+            result.put(parts[0], parts[1]);
+        }
+        return result;
     }
 }

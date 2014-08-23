@@ -58,9 +58,6 @@ public class MaintenanceInterceptor extends HandlerInterceptorAdapter {
                     modelAndView.getModel().put("currentUser", user);
                 }
             }
-
-
-
         }
 
         super.postHandle(request, response, handler, modelAndView);
