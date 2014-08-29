@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 
 <div id="card_content">
-<h3 style="margin-left: 10px;">Заказ № ${orderNum}</h3>
+<h3 style="margin-left: 10px;">Заказ № <a href="${pageContext.request.contextPath}/order/${orderNum}">${orderNum}</a></h3>
 
 <div id="card_card">
 <table id="card_table">
@@ -56,7 +56,7 @@
             </td>
             <td style="text-align: center;">
                 = <span id="multuPrice-${cardProduct.product.id}" class="card_price">
-                <s:eval expression="@priceFormatter.formatInCard(cardProduct.product.price)"/></span>
+                <s:eval expression="@priceFormatter.formatInCard(cardProduct.count * cardProduct.product.price)"/></span>
                 <span class="card_currency">${siteCurrency.shortName}</span>
             </td>
         </tr>
@@ -254,14 +254,14 @@
     <h3>Оплата</h3>
     <table>
         <tr>
-            <td style="vertical-align: top; font-weight: bold; width: 150px;">Система оплаты:</td>
-            <td>
-                <img src="https://www.paypalobjects.com/ru_RU/RU/Marketing/i/btn/btn_buynow_150wx70h.gif"/>
-            </td>
-        </tr>
-        <tr>
             <td style="vertical-align: top; font-weight: bold;">Статус оплаты:</td>
             <td><span style="font-weight: bold;">Не оплачен</span> → Оплачен</td>
+        </tr>
+        <tr>
+            <td style="vertical-align: top; font-weight: bold; width: 150px;">Система оплаты:</td>
+            <td>
+                <img src="https://www.paypalobjects.com/ru_RU/RU/i/btn/btn_buynowCC_LG.gif"/>
+            </td>
         </tr>
     </table>
 </div>

@@ -130,7 +130,7 @@
                                             <a href="${pageContext.request.contextPath}/products/${cardProduct.product.uuid}"
                                                target="_blank">${cardProduct.product.name}</a>
                                         </div>
-                                        <div class="card_product_added">Добавлен ${cardProduct.addedDate}</div>
+                                        <div class="card_product_added">Добавлен <s:eval expression="@dateFormatter.formatDate(cardProduct.addedDate)" /></div>
                                     </td>
                                 </tr>
                             </table>

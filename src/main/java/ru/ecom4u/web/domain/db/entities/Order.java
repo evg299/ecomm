@@ -2,7 +2,7 @@ package ru.ecom4u.web.domain.db.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,7 +27,7 @@ public class Order implements Serializable
     private String comment;
 
     @Column(name = "creation_date", nullable = false)
-    private Timestamp creationDate;
+    private Date creationDate;
 
     //bi-directional many-to-one association to Delivery
     @OneToOne(mappedBy = "order")
@@ -78,12 +78,12 @@ public class Order implements Serializable
         this.comment = comment;
     }
 
-    public Timestamp getCreationDate()
+    public Date getCreationDate()
     {
-        return this.creationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate)
+    public void setCreationDate(Date creationDate)
     {
         this.creationDate = creationDate;
     }
@@ -166,5 +166,29 @@ public class Order implements Serializable
     public void setOrderProducts(List<OrderProduct> orderProducts)
     {
         this.orderProducts = orderProducts;
+    }
+
+    public boolean isDone()
+    {
+        if (OrderStatus.done == getOrderStatus())
+            return true;
+
+        return false;
+    }
+
+    public boolean isExpects()
+    {
+        if (OrderStatus.expects == getOrderStatus())
+            return true;
+
+        return false;
+    }
+
+    public boolean isDelivered()
+    {
+        if (OrderStatus.delivered == getOrderStatus())
+            return true;
+
+        return false;
     }
 }
