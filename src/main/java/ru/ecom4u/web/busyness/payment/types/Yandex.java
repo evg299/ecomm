@@ -5,11 +5,20 @@ import ru.ecom4u.web.busyness.delivery.types.FixPrice;
 import ru.ecom4u.web.busyness.delivery.types.Pickup;
 import ru.ecom4u.web.busyness.payment.IPayment;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * Created by Evgeny on 07.07.14.
  */
-public class PayPal implements IPayment
+public class Yandex implements IPayment
 {
+    @Override
+    public boolean isPayFirst()
+    {
+        return true;
+    }
+
     @Override
     public boolean supportDelivery(Class<?> deliveryClass)
     {
@@ -26,7 +35,19 @@ public class PayPal implements IPayment
     @Override
     public String getPaymentName()
     {
-        return "PayPal";
+        return "Yandex деньги";
+    }
+
+    @Override
+    public Map<String, String> getStaticProperties()
+    {
+        return new LinkedHashMap<String, String>();
+    }
+
+    @Override
+    public Map<String, String> getDbKeyDescMap()
+    {
+        return new LinkedHashMap<String, String>();
     }
 
     @Override

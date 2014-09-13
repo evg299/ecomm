@@ -260,7 +260,14 @@
         <tr>
             <td style="vertical-align: top; font-weight: bold; width: 150px;">Система оплаты:</td>
             <td>
-                <img src="https://www.paypalobjects.com/ru_RU/RU/i/btn/btn_buynowCC_LG.gif"/>
+                <div>
+                    ${paymentName}
+                </div>
+                <script type="text/javascript" src="https://auth.robokassa.ru/Merchant/PaymentForm/FormMS.js?MerchantLogin=demo&OutSum=11.00&InvoiceID=&Description=%d0%9e%d0%bf%d0%bb%d0%b0%d1%82%d0%b0+%d0%b7%d0%b0%d0%ba%d0%b0%d0%b7%d0%b0+%d0%b2+%d0%a2%d0%b5%d1%81%d1%82%d0%be%d0%b2%d0%be%d0%bc+%d0%bc%d0%b0%d0%b3%d0%b0%d0%b7%d0%b8%d0%bd%d0%b5+ROBOKASSA&shpItem=1&Culture=ru&Encoding=utf-8&SignatureValue=4ee757df58e80468402f3539b5e2922a"></script>
+                <%--
+                <br />
+                <iframe frameborder="0" allowtransparency="true" scrolling="no" src="https://money.yandex.ru/embed/small.xml?account=410012402776089&quickpay=small&yamoney-payment-type=on&button-text=01&button-size=l&button-color=white&targets=qweqwe&default-sum=10&successURL=http%3A%2F%2Flocalhost%3A8080%2Forder%2FE89015BF-6EF0-4AD0-B8E7-85D721D64AB8" width="228" height="54"></iframe>
+                --%>
             </td>
         </tr>
     </table>

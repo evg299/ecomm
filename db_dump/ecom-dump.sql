@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   PRIMARY KEY (`id`),
   KEY `FK_12r1ipl31kcatuvxqv47g1kq8` (`address_satate_id`),
   CONSTRAINT `FK_address_address_state` FOREIGN KEY (`address_satate_id`) REFERENCES `address_states` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.addresses: ~24 rows (приблизительно)
+-- Дамп данных таблицы ecom.addresses: ~43 rows (приблизительно)
 DELETE FROM `addresses`;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
 INSERT INTO `addresses` (`id`, `address_satate_id`, `address`, `apartments`, `hierarhy_json`) VALUES
@@ -54,7 +54,17 @@ INSERT INTO `addresses` (`id`, `address_satate_id`, `address`, `apartments`, `hi
 	(21, 925, 'Россия, Киров, Московская улица, 189к1', '77', '{"Country":{"AddressLine":"Киров, Московская улица, 189к1","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"189к1"}}}}}}}'),
 	(22, 925, 'Россия, Киров, Московская улица, 156', '89', '{"Country":{"AddressLine":"Киров, Московская улица, 156","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"156"}}}}}}}'),
 	(23, 925, 'Россия, Киров, Московская улица, 140', '13', '{"Country":{"AddressLine":"Киров, Московская улица, 140","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"140"}}}}}}}'),
-	(24, 925, 'Россия, Киров, Ульяновская улица, 14', '', '{"Country":{"AddressLine":"Киров, Ульяновская улица, 14","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Ульяновская улица","Premise":{"PremiseNumber":"14"}}}}}}}');
+	(24, 925, 'Россия, Киров, Ульяновская улица, 14', '', '{"Country":{"AddressLine":"Киров, Ульяновская улица, 14","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Ульяновская улица","Premise":{"PremiseNumber":"14"}}}}}}}'),
+	(25, 925, 'Россия, Киров, улица Андрея Упита, 9', '89', '{"Country":{"AddressLine":"Киров, улица Андрея Упита, 9","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"улица Андрея Упита","Premise":{"PremiseNumber":"9"}}}}}}}'),
+	(26, 925, 'Россия, Киров, Московская улица, 152', '22', '{"Country":{"AddressLine":"Киров, Московская улица, 152","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"152"}}}}}}}'),
+	(27, 925, 'Россия, Киров, Московская улица, 152', '', '{"Country":{"AddressLine":"Киров, Московская улица, 152","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"152"}}}}}}}'),
+	(28, 925, 'Россия, Киров, улица Андрея Упита, 11', '22', '{"Country":{"AddressLine":"Киров, улица Андрея Упита, 11","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"улица Андрея Упита","Premise":{"PremiseNumber":"11"}}}}}}}'),
+	(29, 925, 'Россия, Киров, улица Андрея Упита, 16', '', '{"Country":{"AddressLine":"Киров, улица Андрея Упита, 16","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"улица Андрея Упита","Premise":{"PremiseNumber":"16"}}}}}}}'),
+	(30, 925, 'Россия, Киров, улица Андрея Упита, 9', '88', '{"Country":{"AddressLine":"Киров, улица Андрея Упита, 9","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"улица Андрея Упита","Premise":{"PremiseNumber":"9"}}}}}}}'),
+	(31, 925, 'Россия, Киров, Московская улица, 189к1', '89', '{"Country":{"AddressLine":"Киров, Московская улица, 189к1","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"189к1"}}}}}}}'),
+	(32, 925, 'Россия, Киров, Московская улица, 189к1', '13', '{"Country":{"AddressLine":"Киров, Московская улица, 189к1","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Московская улица","Premise":{"PremiseNumber":"189к1"}}}}}}}'),
+	(33, 925, 'Россия, Киров, Ульяновская улица, 14к3', '13', '{"Country":{"AddressLine":"Киров, Ульяновская улица, 14к3","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"Ульяновская улица","Premise":{"PremiseNumber":"14к3"}}}}}}}'),
+	(34, 925, 'Россия, Киров, улица Андрея Упита, 9', '77', '{"Country":{"AddressLine":"Киров, улица Андрея Упита, 9","CountryNameCode":"RU","CountryName":"Россия","AdministrativeArea":{"AdministrativeAreaName":"Кировская область","SubAdministrativeArea":{"SubAdministrativeAreaName":"городской округ Киров","Locality":{"LocalityName":"Киров","Thoroughfare":{"ThoroughfareName":"улица Андрея Упита","Premise":{"PremiseNumber":"9"}}}}}}}');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 
 
@@ -189,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `address_states` (
   CONSTRAINT `FK_address_state_address_country` FOREIGN KEY (`address_country_id`) REFERENCES `address_countries` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=926 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.address_states: ~1 092 rows (приблизительно)
+-- Дамп данных таблицы ecom.address_states: ~941 rows (приблизительно)
 DELETE FROM `address_states`;
 /*!40000 ALTER TABLE `address_states` DISABLE KEYS */;
 INSERT INTO `address_states` (`id`, `address_country_id`, `name`) VALUES
@@ -1131,7 +1141,7 @@ CREATE TABLE IF NOT EXISTS `aux_product_count` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=578 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.aux_product_count: ~771 rows (приблизительно)
+-- Дамп данных таблицы ecom.aux_product_count: ~385 rows (приблизительно)
 DELETE FROM `aux_product_count`;
 /*!40000 ALTER TABLE `aux_product_count` DISABLE KEYS */;
 INSERT INTO `aux_product_count` (`id`, `product_id`, `sell_count`, `card_count`, `view_count`) VALUES
@@ -1796,7 +1806,7 @@ CREATE TABLE IF NOT EXISTS `aux_product_related` (
   CONSTRAINT `FK_aux_product_related_products_2` FOREIGN KEY (`product_id_2`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1060 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.aux_product_related: ~841 rows (приблизительно)
+-- Дамп данных таблицы ecom.aux_product_related: ~1 028 rows (приблизительно)
 DELETE FROM `aux_product_related`;
 /*!40000 ALTER TABLE `aux_product_related` DISABLE KEYS */;
 INSERT INTO `aux_product_related` (`id`, `product_id_1`, `product_id_2`) VALUES
@@ -2941,9 +2951,9 @@ CREATE TABLE IF NOT EXISTS `deliveries` (
   CONSTRAINT `FK_delivery_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
   CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
   CONSTRAINT `FK_delivery_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.deliveries: ~28 rows (приблизительно)
+-- Дамп данных таблицы ecom.deliveries: ~45 rows (приблизительно)
 DELETE FROM `deliveries`;
 /*!40000 ALTER TABLE `deliveries` DISABLE KEYS */;
 INSERT INTO `deliveries` (`id`, `person_id`, `address_id`, `order_id`, `weight`, `coast`, `delivery_class`) VALUES
@@ -2974,7 +2984,24 @@ INSERT INTO `deliveries` (`id`, `person_id`, `address_id`, `order_id`, `weight`,
 	(25, 3, 23, 26, 55, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
 	(26, 3, 23, 27, 0, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
 	(27, 3, 23, 28, 0, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
-	(28, 3, 24, 29, 3, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS');
+	(28, 3, 24, 29, 3, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(29, 3, 19, 30, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(30, 3, 25, 31, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(31, 3, 26, 32, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(32, 3, 27, 33, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(33, 3, 28, 34, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(34, 3, 15, 35, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(35, 3, 15, 36, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(36, 3, 15, 37, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(37, 3, 15, 38, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(38, 3, 15, 39, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(39, 3, 29, 40, 15, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(40, 3, 30, 41, 452, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(41, 3, 21, 42, 67, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(42, 3, 31, 43, 3, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(43, 3, 32, 44, 58, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(44, 3, 33, 45, 58, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS'),
+	(45, 3, 34, 46, 58, 540, 'ru.ecom4u.web.busyness.delivery.types.EMS');
 /*!40000 ALTER TABLE `deliveries` ENABLE KEYS */;
 
 
@@ -2992,13 +3019,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `FK_iej2da8bimqjxwvdma0eq8qus` (`person_id`),
   CONSTRAINT `FK_orders_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.orders: ~29 rows (приблизительно)
+-- Дамп данных таблицы ecom.orders: ~46 rows (приблизительно)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `uuid`, `person_id`, `order_status`, `coast`, `sum_coast`, `creation_date`, `payment_class`, `comment`) VALUES
-	(1, '0edd9a8f-22b5-4bf8-aa84-45ba025d0d54', 3, 0, 5.89, 545.89, '2014-08-14 06:25:55', '', 'лл'),
+	(1, '0edd9a8f-22b5-4bf8-aa84-45ba025d0d54', 3, 2, 5.89, 545.89, '2014-08-14 06:25:55', '', 'лл'),
 	(2, '7cb42c9e-6822-4cf3-abbd-b0d8b6772a46', 3, 0, 5.89, 545.89, '2014-08-14 06:28:35', '', ''),
 	(3, '2401c3d9-d882-4537-8450-baa641b3c6e4', 3, 0, 5.89, 545.89, '2014-08-14 06:31:50', '', 'пропро'),
 	(4, 'a4f7712b-56cc-478e-a6c5-6620b594b794', 3, 0, 5.89, 545.89, '2014-08-14 08:55:41', 'ru.ecom4u.web.busyness.payment.types.PayPal', '2222222222222'),
@@ -3007,7 +3034,7 @@ INSERT INTO `orders` (`id`, `uuid`, `person_id`, `order_status`, `coast`, `sum_c
 	(7, '39ea170f-6b62-4461-b244-607bbf65f983', 3, 0, 5.89, 545.89, '2014-08-14 09:04:58', 'ru.ecom4u.web.busyness.payment.types.PayPal', 'ddd'),
 	(8, '78b3394c-4524-4927-836e-7b68ccbe56b9', 3, 0, 5.89, 545.89, '2014-08-14 09:17:22', 'ru.ecom4u.web.busyness.payment.types.PayPal', 'jkjkjkjkjk'),
 	(9, '3b2d82e6-cf4d-437f-8de4-0910e6e3bbfc', 3, 0, 15.25, 555.25, '2014-08-14 09:22:51', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
-	(10, '22450f20-3f59-4ca2-8256-be4035d47821', 3, 0, 5.89, 545.89, '2014-08-14 09:27:54', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(10, '22450f20-3f59-4ca2-8256-be4035d47821', 3, 2, 5.89, 545.89, '2014-08-14 09:27:54', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
 	(11, '6e6b1cf7-452e-4126-a6be-8e02623c6fc0', 3, 0, 5.89, 545.89, '2014-08-14 09:29:46', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
 	(12, '9cefe00c-a477-41e7-8ecf-ca9935190097', 3, 0, 5.89, 545.89, '2014-08-14 09:43:36', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
 	(13, 'fdc59a50-bdc3-4daa-bb12-4d337995fea6', 3, 0, 5.89, 545.89, '2014-08-14 09:55:42', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
@@ -3026,7 +3053,24 @@ INSERT INTO `orders` (`id`, `uuid`, `person_id`, `order_status`, `coast`, `sum_c
 	(26, '038cbef8-9d54-4fd0-b4fd-fe0634ce420b', 3, 0, 9, 549, '2014-08-23 17:55:36', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
 	(27, 'e75b7733-1710-4660-acf3-b3cd9fa3b20c', 3, 0, 0, 540, '2014-08-23 17:56:43', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
 	(28, '9cd1fbfb-b945-4068-8d4e-bfe3b3b831e9', 3, 0, 0, 540, '2014-08-23 17:57:02', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
-	(29, 'f34961ec-b70e-4a1d-b541-c9248d12d200', 3, 0, 3.55, 543.55, '2014-08-23 17:58:56', 'ru.ecom4u.web.busyness.payment.types.PayPal', '');
+	(29, 'f34961ec-b70e-4a1d-b541-c9248d12d200', 3, 0, 3.55, 543.55, '2014-08-23 17:58:56', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(30, 'd8e3aa8f-788a-4c1c-936e-2a7cce976a4d', 3, 0, 5.89, 545.89, '2014-08-23 18:16:48', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(31, 'd8448c8d-028f-4071-9a37-b8318eafde1d', 3, 0, 25.89, 565.89, '2014-08-23 18:23:07', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(32, '46c7f5e0-1b8d-4ca7-9f0c-a988631f56d5', 3, 0, 25.89, 565.89, '2014-08-23 18:25:46', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(33, '08a7e972-487b-481d-a861-6874bf6fcdfc', 3, 0, 25.89, 565.89, '2014-08-23 18:26:59', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(34, '06dedb37-1f9b-419b-b71f-7ffacca20d2c', 3, 0, 25.89, 565.89, '2014-08-23 18:34:00', 'ru.ecom4u.web.busyness.payment.types.PayPal', 'kkk'),
+	(35, '58f426c1-30ef-4476-8cb1-a33d8df55aae', 3, 0, 25.89, 565.89, '2014-08-23 18:38:49', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(36, '11aac686-a5fe-483a-bff5-384ad205592a', 3, 0, 25.89, 565.89, '2014-08-23 18:40:29', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(37, 'ef0dc59b-85c8-4a14-91d7-fc4a77152835', 3, 0, 25.89, 565.89, '2014-08-23 18:42:49', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(38, 'df5b61f4-6c0c-4070-9860-417b951e3cf6', 3, 0, 25.89, 565.89, '2014-08-23 18:43:00', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(39, 'ab735ab4-9821-4349-b42c-9098e27e6a06', 3, 0, 25.89, 565.89, '2014-08-23 18:44:42', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(40, 'ec4f358d-873f-44ce-a704-05ded70fc628', 3, 0, 25.89, 565.89, '2014-08-23 18:56:52', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(41, '76bb4ef9-3ffd-4db6-94a6-977ea8ca73ee', 3, 0, 46.2, 586.2, '2014-08-23 18:59:02', 'ru.ecom4u.web.busyness.payment.types.Webmoney', 'jklhjklhjkl'),
+	(42, '1da120f2-4e39-4ab1-a91c-42fa196f362b', 3, 0, 18.2, 558.2, '2014-08-29 16:12:28', 'ru.ecom4u.web.busyness.payment.types.PayPal', ''),
+	(43, 'db1676b0-e9d2-496d-a60c-806cd3ef3391', 3, 0, 3.55, 543.55, '2014-09-04 23:08:49', 'ru.ecom4u.web.busyness.payment.types.Onpay', ''),
+	(44, 'a3b12769-bff1-4f55-b985-318a09d1b481', 3, 0, 7.55, 547.55, '2014-09-04 23:48:48', 'ru.ecom4u.web.busyness.payment.types.Robokassa', ''),
+	(45, '6b40acc8-c989-4f37-b1d6-1f504a495baf', 3, 0, 7.55, 547.55, '2014-09-04 23:54:38', 'ru.ecom4u.web.busyness.payment.types.Onpay', ''),
+	(46, 'e89015bf-6ef0-4ad0-b8e7-85d721d64ab8', 3, 0, 7.55, 547.55, '2014-09-05 00:02:21', 'ru.ecom4u.web.busyness.payment.types.Onpay', '');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 
@@ -3036,61 +3080,124 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `count` int(11) NOT NULL,
-  `addedDate` datetime NOT NULL,
+  `addedDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.order_products: ~47 rows (приблизительно)
+-- Дамп данных таблицы ecom.order_products: ~110 rows (приблизительно)
 DELETE FROM `order_products`;
 /*!40000 ALTER TABLE `order_products` DISABLE KEYS */;
 INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `count`, `addedDate`) VALUES
-	(1, 6, 2, 1, '0000-00-00 00:00:00'),
-	(2, 6, 3, 1, '0000-00-00 00:00:00'),
-	(3, 7, 2, 1, '0000-00-00 00:00:00'),
-	(4, 7, 3, 1, '0000-00-00 00:00:00'),
-	(5, 8, 2, 1, '0000-00-00 00:00:00'),
-	(6, 8, 3, 1, '0000-00-00 00:00:00'),
-	(7, 9, 2, 5, '0000-00-00 00:00:00'),
-	(8, 9, 3, 1, '0000-00-00 00:00:00'),
-	(9, 10, 2, 1, '0000-00-00 00:00:00'),
-	(10, 10, 3, 1, '0000-00-00 00:00:00'),
-	(11, 11, 2, 1, '0000-00-00 00:00:00'),
-	(12, 11, 3, 1, '0000-00-00 00:00:00'),
-	(13, 12, 2, 1, '0000-00-00 00:00:00'),
-	(14, 12, 3, 1, '0000-00-00 00:00:00'),
-	(15, 13, 2, 1, '0000-00-00 00:00:00'),
-	(16, 13, 3, 1, '0000-00-00 00:00:00'),
-	(17, 14, 2, 1, '0000-00-00 00:00:00'),
-	(18, 14, 3, 1, '0000-00-00 00:00:00'),
-	(19, 15, 2, 1, '0000-00-00 00:00:00'),
-	(20, 15, 3, 1, '0000-00-00 00:00:00'),
-	(21, 16, 2, 1, '0000-00-00 00:00:00'),
-	(22, 16, 3, 1, '0000-00-00 00:00:00'),
-	(23, 17, 2, 1, '0000-00-00 00:00:00'),
-	(24, 17, 3, 1, '0000-00-00 00:00:00'),
-	(25, 18, 2, 1, '0000-00-00 00:00:00'),
-	(26, 18, 3, 1, '0000-00-00 00:00:00'),
-	(27, 19, 2, 1, '0000-00-00 00:00:00'),
-	(28, 19, 3, 1, '0000-00-00 00:00:00'),
-	(29, 19, 11, 1, '0000-00-00 00:00:00'),
-	(30, 19, 1000, 1, '0000-00-00 00:00:00'),
-	(31, 20, 2, 1, '0000-00-00 00:00:00'),
-	(32, 20, 3, 1, '0000-00-00 00:00:00'),
-	(33, 20, 11, 1, '0000-00-00 00:00:00'),
-	(34, 20, 1000, 1, '0000-00-00 00:00:00'),
-	(35, 21, 2, 1, '0000-00-00 00:00:00'),
-	(36, 21, 3, 1, '0000-00-00 00:00:00'),
-	(37, 22, 2, 6, '0000-00-00 00:00:00'),
-	(38, 22, 3, 1, '0000-00-00 00:00:00'),
-	(39, 23, 2, 5, '0000-00-00 00:00:00'),
-	(40, 23, 3, 1, '0000-00-00 00:00:00'),
-	(41, 24, 2, 2, '0000-00-00 00:00:00'),
-	(42, 24, 3, 1, '0000-00-00 00:00:00'),
-	(43, 25, 3, 1, '0000-00-00 00:00:00'),
-	(44, 25, 4, 1, '0000-00-00 00:00:00'),
-	(45, 26, 4, 1, '0000-00-00 00:00:00'),
-	(46, 26, 5, 1, '0000-00-00 00:00:00'),
-	(47, 29, 3, 1, '0000-00-00 00:00:00');
+	(1, 6, 2, 1, '2001-11-11 11:11:11'),
+	(2, 6, 3, 1, '2001-11-11 11:11:11'),
+	(3, 7, 2, 1, '2001-11-11 11:11:11'),
+	(4, 7, 3, 1, '2001-11-11 11:11:11'),
+	(5, 8, 2, 1, '2001-11-11 11:11:11'),
+	(6, 8, 3, 1, '2001-11-11 11:11:11'),
+	(7, 9, 2, 5, '2001-11-11 11:11:11'),
+	(8, 9, 3, 1, '2001-11-11 11:11:11'),
+	(9, 10, 2, 1, '2001-11-11 11:11:11'),
+	(10, 10, 3, 1, '2001-11-11 11:11:11'),
+	(11, 11, 2, 1, '2001-11-11 11:11:11'),
+	(12, 11, 3, 1, '2001-11-11 11:11:11'),
+	(13, 12, 2, 1, '2001-11-11 11:11:11'),
+	(14, 12, 3, 1, '2001-11-11 11:11:11'),
+	(15, 13, 2, 1, '2001-11-11 11:11:11'),
+	(16, 13, 3, 1, '2001-11-11 11:11:11'),
+	(17, 14, 2, 1, '2001-11-11 11:11:11'),
+	(18, 14, 3, 1, '2001-11-11 11:11:11'),
+	(19, 15, 2, 1, '2001-11-11 11:11:11'),
+	(20, 15, 3, 1, '2001-11-11 11:11:11'),
+	(21, 16, 2, 1, '2001-11-11 11:11:11'),
+	(22, 16, 3, 1, '2001-11-11 11:11:11'),
+	(23, 17, 2, 1, '2001-11-11 11:11:11'),
+	(24, 17, 3, 1, '2001-11-11 11:11:11'),
+	(25, 18, 2, 1, '2001-11-11 11:11:11'),
+	(26, 18, 3, 1, '2001-11-11 11:11:11'),
+	(27, 19, 2, 1, '2001-11-11 11:11:11'),
+	(28, 19, 3, 1, '2001-11-11 11:11:11'),
+	(29, 19, 11, 1, '2001-11-11 11:11:11'),
+	(30, 19, 1000, 1, '2001-11-11 11:11:11'),
+	(31, 20, 2, 1, '2001-11-11 11:11:11'),
+	(32, 20, 3, 1, '2001-11-11 11:11:11'),
+	(33, 20, 11, 1, '2001-11-11 11:11:11'),
+	(34, 20, 1000, 1, '2001-11-11 11:11:11'),
+	(35, 21, 2, 1, '2001-11-11 11:11:11'),
+	(36, 21, 3, 1, '2001-11-11 11:11:11'),
+	(37, 22, 2, 6, '2001-11-11 11:11:11'),
+	(38, 22, 3, 1, '2001-11-11 11:11:11'),
+	(39, 23, 2, 5, '2001-11-11 11:11:11'),
+	(40, 23, 3, 1, '2001-11-11 11:11:11'),
+	(41, 24, 2, 2, '2001-11-11 11:11:11'),
+	(42, 24, 3, 1, '2001-11-11 11:11:11'),
+	(43, 25, 3, 1, '2001-11-11 11:11:11'),
+	(44, 25, 4, 1, '2001-11-11 11:11:11'),
+	(45, 26, 4, 1, '2001-11-11 11:11:11'),
+	(46, 26, 5, 1, '2001-11-11 11:11:11'),
+	(47, 29, 3, 1, '2001-11-11 11:11:11'),
+	(48, 30, 2, 1, '2001-11-11 11:11:11'),
+	(49, 30, 3, 1, '2001-11-11 11:11:11'),
+	(50, 31, 2, 1, '2001-11-11 11:11:11'),
+	(51, 31, 3, 1, '2001-11-11 11:11:11'),
+	(52, 31, 5, 1, '2001-11-11 11:11:11'),
+	(53, 31, 6, 1, '2001-11-11 11:11:11'),
+	(54, 31, 9, 1, '2001-11-11 11:11:11'),
+	(55, 32, 2, 1, '2001-11-11 11:11:11'),
+	(56, 32, 3, 1, '2001-11-11 11:11:11'),
+	(57, 32, 5, 1, '2001-11-11 11:11:11'),
+	(58, 32, 6, 1, '2001-11-11 11:11:11'),
+	(59, 32, 9, 1, '2001-11-11 11:11:11'),
+	(60, 33, 2, 1, '2001-11-11 11:11:11'),
+	(61, 33, 3, 1, '2001-11-11 11:11:11'),
+	(62, 33, 5, 1, '2001-11-11 11:11:11'),
+	(63, 33, 6, 1, '2001-11-11 11:11:11'),
+	(64, 33, 9, 1, '2001-11-11 11:11:11'),
+	(65, 34, 2, 1, '2001-11-11 11:11:11'),
+	(66, 34, 3, 1, '2001-11-11 11:11:11'),
+	(67, 34, 5, 1, '2001-11-11 11:11:11'),
+	(68, 34, 6, 1, '2001-11-11 11:11:11'),
+	(69, 34, 9, 1, '2001-11-11 11:11:11'),
+	(70, 35, 2, 1, '2001-11-11 11:11:11'),
+	(71, 35, 3, 1, '2001-11-11 11:11:11'),
+	(72, 35, 5, 1, '2001-11-11 11:11:11'),
+	(73, 35, 6, 1, '2001-11-11 11:11:11'),
+	(74, 35, 9, 1, '2001-11-11 11:11:11'),
+	(75, 36, 2, 1, '2001-11-11 11:11:11'),
+	(76, 36, 3, 1, '2001-11-11 11:11:11'),
+	(77, 36, 5, 1, '2001-11-11 11:11:11'),
+	(78, 36, 6, 1, '2001-11-11 11:11:11'),
+	(79, 36, 9, 1, '2001-11-11 11:11:11'),
+	(80, 37, 2, 1, '2001-11-11 11:11:11'),
+	(81, 37, 3, 1, '2001-11-11 11:11:11'),
+	(82, 37, 5, 1, '2001-11-11 11:11:11'),
+	(83, 37, 6, 1, '2001-11-11 11:11:11'),
+	(84, 37, 9, 1, '2001-11-11 11:11:11'),
+	(85, 38, 2, 1, '2001-11-11 11:11:11'),
+	(86, 38, 3, 1, '2001-11-11 11:11:11'),
+	(87, 38, 5, 1, '2001-11-11 11:11:11'),
+	(88, 38, 6, 1, '2001-11-11 11:11:11'),
+	(89, 38, 9, 1, '2001-11-11 11:11:11'),
+	(90, 39, 2, 1, '2001-11-11 11:11:11'),
+	(91, 39, 3, 1, '2001-11-11 11:11:11'),
+	(92, 39, 5, 1, '2001-11-11 11:11:11'),
+	(93, 39, 6, 1, '2001-11-11 11:11:11'),
+	(94, 39, 9, 1, '2001-11-11 11:11:11'),
+	(95, 40, 2, 1, '2001-11-11 11:11:11'),
+	(96, 40, 3, 1, '2001-11-11 11:11:11'),
+	(97, 40, 5, 1, '2001-11-11 11:11:11'),
+	(98, 40, 6, 1, '2001-11-11 11:11:11'),
+	(99, 40, 9, 1, '2001-11-11 11:11:11'),
+	(100, 41, 3, 4, '2001-11-11 11:11:11'),
+	(101, 41, 4, 8, '2001-11-11 11:11:11'),
+	(102, 42, 3, 4, '2001-11-11 11:11:11'),
+	(103, 42, 4, 1, '2001-11-11 11:11:11'),
+	(104, 43, 3, 1, '2014-09-04 23:08:32'),
+	(105, 44, 3, 1, '2014-09-04 23:48:37'),
+	(106, 44, 4, 1, '2014-09-04 23:48:37'),
+	(107, 45, 3, 1, '2014-09-04 23:54:28'),
+	(108, 45, 4, 1, '2014-09-04 23:54:28'),
+	(109, 46, 3, 1, '2014-09-05 00:01:59'),
+	(110, 46, 4, 1, '2014-09-05 00:01:59');
 /*!40000 ALTER TABLE `order_products` ENABLE KEYS */;
 
 
@@ -4329,7 +4436,7 @@ CREATE TABLE IF NOT EXISTS `product_pictures` (
   CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_pictures: ~2 608 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_pictures: ~2 809 rows (приблизительно)
 DELETE FROM `product_pictures`;
 /*!40000 ALTER TABLE `product_pictures` DISABLE KEYS */;
 INSERT INTO `product_pictures` (`product_id`, `picture_id`) VALUES
@@ -6649,7 +6756,7 @@ CREATE TABLE IF NOT EXISTS `product_properties` (
   KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2226 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы ecom.product_properties: ~2 057 rows (приблизительно)
+-- Дамп данных таблицы ecom.product_properties: ~2 055 rows (приблизительно)
 DELETE FROM `product_properties`;
 /*!40000 ALTER TABLE `product_properties` DISABLE KEYS */;
 INSERT INTO `product_properties` (`id`, `name`, `value`, `product_id`, `unit_id`) VALUES

@@ -52,6 +52,7 @@ public class OrderController
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
+        model.asMap().put("title", "Оформление заказа");
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
@@ -217,6 +218,7 @@ public class OrderController
             cardProducts.add(cardProductDTO);
         }
 
+        model.asMap().put("title", String.format("Заказ № %s", uuid.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
@@ -231,6 +233,12 @@ public class OrderController
         model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(delivery.getDeliveryClass()));
         model.asMap().put("person", order.getPerson());
         model.asMap().put("personContacts", personService.getPersonContacts(order.getPerson()));
+
+        IPayment iPayment = paymentLogic.getPaymentByUnicName(order.getPaymentClass());
+        if(null != iPayment)
+        {
+            model.asMap().put("paymentName", iPayment.getPaymentName());
+        }
 
         return "order";
     }
@@ -253,6 +261,7 @@ public class OrderController
 
             sumPrice += cardProductDTO.getPrice();
         }
+        model.asMap().put("title", String.format("Заказ № %s", orderUUID.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
         model.asMap().put("categoryName", "Категории товаров");
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
@@ -269,6 +278,12 @@ public class OrderController
         model.asMap().put("deliveryService", deliveryLogic.getDeliveryByUnicName(delivery.getDeliveryClass()));
         model.asMap().put("person", order.getPerson());
         model.asMap().put("personContacts", personService.getPersonContacts(order.getPerson()));
+
+        IPayment iPayment = paymentLogic.getPaymentByUnicName(order.getPaymentClass());
+        if(null != iPayment)
+        {
+            model.asMap().put("paymentName", iPayment.getPaymentName());
+        }
 
         return "order";
     }
