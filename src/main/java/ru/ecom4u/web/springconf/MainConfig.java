@@ -51,10 +51,10 @@ public class MainConfig {
 		return mailSenderImpl;
 	}
 
-	@Bean
+	/*@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setMaxUploadSize(64 * 1024 * 1024);
 		return multipartResolver;
-	}
+	}*/
 }

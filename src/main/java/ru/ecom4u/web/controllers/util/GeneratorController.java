@@ -64,9 +64,13 @@ public class GeneratorController {
         for (int i = 0; i < 12; i++) {
             ProductCategory productCategory = new ProductCategory();
             productCategory.setParentId(parentProductCategory.getId());
-            productCategory.setName("Категория - " + id + "-" + i);
-            productCategory.setUrlName("category-" + id + "-" + i);
+            productCategory.setName("");
+            productCategory.setUrlName("");
             productCategoryService.save(productCategory);
+
+            productCategory.setName("Категория - " + id + "-" + productCategory.getId());
+            productCategory.setUrlName("category-" + id + "-" + productCategory.getId());
+            productCategoryService.update(productCategory);
         }
 
         return "Done";
@@ -92,7 +96,7 @@ public class GeneratorController {
                 product.setDescription("Отписание описание товара №" + count);
                 product.setUuid(UUID.randomUUID().toString());
 
-                product.setPrice(12.3 * count);
+                product.setPrice(100000.0 + random.nextInt(1000000));
                 product.setPicture(pictures.get(random.nextInt(pictCount)));
 
                 productService.save(product);

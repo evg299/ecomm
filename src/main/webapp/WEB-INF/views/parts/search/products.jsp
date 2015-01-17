@@ -3,28 +3,30 @@
 
 <h3>Поиск по запросу «${query}»</h3>
 
-<table id="sorting">
-    <tr>
-        <td>Сортировать:</td>
-        <c:choose>
-            <c:when test="${'price' == order}">
-                <td><span>По цене</span></td>
-            </c:when>
-            <c:otherwise>
-                <td><a href="?page=${page}&query=${query}&order=price">По цене</a></td>
-            </c:otherwise>
-        </c:choose>
+<c:if test="paginator.items.size()">
+    <table id="sorting">
+        <tr>
+            <td>Сортировать:</td>
+            <c:choose>
+                <c:when test="${'price' == order}">
+                    <td><span>По цене</span></td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="?page=${page}&query=${query}&order=price">По цене</a></td>
+                </c:otherwise>
+            </c:choose>
 
-        <c:choose>
-            <c:when test="${'receipt' == order}">
-                <td><span>По дате поступления</span></td>
-            </c:when>
-            <c:otherwise>
-                <td><a href="?page=${page}&query=${query}&order=receipt">По дате поступления</a></td>
-            </c:otherwise>
-        </c:choose>
-    </tr>
-</table>
+            <c:choose>
+                <c:when test="${'receipt' == order}">
+                    <td><span>По дате поступления</span></td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="?page=${page}&query=${query}&order=receipt">По дате поступления</a></td>
+                </c:otherwise>
+            </c:choose>
+        </tr>
+    </table>
+</c:if>
 
 <div id="products" class="clear">
     <h3>Найдено товаров: ${productsCount}</h3>
@@ -61,19 +63,21 @@
 
 </div>
 
-<div id="total_products">Найдено товаров: ${productsCount}</div>
+<c:if test="paginator.items.size()">
+    <div id="total_products">Найдено товаров: ${productsCount}</div>
 
-<div id="paginator">
-    Страницы:
-    <c:forEach items="${paginator.items}" var="item">
-        <c:choose>
-            <c:when test="${true == item.current}">
-                <b>${item.page + 1}</b>
-            </c:when>
+    <div id="paginator">
+        Страницы:
+        <c:forEach items="${paginator.items}" var="item">
+            <c:choose>
+                <c:when test="${true == item.current}">
+                    <b>${item.page + 1}</b>
+                </c:when>
 
-            <c:otherwise>
-                <a href="?page=${item.page}&query=${query}&order=${order}">${item.page + 1}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-</div>
+                <c:otherwise>
+                    <a href="?page=${item.page}&query=${query}&order=${order}">${item.page + 1}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+    </div>
+</c:if>

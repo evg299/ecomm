@@ -39,6 +39,8 @@ public class ProductController extends AbstractController{
     private CommentService commentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(value = "{productUuid}", method = RequestMethod.GET)
     public String product(@PathVariable(value = "productUuid") String productUuid,
@@ -101,7 +103,7 @@ public class ProductController extends AbstractController{
 
         modelMap.put("relatedProducts", productService.getRelatedProducts(product));
         modelMap.put("breadcrump", BreadcrumpUtil.createByProductCategory(product, request, productCategoryService));
-        modelMap.put("categoryName", "Категории товаров");
+        modelMap.put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         modelMap.put("subCategories", productCategoryService.getRootProductCategories());
 
         return product;

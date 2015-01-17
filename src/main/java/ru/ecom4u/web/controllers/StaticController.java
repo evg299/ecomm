@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.ecom4u.web.controllers.dto.BreadcrumpDTO;
 import ru.ecom4u.web.domain.db.entities.StaticPage;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
+import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.domain.db.services.StaticPageService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 
@@ -22,6 +23,8 @@ public class StaticController extends AbstractController {
     private StaticPageService staticPageService;
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(value = "{urlName}", method = RequestMethod.GET)
     public String getStaticPage(@PathVariable(value = "urlName") String urlName, Model model,
@@ -34,7 +37,7 @@ public class StaticController extends AbstractController {
             model.addAttribute("title", staticPage.getTitle());
             model.addAttribute("htmlContent", staticPage.getHtmlContent());
 
-            model.asMap().put("categoryName", "Категории товаров");
+            model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
             model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
             return "static";

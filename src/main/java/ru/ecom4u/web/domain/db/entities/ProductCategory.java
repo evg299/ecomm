@@ -146,4 +146,6 @@ public class ProductCategory implements Serializable {
     public int hashCode() {
         return this.getId().hashCode();
     }
+
+
 }

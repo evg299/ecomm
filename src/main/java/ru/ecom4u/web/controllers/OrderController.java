@@ -48,12 +48,14 @@ public class OrderController
     private AddressService addressService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
         model.asMap().put("title", "Оформление заказа");
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();
@@ -220,7 +222,7 @@ public class OrderController
 
         model.asMap().put("title", String.format("Заказ № %s", uuid.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         model.asMap().put("message", "Заказ создан");
@@ -263,7 +265,7 @@ public class OrderController
         }
         model.asMap().put("title", String.format("Заказ № %s", orderUUID.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         Delivery delivery = order.getDelivery();

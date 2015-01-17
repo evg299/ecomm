@@ -9,8 +9,7 @@
 <title>Upload file</title>
 </head>
 <body>
-	<form:form modelAttribute="fileUploadForm" method="post"
-		enctype="multipart/form-data">
+	<form:form modelAttribute="fileUploadForm" action="?${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 		<fieldset>
 			<legend>Upload Fields</legend>
 

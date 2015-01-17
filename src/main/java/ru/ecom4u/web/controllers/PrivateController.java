@@ -13,10 +13,7 @@ import ru.ecom4u.web.controllers.dto.accessory.HyperLink;
 import ru.ecom4u.web.domain.db.entities.Order;
 import ru.ecom4u.web.domain.db.entities.OrderStatus;
 import ru.ecom4u.web.domain.db.entities.User;
-import ru.ecom4u.web.domain.db.services.OrderService;
-import ru.ecom4u.web.domain.db.services.PersonService;
-import ru.ecom4u.web.domain.db.services.ProductCategoryService;
-import ru.ecom4u.web.domain.db.services.UserService;
+import ru.ecom4u.web.domain.db.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -39,11 +36,13 @@ public class PrivateController
     private PersonService personService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         BreadcrumpDTO breadcrump = new BreadcrumpDTO();
@@ -62,7 +61,7 @@ public class PrivateController
     @RequestMapping(value = "orders", method = RequestMethod.GET)
     public String orders(@RequestParam(required = false) String status, Locale locale, Model model)
     {
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

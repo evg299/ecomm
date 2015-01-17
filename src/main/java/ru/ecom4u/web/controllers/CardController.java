@@ -29,10 +29,12 @@ public class CardController extends AbstractController{
     private ProductCategoryService productCategoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String card(Model model, HttpServletRequest request) {
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         List<CardProductDTO> cardProducts = new ArrayList<CardProductDTO>();

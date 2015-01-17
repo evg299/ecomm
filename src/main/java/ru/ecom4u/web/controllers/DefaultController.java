@@ -14,6 +14,7 @@ import ru.ecom4u.web.domain.db.entities.ProductCategory;
 import ru.ecom4u.web.domain.db.services.PictureService;
 import ru.ecom4u.web.domain.db.services.ProductCategoryService;
 import ru.ecom4u.web.domain.db.services.ProductService;
+import ru.ecom4u.web.domain.db.services.SitePropertiesService;
 import ru.ecom4u.web.utils.BreadcrumpUtil;
 import ru.ecom4u.web.utils.LastVisitedIdsUtil;
 
@@ -33,12 +34,14 @@ public class DefaultController extends AbstractController {
     private ProductService productService;
     @Autowired
     private PictureService pictureService;
+    @Autowired
+    private SitePropertiesService sitePropertiesService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(@CookieValue(value = "lastvisited", required = false) String lastVisitedIds,
                        Model model) {
         List<ProductCategory> subCategories = productCategoryService.getRootProductCategories();
-        model.asMap().put("categoryName", "Категории товаров");
+        model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", subCategories);
 
         Set<Integer> ids = LastVisitedIdsUtil.parceIds(lastVisitedIds);
