@@ -1,5 +1,6 @@
 package ru.ecom4u.web.controllers.util;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,8 @@ import java.util.UUID;
  * Created by Evgeny(e299792459@gmail.com) on 06.02.14.
  */
 @Controller
-public class GeneratorController {
+public class GeneratorController
+{
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -40,14 +42,17 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/getHash/{str}")
     @ResponseBody
-    public String getHash(@PathVariable String str) {
+    public String getHash(@PathVariable String str)
+    {
         return hasherService.calculateHash(str);
     }
 
     @RequestMapping(value = "util/gencats")
     @ResponseBody
-    public String generateCategories() {
-        for (int i = 0; i < 12; i++) {
+    public String generateCategories()
+    {
+        for (int i = 0; i < 12; i++)
+        {
             ProductCategory productCategory = new ProductCategory();
             productCategory.setName("Категория - " + i);
             productCategory.setUrlName("category-" + i);
@@ -59,9 +64,11 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/gencats/{id}")
     @ResponseBody
-    public String generateCategories(@PathVariable(value = "id") Integer id) {
+    public String generateCategories(@PathVariable(value = "id") Integer id)
+    {
         ProductCategory parentProductCategory = productCategoryService.getById(id);
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++)
+        {
             ProductCategory productCategory = new ProductCategory();
             productCategory.setParentId(parentProductCategory.getId());
             productCategory.setName("");
@@ -78,7 +85,8 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genproducts")
     @ResponseBody
-    public String generateProducts() {
+    public String generateProducts()
+    {
         List<ProductCategory> categories = productCategoryService.getAll();
         Currency currency = currencyService.getById(1);
         List<Picture> pictures = pictureService.getAll();
@@ -86,8 +94,10 @@ public class GeneratorController {
         Random random = new Random();
 
         int count = 1;
-        for (ProductCategory productCategory : categories) {
-            for (int i = 0; i < 12; i++) {
+        for (ProductCategory productCategory : categories)
+        {
+            for (int i = 0; i < 12; i++)
+            {
                 Product product = new Product();
                 product.setProductCategory(productCategory);
 
@@ -110,12 +120,14 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genstats")
     @ResponseBody
-    public String generateStatistics() {
+    public String generateStatistics()
+    {
         int count = productService.countProducts().intValue();
         List<Product> products = productService.getProducts(0, count);
         Random random = new Random();
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++)
+        {
             Product product = products.get(random.nextInt(count));
             if (random.nextBoolean())
                 productService.markView(product);
@@ -130,12 +142,14 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genrecom")
     @ResponseBody
-    public String generateRecommended() {
+    public String generateRecommended()
+    {
         int count = productService.countProducts().intValue();
         List<Product> products = productService.getProducts(0, count);
         Random random = new Random();
 
-        for (int i = 0; i < count / 10; i++) {
+        for (int i = 0; i < count / 10; i++)
+        {
             Product product = products.get(random.nextInt(count));
             if (random.nextBoolean())
                 productService.markRecommended(product);
@@ -146,7 +160,8 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genadditionalpictures")
     @ResponseBody
-    public String generateAdditionalPictures() {
+    public String generateAdditionalPictures()
+    {
         Random random = new Random();
         List<Picture> pictures = pictureService.getAll();
         int pictSize = pictures.size();
@@ -154,9 +169,11 @@ public class GeneratorController {
         int prodSize = productService.countProducts().intValue();
         List<Product> products = productService.getProducts(0, prodSize);
 
-        for (Product product : products) {
+        for (Product product : products)
+        {
             List<Picture> additional = new ArrayList<Picture>();
-            for (int i = 0; i < random.nextInt(8); i++) {
+            for (int i = 0; i < random.nextInt(8); i++)
+            {
                 additional.add(pictures.get(random.nextInt(pictSize)));
             }
 
@@ -169,15 +186,18 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genproductproperties")
     @ResponseBody
-    public String generateProductProperties() {
+    public String generateProductProperties()
+    {
         Random random = new Random();
         List<Unit> units = unitService.getAll();
         int unitSize = units.size();
 
         int prodSize = productService.countProducts().intValue();
         List<Product> products = productService.getProducts(0, prodSize);
-        for (Product product : products) {
-            for (int i = 0; i < random.nextInt(8); i++) {
+        for (Product product : products)
+        {
+            for (int i = 0; i < random.nextInt(8); i++)
+            {
                 ProductProperty property = new ProductProperty();
                 property.setProduct(product);
                 property.setUnit(units.get(random.nextInt(unitSize)));
@@ -192,19 +212,23 @@ public class GeneratorController {
 
     @RequestMapping(value = "util/genproductrelated")
     @ResponseBody
-    public String generateProductRelated() {
+    public String generateProductRelated()
+    {
         Random random = new Random();
         int prodSize = productService.countProducts().intValue();
         List<Product> products = productService.getProducts(0, prodSize);
 
-        for (Product product : products) {
+        for (Product product : products)
+        {
             if (random.nextBoolean())
-                for (int i = 0; i < random.nextInt(8); i++) {
+                for (int i = 0; i < random.nextInt(8); i++)
+                {
                     AuxProductRelated auxProductRelated = new AuxProductRelated();
                     auxProductRelated.setId(new AuxProductRelated.Id());
                     auxProductRelated.getId().setProductId1(product.getId());
                     Product product2 = products.get(random.nextInt(prodSize));
-                    if (product2 != product) {
+                    if (product2 != product)
+                    {
                         auxProductRelated.getId().setProductId2(product2.getId());
                         productService.save(auxProductRelated);
                     }

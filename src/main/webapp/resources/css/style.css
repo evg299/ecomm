@@ -182,32 +182,31 @@ a {
 }
 
 #slider {
-    width: 900px;
+    width: 910px;
     padding: 10px;
-    position: relative;
+   /* position: relative;*/
 }
 
 img {
     display: block;
 }
 
-#gallery, #thumbs {
-    float: left;
+#gallery {
+    vertical-align: top;
 }
 
 #gallery {
-    width: 800px;
-    height: 300px;
+    width: 810px;
     overflow: hidden;
 }
 
 #gallery img {
     position: absolute;
+    width: 800px;
 }
 
 #thumbs {
     width: 100px;
-    height: 300px;
     overflow: hidden;
 }
 
@@ -216,9 +215,9 @@ img {
     width: 47px;
     height: 43px;
     background: url(../img/slider/arrow.png);
+    margin-top: -44px;
+    margin-left: -49px;
     position: relative;
-    top: 257px;
-    left: 855px;
 }
 
 #next:hover {
