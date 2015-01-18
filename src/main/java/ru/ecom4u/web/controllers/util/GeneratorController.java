@@ -68,7 +68,7 @@ public class GeneratorController {
             productCategory.setUrlName("");
             productCategoryService.save(productCategory);
 
-            productCategory.setName("Категория - " + id + "-" + productCategory.getId());
+            productCategory.setName("\u041a\u0430\u0442\u0435\u0433\u043e\u0440\u0438\u044f - " + id + "-" + productCategory.getId());
             productCategory.setUrlName("category-" + id + "-" + productCategory.getId());
             productCategoryService.update(productCategory);
         }
@@ -91,12 +91,13 @@ public class GeneratorController {
                 Product product = new Product();
                 product.setProductCategory(productCategory);
 
-                product.setName("Товар №" + count);
+                product.setName("\u0422\u043e\u0432\u0430\u0440 \u2116" + count);
                 product.setAmt(1 + count);
-                product.setDescription("Отписание описание товара №" + count);
+                product.setDescription("\u041e\u0442\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0442\u043e\u0432\u0430\u0440\u0430 \u2116" + count);
                 product.setUuid(UUID.randomUUID().toString());
 
                 product.setPrice(100000.0 + random.nextInt(1000000));
+                product.setWeight(1000.0 + random.nextInt(100));
                 product.setPicture(pictures.get(random.nextInt(pictCount)));
 
                 productService.save(product);
@@ -180,7 +181,7 @@ public class GeneratorController {
                 ProductProperty property = new ProductProperty();
                 property.setProduct(product);
                 property.setUnit(units.get(random.nextInt(unitSize)));
-                property.setName("Свойство №" + random.nextInt(100));
+                property.setName("\u0421\u0432\u043e\u0439\u0441\u0442\u0432\u043e \u2116" + random.nextInt(100));
                 property.setValue("" + random.nextInt(1000));
                 productService.save(property);
             }
@@ -200,10 +201,11 @@ public class GeneratorController {
             if (random.nextBoolean())
                 for (int i = 0; i < random.nextInt(8); i++) {
                     AuxProductRelated auxProductRelated = new AuxProductRelated();
-                    auxProductRelated.setProduct1(product);
+                    auxProductRelated.setId(new AuxProductRelated.Id());
+                    auxProductRelated.getId().setProductId1(product.getId());
                     Product product2 = products.get(random.nextInt(prodSize));
                     if (product2 != product) {
-                        auxProductRelated.setProduct2(product2);
+                        auxProductRelated.getId().setProductId2(product2.getId());
                         productService.save(auxProductRelated);
                     }
                 }

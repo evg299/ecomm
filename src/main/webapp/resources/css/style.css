@@ -343,6 +343,7 @@ img {
 }
 
 .product_showcase img {
+    margin: 0 auto;
     border: 1px solid gainsboro;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
