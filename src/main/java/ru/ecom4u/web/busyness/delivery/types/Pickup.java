@@ -1,5 +1,6 @@
 package ru.ecom4u.web.busyness.delivery.types;
 
+import ru.ecom4u.web.busyness.delivery.AbstractDelivery;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
 import ru.ecom4u.web.controllers.dto.json.DeliveryAddress;
 import ru.ecom4u.web.controllers.dto.json.DeliveryCalcResult;
@@ -7,13 +8,13 @@ import ru.ecom4u.web.controllers.dto.json.DeliveryCalcResult;
 /**
  * Created by Evgeny on 16.05.14.
  */
-public class Pickup implements IDelivery
+public class Pickup extends AbstractDelivery implements IDelivery
 {
 
     @Override
     public String getDeliveryName()
     {
-        return "Самовывоз";
+        return getSitePropertiesService().getValue("rus_delivery_picup_name");
     }
 
     @Override

@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `address_countries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address_countries` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`short_name` tinytext,
-	`name` tinytext NOT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `short_name` tinytext,
+  `name` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -50,12 +50,12 @@ DROP TABLE IF EXISTS `address_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `address_states` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`address_country_id` int(11) NOT NULL,
-	`name` tinytext NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_1ge13gdwxf5boctxgpnjgpl62` (`address_country_id`),
-	CONSTRAINT `FK_address_state_address_country` FOREIGN KEY (`address_country_id`) REFERENCES `address_countries` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_country_id` int(11) NOT NULL,
+  `name` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_1ge13gdwxf5boctxgpnjgpl62` (`address_country_id`),
+  CONSTRAINT `FK_address_state_address_country` FOREIGN KEY (`address_country_id`) REFERENCES `address_countries` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=926 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,14 +77,14 @@ DROP TABLE IF EXISTS `addresses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `addresses` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`address_satate_id` int(11) DEFAULT NULL,
-	`address` tinytext NOT NULL,
-	`apartments` tinytext,
-	`hierarhy_json` text,
-	PRIMARY KEY (`id`),
-	KEY `FK_12r1ipl31kcatuvxqv47g1kq8` (`address_satate_id`),
-	CONSTRAINT `FK_address_address_state` FOREIGN KEY (`address_satate_id`) REFERENCES `address_states` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_satate_id` int(11) DEFAULT NULL,
+  `address` tinytext NOT NULL,
+  `apartments` tinytext,
+  `hierarhy_json` text,
+  PRIMARY KEY (`id`),
+  KEY `FK_12r1ipl31kcatuvxqv47g1kq8` (`address_satate_id`),
+  CONSTRAINT `FK_address_address_state` FOREIGN KEY (`address_satate_id`) REFERENCES `address_states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,12 +106,12 @@ DROP TABLE IF EXISTS `aux_product_count`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `aux_product_count` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`product_id` int(11) DEFAULT NULL,
-	`sell_count` int(11) DEFAULT NULL,
-	`card_count` int(11) DEFAULT NULL,
-	`view_count` int(11) DEFAULT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) DEFAULT NULL,
+  `sell_count` int(11) DEFAULT NULL,
+  `card_count` int(11) DEFAULT NULL,
+  `view_count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=902 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,9 +133,9 @@ DROP TABLE IF EXISTS `aux_product_recommended`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `aux_product_recommended` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`product_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -157,13 +157,13 @@ DROP TABLE IF EXISTS `aux_product_related`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `aux_product_related` (
-	`product_id_1` int(11) NOT NULL,
-	`product_id_2` int(11) NOT NULL,
-	PRIMARY KEY (`product_id_2`,`product_id_1`),
-	KEY `FK_aux_product_related_products` (`product_id_1`),
-	KEY `FK_aux_product_related_products_2` (`product_id_2`),
-	CONSTRAINT `FK_aux_product_related_products` FOREIGN KEY (`product_id_1`) REFERENCES `products` (`id`),
-	CONSTRAINT `FK_aux_product_related_products_2` FOREIGN KEY (`product_id_2`) REFERENCES `products` (`id`)
+  `product_id_1` int(11) NOT NULL,
+  `product_id_2` int(11) NOT NULL,
+  PRIMARY KEY (`product_id_2`,`product_id_1`),
+  KEY `FK_aux_product_related_products` (`product_id_1`),
+  KEY `FK_aux_product_related_products_2` (`product_id_2`),
+  CONSTRAINT `FK_aux_product_related_products` FOREIGN KEY (`product_id_1`) REFERENCES `products` (`id`),
+  CONSTRAINT `FK_aux_product_related_products_2` FOREIGN KEY (`product_id_2`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -185,18 +185,18 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`title` varchar(256) NOT NULL,
-	`content` longtext NOT NULL,
-	`creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`stars` int(11) NOT NULL,
-	`person_id` int(11) NOT NULL,
-	`product_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_7mkhwfldsy6ure4nei4sgwvg0` (`person_id`),
-	KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`),
-	CONSTRAINT `FK_comments_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
-	CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(256) NOT NULL,
+  `content` longtext NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `stars` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_7mkhwfldsy6ure4nei4sgwvg0` (`person_id`),
+  KEY `FK_9dgbf2frihdis1se0j19ujgdx` (`product_id`),
+  CONSTRAINT `FK_comments_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`),
+  CONSTRAINT `FK_comments_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,10 +217,10 @@ DROP TABLE IF EXISTS `contact_types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contact_types` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` varchar(512) NOT NULL,
-	`desc` tinytext,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(512) NOT NULL,
+  `desc` tinytext,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -242,11 +242,11 @@ DROP TABLE IF EXISTS `currencies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `currencies` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) NOT NULL,
-	`short_name` varchar(16) NOT NULL,
-	`rate` double DEFAULT '1',
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  `short_name` varchar(16) NOT NULL,
+  `rate` double DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -268,20 +268,20 @@ DROP TABLE IF EXISTS `deliveries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `deliveries` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`person_id` int(11) NOT NULL,
-	`address_id` int(11) NOT NULL,
-	`order_id` int(11) NOT NULL,
-	`weight` double NOT NULL,
-	`coast` double NOT NULL,
-	`delivery_class` tinytext NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_546e7d7d3qu5v7lsdtxih7nhm` (`address_id`),
-	KEY `FK_k36n9p5v7dd96hpgkwybvbogt` (`order_id`),
-	KEY `FK_pm25xo0fbcmg7u5wtmv1k6rud` (`person_id`),
-	CONSTRAINT `FK_delivery_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
-	CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-	CONSTRAINT `FK_delivery_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `person_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `weight` double NOT NULL,
+  `coast` double NOT NULL,
+  `delivery_class` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_546e7d7d3qu5v7lsdtxih7nhm` (`address_id`),
+  KEY `FK_k36n9p5v7dd96hpgkwybvbogt` (`order_id`),
+  KEY `FK_pm25xo0fbcmg7u5wtmv1k6rud` (`person_id`),
+  CONSTRAINT `FK_delivery_address` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
+  CONSTRAINT `FK_delivery_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  CONSTRAINT `FK_delivery_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -302,12 +302,12 @@ DROP TABLE IF EXISTS `order_products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_products` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`order_id` int(11) NOT NULL,
-	`product_id` int(11) NOT NULL,
-	`count` int(11) NOT NULL,
-	`addedDate` datetime DEFAULT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `addedDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -328,18 +328,18 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`uuid` varchar(64) NOT NULL,
-	`person_id` int(11) NOT NULL,
-	`order_status` tinyint(4) NOT NULL,
-	`coast` double DEFAULT NULL,
-	`sum_coast` double DEFAULT NULL,
-	`creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`payment_class` tinytext,
-	`comment` text,
-	PRIMARY KEY (`id`),
-	KEY `FK_iej2da8bimqjxwvdma0eq8qus` (`person_id`),
-	CONSTRAINT `FK_orders_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(64) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `order_status` tinyint(4) NOT NULL,
+  `coast` double DEFAULT NULL,
+  `sum_coast` double DEFAULT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `payment_class` tinytext,
+  `comment` text,
+  PRIMARY KEY (`id`),
+  KEY `FK_iej2da8bimqjxwvdma0eq8qus` (`person_id`),
+  CONSTRAINT `FK_orders_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -360,15 +360,15 @@ DROP TABLE IF EXISTS `person_contacts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `person_contacts` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`value` longtext NOT NULL,
-	`contact_type_id` int(11) NOT NULL,
-	`person_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_tc0xfflx5d9fethkufw84kdwv` (`contact_type_id`),
-	KEY `FK_31iwjuobjdf1si4a458vjp5rf` (`person_id`),
-	CONSTRAINT `FK_person_contacts_contact_types` FOREIGN KEY (`contact_type_id`) REFERENCES `contact_types` (`id`),
-	CONSTRAINT `FK_person_contacts_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` longtext NOT NULL,
+  `contact_type_id` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_tc0xfflx5d9fethkufw84kdwv` (`contact_type_id`),
+  KEY `FK_31iwjuobjdf1si4a458vjp5rf` (`person_id`),
+  CONSTRAINT `FK_person_contacts_contact_types` FOREIGN KEY (`contact_type_id`) REFERENCES `contact_types` (`id`),
+  CONSTRAINT `FK_person_contacts_persons` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -390,22 +390,22 @@ DROP TABLE IF EXISTS `persons`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `persons` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`fname` tinytext NOT NULL,
-	`lname` tinytext NOT NULL,
-	`mname` tinytext,
-	`gender` bit(1) NOT NULL,
-	`birth_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`address_id` int(11) DEFAULT NULL,
-	`picture_id` int(11) DEFAULT NULL,
-	`user_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_persons_users` (`user_id`),
-	KEY `FK_ck2ybawdmh3xbhdq4lq3lu1pa` (`picture_id`),
-	KEY `FK_persons_addresses` (`address_id`),
-	CONSTRAINT `FK_persons_addresses` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
-	CONSTRAINT `FK_persons_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
-	CONSTRAINT `FK_persons_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fname` tinytext NOT NULL,
+  `lname` tinytext NOT NULL,
+  `mname` tinytext,
+  `gender` bit(1) NOT NULL,
+  `birth_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `address_id` int(11) DEFAULT NULL,
+  `picture_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_persons_users` (`user_id`),
+  KEY `FK_ck2ybawdmh3xbhdq4lq3lu1pa` (`picture_id`),
+  KEY `FK_persons_addresses` (`address_id`),
+  CONSTRAINT `FK_persons_addresses` FOREIGN KEY (`address_id`) REFERENCES `addresses` (`id`),
+  CONSTRAINT `FK_persons_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
+  CONSTRAINT `FK_persons_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -415,7 +415,7 @@ CREATE TABLE `persons` (
 
 LOCK TABLES `persons` WRITE;
 /*!40000 ALTER TABLE `persons` DISABLE KEYS */;
-INSERT INTO `persons` VALUES (1,'Иван','Иванов',NULL,'','2000-04-12 20:00:00',NULL,NULL,14),(2,'Катерина','Топорова',NULL,'\0','1987-04-12 20:00:00',NULL,NULL,15),(3,'Evgeny','Knpl',NULL,'','2015-01-17 07:31:01',1,NULL,5);
+INSERT INTO `persons` VALUES (1,'Иван','Иванов',NULL,'','2000-04-12 20:00:00',NULL,NULL,14),(2,'Катерина','Топорова',NULL,'\0','1987-04-12 20:00:00',NULL,NULL,15),(3,'Evgeny','Knpl',NULL,'','1987-01-24 10:10:57',1,145,5);
 /*!40000 ALTER TABLE `persons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,13 +427,13 @@ DROP TABLE IF EXISTS `pictures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pictures` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`url_name` varchar(128) NOT NULL,
-	`extention` varchar(128) NOT NULL,
-	`title` tinytext,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `url_name_key` (`url_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url_name` varchar(128) NOT NULL,
+  `extention` varchar(128) NOT NULL,
+  `title` tinytext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `url_name_key` (`url_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -442,7 +442,7 @@ CREATE TABLE `pictures` (
 
 LOCK TABLES `pictures` WRITE;
 /*!40000 ALTER TABLE `pictures` DISABLE KEYS */;
-INSERT INTO `pictures` VALUES (40,'PBGNKNDVMHKFKXPPNADASOGFJJSUUDCC','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_77_1600x1200.jpg'),(41,'JOVRQJIOSXLQMSXGIFAJCTWPMVPUVAGI','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_78_1600x1200.jpg'),(42,'QJHQDQKAWYBFMWSILVPPXCLNQPEDRIRB','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_79_1600x1200.jpg'),(43,'UMHFBKFBBTLWXORASNSLLQVMYVRFRRKA','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_80_1600x1200.jpg'),(44,'SNYREDKYUQIIESUVWWAOJNCPBCSASBKB','jpg','EPIDEM.RU_Acura_Advanc-Sedan_66_1600x1200.jpg'),(45,'VRMUUQPVIRRVVYHYVBADCQJEKODKNTRE','jpg','EPIDEM.RU_Acura_Advanc-Sedan_67_1600x1200.jpg'),(46,'YDLJHQTIWSKISCDIDILHHJKQFFHMCNIN','jpg','EPIDEM.RU_Acura_Advanc-Sedan_68_1600x1200.jpg'),(47,'YAFTREIWQAFYOGTXVCUIBRUSWVAGIRMR','jpg','EPIDEM.RU_Acura_Advanc-Sedan_69_1600x1200.jpg'),(48,'LKKTYFHBMTUHJWUVFQFYAPWEHTCLKIXG','jpg','EPIDEM.RU_Acura_Advanc-Sedan_70_1600x1200.jpg'),(49,'XUCECFOYPMYOFBGCVKCIMRNBVFNBXSQT','jpg','EPIDEM.RU_Acura_Advanc-Sedan_71_1600x1200.jpg'),(50,'IERNOYNRYFTMOWMTHMIWVGBCNDCGCVSG','jpg','EPIDEM.RU_Acura_Advanc-Sedan_72_1600x1200.jpg'),(51,'DUGIBDUUKJHTQEGTIGGJSULKBWJAPTAQ','jpg','EPIDEM.RU_Acura_MD-X_49_1600x1200.jpg'),(52,'VUQIRAHKVVUFXFBNGBBFIUWPPIBOTVMY','jpg','EPIDEM.RU_Acura_MD-X_50_1600x1200.jpg'),(53,'AGTFQYOHTQKGDTXFWESNDITUAMWVRDGB','jpg','EPIDEM.RU_Acura_MD-X_51_1600x1200.jpg'),(54,'RKOIUUDBDSHJKMQAISLWLAFQVYFKUGLL','jpg','EPIDEM.RU_Acura_MD-X_52_1600x1200.jpg'),(55,'YYWMXFYPBQYAGHJTABDGBRVCYUMQRQGV','jpg','EPIDEM.RU_Acura_MD-X_53_1600x1200.jpg'),(56,'CQTKJXUTUHKWAUMUIRSOJECVTDIVWICB','jpg','EPIDEM.RU_Acura_MD-X_55_1600x1200.jpg'),(57,'YDYQKIRMMNFKSPDTDTTNLTTNDUQKIMNS','jpg','EPIDEM.RU_Audi_R8_423_1600x1200.jpg'),(58,'VHOAATDIWBVDNAXTGTRABJBLQAPXXIEK','jpg','EPIDEM.RU_Audi_R8_424_1600x1200.jpg'),(59,'SIIDRGYPHWFJQSDLESHLPVVKNAOXHCEN','jpg','EPIDEM.RU_Audi_R8_425_1600x1200.jpg'),(60,'HXQNKOCNDDWHVVQXSTFVBJIMQXFIDWKO','jpg','EPIDEM.RU_Audi_R8_426_1600x1200.jpg'),(61,'WPLLFGCATNXPRBLCVHMXOEYCJWEUEANP','jpg','EPIDEM.RU_Audi_R8_427_1600x1200.jpg'),(62,'XAWJOBTSNWACGHHJLUBLMLMFMJHYGCTF','jpg','EPIDEM.RU_Audi_R8_428_1600x1200.jpg'),(63,'AYJNYJYGABPKCWBWUFGHIBRAEYSXNBYP','jpg','EPIDEM.RU_Audi_R8_429_1600x1200.jpg'),(64,'KIQXDJJVILNCHFLTSXYJLALLHGXFJAWV','jpg','EPIDEM.RU_Audi_R8_430_1600x1200.jpg'),(65,'LOWLSJULUIWOPIFIVEKQCLXKPURACJPN','jpg','EPIDEM.RU_Audi_R8_431_1600x1200.jpg'),(66,'VPNINWCTOSRWUCNPXLBNEQNCIPGFVHKX','jpg','EPIDEM.RU_Audi_R8_432_1600x1200.jpg'),(67,'WHYCFRPIBWIVXECFUPJQLXAVJPVITVFL','jpg','EPIDEM.RU_Audi_R8_433_1600x1200.jpg'),(68,'TLKNAOKNYROJNRHVPAQSJWVWKPBVGWND','jpg','EPIDEM.RU_Audi_R8_434_1600x1200.jpg'),(69,'UXODCLATFYSVDYVTLBWAQTIGSJWVOEPD','jpg','EPIDEM.RU_Audi_R8_435_1600x1200.jpg'),(70,'QPWXHTSOERPQMMOUWPVEYXSMNHSGMAEV','jpg','EPIDEM.RU_Audi_R8_436_1600x1200.jpg'),(71,'LPRANQJYAKPVLVSAYIBOIKEDXCBVHJNY','jpg','EPIDEM.RU_Audi_R8_437_1600x1200.jpg'),(72,'OMYTKJWDOBWMDVTLTWXHMJLKMQTNLSDM','jpg','EPIDEM.RU_Audi_TT-ABT_438_1600x1200.jpg'),(73,'JRQLHGVFIUJLPRPYKFVNSKOXHJFRMTJX','jpg','EPIDEM.RU_Audi_TT-ABT_439_1600x1200.jpg'),(74,'MHAMRNMYICXPEWCBEUOCCJLCPGTTHYPJ','jpg','EPIDEM.RU_Audi_TT-ABT_440_1600x1200.jpg'),(75,'MXFJIUBBYODNEAPOPVUIMOMGQHYCJNNK','jpg','EPIDEM.RU_Audi_TT-ABT_441_1600x1200.jpg'),(76,'URWCUIVKUCJCBAUYGFVFXPVRQDTNCVFV','jpg','EPIDEM.RU_Audi_TT-ABT_442_1600x1200.jpg'),(77,'DNEGMAEBEIAHSHHPFBTSVITNMHQUSJFL','jpg','EPIDEM.RU_Audi_TT-ABT_443_1600x1200.jpg'),(78,'KEUGAONHYQYAAJBEUYYBSHVWSTGEXPVL','jpg','EPIDEM.RU_Audi_TT-ABT_444_1600x1200.jpg'),(79,'XOVCTBYSRHVCMTJESXVQULVJLXXAMUHE','jpg','EPIDEM.RU_car_1.jpg'),(80,'WPIFSBJFXTXFUEOGQQUGMTWEYKFAWBNM','jpg','EPIDEM.RU_car_2.jpg'),(81,'NGHIPJXKKYTDFGEWXUKCFFLLTWLSEDNA','jpg','EPIDEM.RU_car_6.jpg'),(82,'BIXLCRIBSAEVDVEAEFBRJCKPTFKFRWIY','jpg','EPIDEM.RU_car_7.jpg'),(83,'LGUQSMBDFVEKUSJMFVNJEYFTDSMFTUSB','jpg','EPIDEM.RU_car_8.jpg'),(84,'QYUYBOWUWNOKQAJTPIMAEVOCGJQIERJL','jpg','EPIDEM.RU_car_9.jpg'),(85,'MAIVULHBTSMAIKJJYRBLRGYFFNJVEJHE','jpg','EPIDEM.RU_car_10.jpg'),(86,'RRFIAJLTPLCVRIRATYFVLIRGRWLEMJRQ','jpg','EPIDEM.RU_car_11.jpg'),(87,'NARQILXKUIJYRLMVNLGEUEUPIGHKPNAN','jpg','EPIDEM.RU_car_12.jpg'),(88,'IBEQXDVKERDPBOHNPNBQLUNTCLEXHOJN','jpg','EPIDEM.RU_car_13.jpg'),(89,'EFPCKSILHGALJMDRSNJVXGETSTLDTUPL','jpg','EPIDEM.RU_car_14.jpg'),(90,'BARXXRWUMGKQHUSSONATWGFPGRKLPVNJ','jpg','EPIDEM.RU_car_15.jpg'),(91,'ICMRGEOFCWWRQDNLPLQXRUOVKIYXJPFC','jpg','EPIDEM.RU_car_16.jpg'),(92,'EJOQLGIYHLBSFXVGTNWFMIVMXJROERDM','jpg','EPIDEM.RU_car_17.jpg'),(93,'SQSWLQRRXNVHDIBMLRAXKQOBWORCBQQX','jpg','EPIDEM.RU_car_18.jpg'),(94,'AOWIERTANMWNNLJTBMQQBMOVQXYNMOTR','jpg','EPIDEM.RU_car_19.jpg'),(95,'GWKOFOVMKPLHLDWJRKSPTLLATGKOKILS','jpg','EPIDEM.RU_car_20.jpg'),(96,'KSWQIFLAMJTVWLXGWSSVIGKWOHFUEWAD','jpg','EPIDEM.RU_car_21.jpg'),(97,'NNVWUNRKGQSEMVRPXTYMWUTACSYAURUY','jpg','EPIDEM.RU_car_22.jpg'),(98,'UAECOLQHBVMUEOKJQQNKNCVQGFMKAGLR','jpg','EPIDEM.RU_car_23.jpg'),(99,'PTFAOTMVAFKXEWDYJWPPYQUDMHPKYKUC','jpg','EPIDEM.RU_car_24.jpg'),(100,'LVCLWLWIATNNGVXJIPNJESLMTTWIKTQI','jpg','EPIDEM.RU_car_25.jpg'),(101,'DRFSMBYPJOSDFCLXQCWQSPJRREJASHCS','jpg','EPIDEM.RU_car_26.jpg'),(102,'SNQMAGYEWCNBLQVHGHSBQVHQENNIXHJH','jpg','EPIDEM.RU_car_27.jpg'),(103,'OJJNAFSYETLXHRKXVPFPCVPONTYGSOQP','jpg','EPIDEM.RU_car_28.jpg'),(104,'OQVEIXXTEKUPYVXAIIAVSTRCMIYYCUHH','jpg','EPIDEM.RU_car_29.jpg'),(105,'DMJTQEAYOPWNVTBDDDTDJXNKYSWWDSOK','jpg','EPIDEM.RU_car_30.jpg'),(106,'HSENQCTFCXLEMVIHTJDNCAETDQWKFHFN','jpg','EPIDEM.RU_Chevrolet_Camaro_111_1600.jpg'),(107,'RIUECHFFJMNNHYUAXXSVDJDMVXKJBMOB','jpg','EPIDEM.RU_Chevrolet_Camaro_112_1600.jpg'),(108,'VMGVUYKJUIFINISCNLXBYMWODDIWROAO','jpg','EPIDEM.RU_Chevrolet_Camaro_113_1600.jpg'),(109,'VUAYAOIGLIPLEMCQYSJKSIHNDYDSLYGE','jpg','EPIDEM.RU_Chevrolet_Camaro_115_1600.jpg'),(110,'NHYWCABOQHPKHUDAYFAQFVPRMYBFWPSJ','jpg','EPIDEM.RU_Chevrolet_Camaro_118_1600.jpg'),(111,'VYBDUTWEBIKIDQEEEIGNBBTYCGMSRVYA','jpg','EPIDEM.RU_Chevrolet_Camaro_119_1600.jpg'),(112,'MMVXHOKBKKRMXRGVBPQAQTMETGJPIDCP','jpg','EPIDEM.RU_Chevrolet_camaro_120_1600x1200.jpg'),(113,'BBIUJRAGBUFUVSVOEWSYDLYIPKCFLGPJ','jpg','EPIDEM.RU_Chevrolet_camaro_121_1600x1200.jpg'),(114,'TPUORDVMLDOBELDLGTTODEKMWXQAGJRC','jpg','EPIDEM.RU_Chevrolet_camaro_122_1600x1200.jpg'),(115,'FJDMRBJFBORAEFLNKRUJQWTQSLOQRLDN','jpg','EPIDEM.RU_Chevrolet_camaro_123_1600x1200.jpg'),(116,'PKAKLVDCQORQKTXRCTHJOUVXMCRFBTKE','jpg','EPIDEM.RU_Chevrolet_camaro_124_1600x1200.jpg'),(117,'RGHUKFJUVYCVEOFPLGYNFBUSTARDKXTW','jpg','EPIDEM.RU_Chevrolet_camaro_125_1600x1200.jpg'),(118,'IMTTYUHJSEGKKNULMKPWYDHDPPSFWETK','jpg','EPIDEM.RU_Chevrolet_camaro_126_1600x1200.jpg'),(119,'RGLLMJTNGFQPURVYXYVQCGCTFTMFSEKI','jpg','EPIDEM.RU_Chevrolet_camaro_127_1600x1200.jpg'),(120,'PAQYRAKGBIXEESMJHCECRIOOLOCEIWUE','jpg','EPIDEM.RU_Chevrolet_camaro_128_1600x1200.jpg'),(121,'IDRTCGOMMFUWKHLXDDTWHTFURPBPVTFU','jpg','EPIDEM.RU_Chevrolet_camaro_129_1600x1200.jpg'),(122,'STIJPTEEHFXQOJBRMDXJDVXOWQWODHUA','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_175_1600x1200.jpg'),(123,'HTULHFIOSXNHAGACVRLLYIUGNVFWCRYY','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_176_1600x1200.jpg'),(124,'VPBSOHWWXDHAFSRPWIQMTNSXTOYEHKOU','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_177_1600x1200.jpg'),(125,'XHPPXYFEXMNLJAPACNPGJHDXQBMSCSML','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_178_1600x1200.jpg'),(126,'QUNTNEPUGMMRAITUNFXWJRWUPGULUVXL','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_179_1600x1200.jpg'),(127,'NEGRGKFNBKCSTPFCKKJHFLBTWDSQALWY','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_180_1600x1200.jpg'),(128,'BEXPBIXBTQEVJYNEBMYCAPKHBBTTOTYD','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_181_1600x1200.jpg'),(129,'VLBPHWPWHVSXXSHJDNHLVNQAYOSMELPV','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_183_1600x1200.jpg'),(130,'UVMYWEQGGVTKRIXFWPEUSYOSONMFLRMF','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_01_1600x1200.jpg'),(131,'KAFHNYJGXRDTMAIKHOSVMDMQIWDEYDTU','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_02_1600x1200.jpg'),(132,'KETERQXDMHLQVJKOOGJKJLROSTXNGSEF','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_03_1600x1200.jpg'),(133,'BWGUTFFAYPLMNERXRCVELFNUMUGIHDRL','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_04_1600x1200.jpg'),(134,'PNTNUQVULITNXMIRPLCAKYLQXDWCNFGV','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_05_1600x1200.jpg'),(135,'SARCIJPXSGPOHBNDTIDCVRXKCFCSTVAE','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_06_1600x1200.jpg'),(136,'TQVCXYGLBMAPEKJODUGUSCNHVSYTFOFT','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_07_1600x1200.jpg'),(137,'WUOWSYGGSGBJEJMQGHKTIERHHCTTREGG','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_08_1600x1200.jpg'),(138,'AJJPUXKUTWAWWFMCGAAXVFXBLTDVLTEV','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_09_1600x1200.jpg'),(139,'KSQCAQLJLIJFAUUBDXKNBAXTEDLDOWMC','jpg','EPIDEM.RU_u21_675.jpg'),(140,'IIGOOBJPTEOKXCNNOBPLRVQJSIMHYJPL','jpg','u21_675.jpg'),(141,'XPDWFPKTQODLUTIMWPANSQLAXKWGSRIX','jpg','u21_684.jpg'),(142,'OKUMARVPTTDSOOMHFLQSBQNXQFBWYWUX','jpg','u21_685.jpg'),(143,'BDAWDRPCMRBTGHHBBBFELXNEDDNLQYPY','jpg','u21_695.jpg'),(144,'UGEMMRJKKWEQPCVXOTSPEERHWTJWBKII','jpg','u21_702.jpg');
+INSERT INTO `pictures` VALUES (40,'PBGNKNDVMHKFKXPPNADASOGFJJSUUDCC','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_77_1600x1200.jpg'),(41,'JOVRQJIOSXLQMSXGIFAJCTWPMVPUVAGI','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_78_1600x1200.jpg'),(42,'QJHQDQKAWYBFMWSILVPPXCLNQPEDRIRB','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_79_1600x1200.jpg'),(43,'UMHFBKFBBTLWXORASNSLLQVMYVRFRRKA','jpg','EPIDEM.RU_Acura_Adcd-SportsCar_80_1600x1200.jpg'),(44,'SNYREDKYUQIIESUVWWAOJNCPBCSASBKB','jpg','EPIDEM.RU_Acura_Advanc-Sedan_66_1600x1200.jpg'),(45,'VRMUUQPVIRRVVYHYVBADCQJEKODKNTRE','jpg','EPIDEM.RU_Acura_Advanc-Sedan_67_1600x1200.jpg'),(46,'YDLJHQTIWSKISCDIDILHHJKQFFHMCNIN','jpg','EPIDEM.RU_Acura_Advanc-Sedan_68_1600x1200.jpg'),(47,'YAFTREIWQAFYOGTXVCUIBRUSWVAGIRMR','jpg','EPIDEM.RU_Acura_Advanc-Sedan_69_1600x1200.jpg'),(48,'LKKTYFHBMTUHJWUVFQFYAPWEHTCLKIXG','jpg','EPIDEM.RU_Acura_Advanc-Sedan_70_1600x1200.jpg'),(49,'XUCECFOYPMYOFBGCVKCIMRNBVFNBXSQT','jpg','EPIDEM.RU_Acura_Advanc-Sedan_71_1600x1200.jpg'),(50,'IERNOYNRYFTMOWMTHMIWVGBCNDCGCVSG','jpg','EPIDEM.RU_Acura_Advanc-Sedan_72_1600x1200.jpg'),(51,'DUGIBDUUKJHTQEGTIGGJSULKBWJAPTAQ','jpg','EPIDEM.RU_Acura_MD-X_49_1600x1200.jpg'),(52,'VUQIRAHKVVUFXFBNGBBFIUWPPIBOTVMY','jpg','EPIDEM.RU_Acura_MD-X_50_1600x1200.jpg'),(53,'AGTFQYOHTQKGDTXFWESNDITUAMWVRDGB','jpg','EPIDEM.RU_Acura_MD-X_51_1600x1200.jpg'),(54,'RKOIUUDBDSHJKMQAISLWLAFQVYFKUGLL','jpg','EPIDEM.RU_Acura_MD-X_52_1600x1200.jpg'),(55,'YYWMXFYPBQYAGHJTABDGBRVCYUMQRQGV','jpg','EPIDEM.RU_Acura_MD-X_53_1600x1200.jpg'),(56,'CQTKJXUTUHKWAUMUIRSOJECVTDIVWICB','jpg','EPIDEM.RU_Acura_MD-X_55_1600x1200.jpg'),(57,'YDYQKIRMMNFKSPDTDTTNLTTNDUQKIMNS','jpg','EPIDEM.RU_Audi_R8_423_1600x1200.jpg'),(58,'VHOAATDIWBVDNAXTGTRABJBLQAPXXIEK','jpg','EPIDEM.RU_Audi_R8_424_1600x1200.jpg'),(59,'SIIDRGYPHWFJQSDLESHLPVVKNAOXHCEN','jpg','EPIDEM.RU_Audi_R8_425_1600x1200.jpg'),(60,'HXQNKOCNDDWHVVQXSTFVBJIMQXFIDWKO','jpg','EPIDEM.RU_Audi_R8_426_1600x1200.jpg'),(61,'WPLLFGCATNXPRBLCVHMXOEYCJWEUEANP','jpg','EPIDEM.RU_Audi_R8_427_1600x1200.jpg'),(62,'XAWJOBTSNWACGHHJLUBLMLMFMJHYGCTF','jpg','EPIDEM.RU_Audi_R8_428_1600x1200.jpg'),(63,'AYJNYJYGABPKCWBWUFGHIBRAEYSXNBYP','jpg','EPIDEM.RU_Audi_R8_429_1600x1200.jpg'),(64,'KIQXDJJVILNCHFLTSXYJLALLHGXFJAWV','jpg','EPIDEM.RU_Audi_R8_430_1600x1200.jpg'),(65,'LOWLSJULUIWOPIFIVEKQCLXKPURACJPN','jpg','EPIDEM.RU_Audi_R8_431_1600x1200.jpg'),(66,'VPNINWCTOSRWUCNPXLBNEQNCIPGFVHKX','jpg','EPIDEM.RU_Audi_R8_432_1600x1200.jpg'),(67,'WHYCFRPIBWIVXECFUPJQLXAVJPVITVFL','jpg','EPIDEM.RU_Audi_R8_433_1600x1200.jpg'),(68,'TLKNAOKNYROJNRHVPAQSJWVWKPBVGWND','jpg','EPIDEM.RU_Audi_R8_434_1600x1200.jpg'),(69,'UXODCLATFYSVDYVTLBWAQTIGSJWVOEPD','jpg','EPIDEM.RU_Audi_R8_435_1600x1200.jpg'),(70,'QPWXHTSOERPQMMOUWPVEYXSMNHSGMAEV','jpg','EPIDEM.RU_Audi_R8_436_1600x1200.jpg'),(71,'LPRANQJYAKPVLVSAYIBOIKEDXCBVHJNY','jpg','EPIDEM.RU_Audi_R8_437_1600x1200.jpg'),(72,'OMYTKJWDOBWMDVTLTWXHMJLKMQTNLSDM','jpg','EPIDEM.RU_Audi_TT-ABT_438_1600x1200.jpg'),(73,'JRQLHGVFIUJLPRPYKFVNSKOXHJFRMTJX','jpg','EPIDEM.RU_Audi_TT-ABT_439_1600x1200.jpg'),(74,'MHAMRNMYICXPEWCBEUOCCJLCPGTTHYPJ','jpg','EPIDEM.RU_Audi_TT-ABT_440_1600x1200.jpg'),(75,'MXFJIUBBYODNEAPOPVUIMOMGQHYCJNNK','jpg','EPIDEM.RU_Audi_TT-ABT_441_1600x1200.jpg'),(76,'URWCUIVKUCJCBAUYGFVFXPVRQDTNCVFV','jpg','EPIDEM.RU_Audi_TT-ABT_442_1600x1200.jpg'),(77,'DNEGMAEBEIAHSHHPFBTSVITNMHQUSJFL','jpg','EPIDEM.RU_Audi_TT-ABT_443_1600x1200.jpg'),(78,'KEUGAONHYQYAAJBEUYYBSHVWSTGEXPVL','jpg','EPIDEM.RU_Audi_TT-ABT_444_1600x1200.jpg'),(79,'XOVCTBYSRHVCMTJESXVQULVJLXXAMUHE','jpg','EPIDEM.RU_car_1.jpg'),(80,'WPIFSBJFXTXFUEOGQQUGMTWEYKFAWBNM','jpg','EPIDEM.RU_car_2.jpg'),(81,'NGHIPJXKKYTDFGEWXUKCFFLLTWLSEDNA','jpg','EPIDEM.RU_car_6.jpg'),(82,'BIXLCRIBSAEVDVEAEFBRJCKPTFKFRWIY','jpg','EPIDEM.RU_car_7.jpg'),(83,'LGUQSMBDFVEKUSJMFVNJEYFTDSMFTUSB','jpg','EPIDEM.RU_car_8.jpg'),(84,'QYUYBOWUWNOKQAJTPIMAEVOCGJQIERJL','jpg','EPIDEM.RU_car_9.jpg'),(85,'MAIVULHBTSMAIKJJYRBLRGYFFNJVEJHE','jpg','EPIDEM.RU_car_10.jpg'),(86,'RRFIAJLTPLCVRIRATYFVLIRGRWLEMJRQ','jpg','EPIDEM.RU_car_11.jpg'),(87,'NARQILXKUIJYRLMVNLGEUEUPIGHKPNAN','jpg','EPIDEM.RU_car_12.jpg'),(88,'IBEQXDVKERDPBOHNPNBQLUNTCLEXHOJN','jpg','EPIDEM.RU_car_13.jpg'),(89,'EFPCKSILHGALJMDRSNJVXGETSTLDTUPL','jpg','EPIDEM.RU_car_14.jpg'),(90,'BARXXRWUMGKQHUSSONATWGFPGRKLPVNJ','jpg','EPIDEM.RU_car_15.jpg'),(91,'ICMRGEOFCWWRQDNLPLQXRUOVKIYXJPFC','jpg','EPIDEM.RU_car_16.jpg'),(92,'EJOQLGIYHLBSFXVGTNWFMIVMXJROERDM','jpg','EPIDEM.RU_car_17.jpg'),(93,'SQSWLQRRXNVHDIBMLRAXKQOBWORCBQQX','jpg','EPIDEM.RU_car_18.jpg'),(94,'AOWIERTANMWNNLJTBMQQBMOVQXYNMOTR','jpg','EPIDEM.RU_car_19.jpg'),(95,'GWKOFOVMKPLHLDWJRKSPTLLATGKOKILS','jpg','EPIDEM.RU_car_20.jpg'),(96,'KSWQIFLAMJTVWLXGWSSVIGKWOHFUEWAD','jpg','EPIDEM.RU_car_21.jpg'),(97,'NNVWUNRKGQSEMVRPXTYMWUTACSYAURUY','jpg','EPIDEM.RU_car_22.jpg'),(98,'UAECOLQHBVMUEOKJQQNKNCVQGFMKAGLR','jpg','EPIDEM.RU_car_23.jpg'),(99,'PTFAOTMVAFKXEWDYJWPPYQUDMHPKYKUC','jpg','EPIDEM.RU_car_24.jpg'),(100,'LVCLWLWIATNNGVXJIPNJESLMTTWIKTQI','jpg','EPIDEM.RU_car_25.jpg'),(101,'DRFSMBYPJOSDFCLXQCWQSPJRREJASHCS','jpg','EPIDEM.RU_car_26.jpg'),(102,'SNQMAGYEWCNBLQVHGHSBQVHQENNIXHJH','jpg','EPIDEM.RU_car_27.jpg'),(103,'OJJNAFSYETLXHRKXVPFPCVPONTYGSOQP','jpg','EPIDEM.RU_car_28.jpg'),(104,'OQVEIXXTEKUPYVXAIIAVSTRCMIYYCUHH','jpg','EPIDEM.RU_car_29.jpg'),(105,'DMJTQEAYOPWNVTBDDDTDJXNKYSWWDSOK','jpg','EPIDEM.RU_car_30.jpg'),(106,'HSENQCTFCXLEMVIHTJDNCAETDQWKFHFN','jpg','EPIDEM.RU_Chevrolet_Camaro_111_1600.jpg'),(107,'RIUECHFFJMNNHYUAXXSVDJDMVXKJBMOB','jpg','EPIDEM.RU_Chevrolet_Camaro_112_1600.jpg'),(108,'VMGVUYKJUIFINISCNLXBYMWODDIWROAO','jpg','EPIDEM.RU_Chevrolet_Camaro_113_1600.jpg'),(109,'VUAYAOIGLIPLEMCQYSJKSIHNDYDSLYGE','jpg','EPIDEM.RU_Chevrolet_Camaro_115_1600.jpg'),(110,'NHYWCABOQHPKHUDAYFAQFVPRMYBFWPSJ','jpg','EPIDEM.RU_Chevrolet_Camaro_118_1600.jpg'),(111,'VYBDUTWEBIKIDQEEEIGNBBTYCGMSRVYA','jpg','EPIDEM.RU_Chevrolet_Camaro_119_1600.jpg'),(112,'MMVXHOKBKKRMXRGVBPQAQTMETGJPIDCP','jpg','EPIDEM.RU_Chevrolet_camaro_120_1600x1200.jpg'),(113,'BBIUJRAGBUFUVSVOEWSYDLYIPKCFLGPJ','jpg','EPIDEM.RU_Chevrolet_camaro_121_1600x1200.jpg'),(114,'TPUORDVMLDOBELDLGTTODEKMWXQAGJRC','jpg','EPIDEM.RU_Chevrolet_camaro_122_1600x1200.jpg'),(115,'FJDMRBJFBORAEFLNKRUJQWTQSLOQRLDN','jpg','EPIDEM.RU_Chevrolet_camaro_123_1600x1200.jpg'),(116,'PKAKLVDCQORQKTXRCTHJOUVXMCRFBTKE','jpg','EPIDEM.RU_Chevrolet_camaro_124_1600x1200.jpg'),(117,'RGHUKFJUVYCVEOFPLGYNFBUSTARDKXTW','jpg','EPIDEM.RU_Chevrolet_camaro_125_1600x1200.jpg'),(118,'IMTTYUHJSEGKKNULMKPWYDHDPPSFWETK','jpg','EPIDEM.RU_Chevrolet_camaro_126_1600x1200.jpg'),(119,'RGLLMJTNGFQPURVYXYVQCGCTFTMFSEKI','jpg','EPIDEM.RU_Chevrolet_camaro_127_1600x1200.jpg'),(120,'PAQYRAKGBIXEESMJHCECRIOOLOCEIWUE','jpg','EPIDEM.RU_Chevrolet_camaro_128_1600x1200.jpg'),(121,'IDRTCGOMMFUWKHLXDDTWHTFURPBPVTFU','jpg','EPIDEM.RU_Chevrolet_camaro_129_1600x1200.jpg'),(122,'STIJPTEEHFXQOJBRMDXJDVXOWQWODHUA','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_175_1600x1200.jpg'),(123,'HTULHFIOSXNHAGACVRLLYIUGNVFWCRYY','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_176_1600x1200.jpg'),(124,'VPBSOHWWXDHAFSRPWIQMTNSXTOYEHKOU','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_177_1600x1200.jpg'),(125,'XHPPXYFEXMNLJAPACNPGJHDXQBMSCSML','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_178_1600x1200.jpg'),(126,'QUNTNEPUGMMRAITUNFXWJRWUPGULUVXL','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_179_1600x1200.jpg'),(127,'NEGRGKFNBKCSTPFCKKJHFLBTWDSQALWY','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_180_1600x1200.jpg'),(128,'BEXPBIXBTQEVJYNEBMYCAPKHBBTTOTYD','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_181_1600x1200.jpg'),(129,'VLBPHWPWHVSXXSHJDNHLVNQAYOSMELPV','jpg','EPIDEM.RU_Chevrolet_Camaro-Conv_183_1600x1200.jpg'),(130,'UVMYWEQGGVTKRIXFWPEUSYOSONMFLRMF','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_01_1600x1200.jpg'),(131,'KAFHNYJGXRDTMAIKHOSVMDMQIWDEYDTU','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_02_1600x1200.jpg'),(132,'KETERQXDMHLQVJKOOGJKJLROSTXNGSEF','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_03_1600x1200.jpg'),(133,'BWGUTFFAYPLMNERXRCVELFNUMUGIHDRL','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_04_1600x1200.jpg'),(134,'PNTNUQVULITNXMIRPLCAKYLQXDWCNFGV','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_05_1600x1200.jpg'),(135,'SARCIJPXSGPOHBNDTIDCVRXKCFCSTVAE','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_06_1600x1200.jpg'),(136,'TQVCXYGLBMAPEKJODUGUSCNHVSYTFOFT','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_07_1600x1200.jpg'),(137,'WUOWSYGGSGBJEJMQGHKTIERHHCTTREGG','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_08_1600x1200.jpg'),(138,'AJJPUXKUTWAWWFMCGAAXVFXBLTDVLTEV','jpg','EPIDEM.RU_Chevrolet_Volt_Concept_2007_09_1600x1200.jpg'),(139,'KSQCAQLJLIJFAUUBDXKNBAXTEDLDOWMC','jpg','EPIDEM.RU_u21_675.jpg'),(140,'IIGOOBJPTEOKXCNNOBPLRVQJSIMHYJPL','jpg','u21_675.jpg'),(141,'XPDWFPKTQODLUTIMWPANSQLAXKWGSRIX','jpg','u21_684.jpg'),(142,'OKUMARVPTTDSOOMHFLQSBQNXQFBWYWUX','jpg','u21_685.jpg'),(143,'BDAWDRPCMRBTGHHBBBFELXNEDDNLQYPY','jpg','u21_695.jpg'),(144,'UGEMMRJKKWEQPCVXOTSPEERHWTJWBKII','jpg','u21_702.jpg'),(145,'RXEJGFHYAKADOREHUHIKFMESKRXBCCHP','png','resume.png');
 /*!40000 ALTER TABLE `pictures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -454,13 +454,13 @@ DROP TABLE IF EXISTS `product_categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_categories` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`url_name` varchar(256) NOT NULL,
-	`name` tinytext NOT NULL,
-	`pid` int(11) DEFAULT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_product_categories_product_categories` (`pid`),
-	CONSTRAINT `FK_product_categories_product_categories` FOREIGN KEY (`pid`) REFERENCES `product_categories` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url_name` varchar(256) NOT NULL,
+  `name` tinytext NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_product_categories_product_categories` (`pid`),
+  CONSTRAINT `FK_product_categories_product_categories` FOREIGN KEY (`pid`) REFERENCES `product_categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -482,12 +482,12 @@ DROP TABLE IF EXISTS `product_pictures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_pictures` (
-	`product_id` int(11) NOT NULL,
-	`picture_id` int(11) NOT NULL,
-	KEY `FK__products` (`product_id`),
-	KEY `FK__pictures` (`picture_id`),
-	CONSTRAINT `FK__pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
-	CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+  `product_id` int(11) NOT NULL,
+  `picture_id` int(11) NOT NULL,
+  KEY `FK__products` (`product_id`),
+  KEY `FK__pictures` (`picture_id`),
+  CONSTRAINT `FK__pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`),
+  CONSTRAINT `FK__products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -509,14 +509,14 @@ DROP TABLE IF EXISTS `product_properties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_properties` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` longtext NOT NULL,
-	`value` longtext NOT NULL,
-	`product_id` int(11) NOT NULL,
-	`unit_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_haph4nj2vx1p621276hvqsnqh` (`product_id`),
-	KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` longtext NOT NULL,
+  `value` longtext NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_haph4nj2vx1p621276hvqsnqh` (`product_id`),
+  KEY `FK_9fc8gwqprsaf982bok083reqc` (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3475 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -538,15 +538,15 @@ DROP TABLE IF EXISTS `product_variant_options`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_variant_options` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`value` longtext NOT NULL,
-	`variant_id` int(11) NOT NULL,
-	`unit_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_geflaxxhi6c23isrtyffxp9wi` (`variant_id`),
-	KEY `FK_m8q0ptlv4wcfmn7l7ljdknety` (`unit_id`),
-	CONSTRAINT `FK_product_variant_options_product_variants` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`id`),
-	CONSTRAINT `FK_product_variant_options_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` longtext NOT NULL,
+  `variant_id` int(11) NOT NULL,
+  `unit_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_geflaxxhi6c23isrtyffxp9wi` (`variant_id`),
+  KEY `FK_m8q0ptlv4wcfmn7l7ljdknety` (`unit_id`),
+  CONSTRAINT `FK_product_variant_options_product_variants` FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`id`),
+  CONSTRAINT `FK_product_variant_options_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -567,16 +567,16 @@ DROP TABLE IF EXISTS `product_variants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_variants` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` longtext NOT NULL,
-	`default_value` longtext,
-	`product_id` int(11) NOT NULL,
-	`unit_id` int(11) DEFAULT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_product_variants_units` (`unit_id`),
-	KEY `FK_product_variants_products` (`product_id`),
-	CONSTRAINT `FK_product_variants_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT `FK_product_variants_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` longtext NOT NULL,
+  `default_value` longtext,
+  `product_id` int(11) NOT NULL,
+  `unit_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_product_variants_units` (`unit_id`),
+  KEY `FK_product_variants_products` (`product_id`),
+  CONSTRAINT `FK_product_variants_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_product_variants_units` FOREIGN KEY (`unit_id`) REFERENCES `units` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -597,22 +597,22 @@ DROP TABLE IF EXISTS `products`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `products` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`amt` int(11) NOT NULL,
-	`contains_variants` bit(1) NOT NULL,
-	`description` longtext,
-	`name` longtext NOT NULL,
-	`uuid` varchar(255) NOT NULL,
-	`date_of_receipt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-	`main_pict_id` int(11) DEFAULT NULL,
-	`price` double NOT NULL,
-	`weight` double NOT NULL,
-	`product_category_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_products_pictures` (`main_pict_id`),
-	KEY `FK_products_product_categories` (`product_category_id`),
-	CONSTRAINT `FK_products_pictures` FOREIGN KEY (`main_pict_id`) REFERENCES `pictures` (`id`),
-	CONSTRAINT `FK_products_product_categories` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `amt` int(11) NOT NULL,
+  `contains_variants` bit(1) NOT NULL,
+  `description` longtext,
+  `name` longtext NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `date_of_receipt` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `main_pict_id` int(11) DEFAULT NULL,
+  `price` double NOT NULL,
+  `weight` double NOT NULL,
+  `product_category_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_products_pictures` (`main_pict_id`),
+  KEY `FK_products_product_categories` (`product_category_id`),
+  CONSTRAINT `FK_products_pictures` FOREIGN KEY (`main_pict_id`) REFERENCES `pictures` (`id`),
+  CONSTRAINT `FK_products_product_categories` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2557 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -634,10 +634,10 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`name` varchar(32) NOT NULL,
-	`description` text,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `description` text,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -659,9 +659,9 @@ DROP TABLE IF EXISTS `site_properties`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `site_properties` (
-	`name` varchar(128) NOT NULL,
-	`value` longtext,
-	PRIMARY KEY (`name`)
+  `name` varchar(128) NOT NULL,
+  `value` longtext,
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -671,7 +671,7 @@ CREATE TABLE `site_properties` (
 
 LOCK TABLES `site_properties` WRITE;
 /*!40000 ALTER TABLE `site_properties` DISABLE KEYS */;
-INSERT INTO `site_properties` VALUES ('address_city','Москва'),('address_country','Россия'),('address_region','Москва'),('delivery_fixprice_max_days','7'),('delivery_fixprice_min_days','3'),('delivery_fixprice_price','777'),('rus_date_format_month_1','января'),('rus_date_format_month_10','октября'),('rus_date_format_month_11','ноября'),('rus_date_format_month_12','декабря'),('rus_date_format_month_2','февраля'),('rus_date_format_month_3','марта'),('rus_date_format_month_4','апреля'),('rus_date_format_month_5','мая'),('rus_date_format_month_6','июня'),('rus_date_format_month_7','июля'),('rus_date_format_month_8','августа'),('rus_date_format_month_9','сентября'),('rus_product_categories','Категории товаров'),('rus_years_suffix_1','год'),('rus_years_suffix_2','года'),('rus_years_suffix_3','лет'),('site_desc','Новая восьмисерийная программа Discovery Channel «Как устроена Земля» посвящена группе увлеченных своим делом ученых, отправившихся в путешествие по нашей планете, чтобы найти ответы на самые интересные научные загадки современности.'),('site_name','Онлайн магазин'),('site_price_currency_id','1'),('site_weight_unit_id','3');
+INSERT INTO `site_properties` VALUES ('address_city','Москва'),('address_country','Россия'),('address_region','Москва'),('delivery_fixprice_max_days','7'),('delivery_fixprice_min_days','3'),('delivery_fixprice_price','777'),('rus_checkout','Оформление заказа'),('rus_date_format_month_1','января'),('rus_date_format_month_10','октября'),('rus_date_format_month_11','ноября'),('rus_date_format_month_12','декабря'),('rus_date_format_month_2','февраля'),('rus_date_format_month_3','марта'),('rus_date_format_month_4','апреля'),('rus_date_format_month_5','мая'),('rus_date_format_month_6','июня'),('rus_date_format_month_7','июля'),('rus_date_format_month_8','августа'),('rus_date_format_month_9','сентября'),('rus_delivery_ems_country_from','РОССИЯ'),('rus_delivery_ems_name','ЕМС'),('rus_delivery_fixprice_name','Фиксированная ставка'),('rus_delivery_picup_name','Самовывоз'),('rus_payment_ondelivery_name','Оплата при получении'),('rus_payment_robokassa_name','Robokassa'),('rus_payment_yandex_name','Yandex деньги'),('rus_personal_account','Личный кабинет'),('rus_product_categories','Категории товаров'),('rus_years_suffix_1','год'),('rus_years_suffix_2','года'),('rus_years_suffix_3','лет'),('site_desc','Новая восьмисерийная программа Discovery Channel «Как устроена Земля» посвящена группе увлеченных своим делом ученых, отправившихся в путешествие по нашей планете, чтобы найти ответы на самые интересные научные загадки современности.'),('site_name','Онлайн магазин'),('site_price_currency_id','1'),('site_weight_unit_id','3');
 /*!40000 ALTER TABLE `site_properties` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -683,12 +683,12 @@ DROP TABLE IF EXISTS `slider_pictures`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `slider_pictures` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`picture_id` int(11) NOT NULL,
-	`href` varchar(4096) DEFAULT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_slider_pictures_pictures` (`picture_id`),
-	CONSTRAINT `FK_slider_pictures_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `picture_id` int(11) NOT NULL,
+  `href` varchar(4096) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_slider_pictures_pictures` (`picture_id`),
+  CONSTRAINT `FK_slider_pictures_pictures` FOREIGN KEY (`picture_id`) REFERENCES `pictures` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -710,15 +710,15 @@ DROP TABLE IF EXISTS `static_page`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `static_page` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`creation_date` datetime DEFAULT NULL,
-	`html_content` longtext NOT NULL,
-	`title` longtext NOT NULL,
-	`url_name` varchar(128) NOT NULL,
-	`pict_id` int(11) DEFAULT NULL,
-	PRIMARY KEY (`id`),
-	KEY `FK_ggsfbrcmbayddphjc2c2xpft4` (`pict_id`),
-	CONSTRAINT `FK_ggsfbrcmbayddphjc2c2xpft4` FOREIGN KEY (`pict_id`) REFERENCES `pictures` (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `creation_date` datetime DEFAULT NULL,
+  `html_content` longtext NOT NULL,
+  `title` longtext NOT NULL,
+  `url_name` varchar(128) NOT NULL,
+  `pict_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_ggsfbrcmbayddphjc2c2xpft4` (`pict_id`),
+  CONSTRAINT `FK_ggsfbrcmbayddphjc2c2xpft4` FOREIGN KEY (`pict_id`) REFERENCES `pictures` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -740,11 +740,11 @@ DROP TABLE IF EXISTS `units`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `units` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`abbr` varchar(16) NOT NULL,
-	`name` varchar(128) DEFAULT NULL,
-	`rate` int(11) NOT NULL DEFAULT '1',
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `abbr` varchar(16) NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `rate` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -766,10 +766,10 @@ DROP TABLE IF EXISTS `user_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_roles` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`user_id` int(11) NOT NULL,
-	`role_id` int(11) NOT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -791,13 +791,13 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`login` varchar(32) NOT NULL,
-	`email` varchar(256) NOT NULL,
-	`hash_passord` varchar(256) NOT NULL,
-	`confirmed_flag` bit(1) NOT NULL DEFAULT b'0',
-	`confirmed_code` varchar(256) NOT NULL,
-	PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(32) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `hash_passord` varchar(256) NOT NULL,
+  `confirmed_flag` bit(1) NOT NULL DEFAULT b'0',
+  `confirmed_code` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -807,7 +807,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (5,'admin','admin@e.com','HkqHYBEQOXrwCG2EpUGQxg==','','0'),(6,'qwe@aaa.ru','qwe@aaa.ru','Zq4p+L9yHQc7arfBfQgyUg==','\0','0'),(7,'qwe1@aaa.ru','qwe1@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(8,'qwe2@aaa.ru','qwe2@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(9,'qwe3@aaa.ru','qwe3@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0'),(10,'qwe4@aaa.ru','qwe4@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0'),(11,'qwe5@aaa.ru','qwe5@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(14,'qwe11@aaa.ru','qwe11@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(15,'qwe22@aaa.ru','qwe22@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0');
+INSERT INTO `users` VALUES (5,'admin','admin@e.com','yeW5qgcJETFuGPU2RFvK5g==','','0'),(6,'qwe@aaa.ru','qwe@aaa.ru','Zq4p+L9yHQc7arfBfQgyUg==','\0','0'),(7,'qwe1@aaa.ru','qwe1@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(8,'qwe2@aaa.ru','qwe2@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(9,'qwe3@aaa.ru','qwe3@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0'),(10,'qwe4@aaa.ru','qwe4@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0'),(11,'qwe5@aaa.ru','qwe5@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(14,'qwe11@aaa.ru','qwe11@aaa.ru','S5pa7DLFDiEUfp5QDb1DKA==','\0','0'),(15,'qwe22@aaa.ru','qwe22@aaa.ru','DCjrYh1rvAZRvgjMocGMrg==','\0','0');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -820,4 +820,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-19  1:22:57
+-- Dump completed on 2015-01-24 17:57:17

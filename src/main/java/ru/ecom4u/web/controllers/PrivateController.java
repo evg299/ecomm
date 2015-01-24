@@ -27,7 +27,6 @@ import java.util.Locale;
 @RequestMapping(value = "private")
 public class PrivateController
 {
-
     @Autowired
     private ProductCategoryService productCategoryService;
     @Autowired
@@ -46,7 +45,7 @@ public class PrivateController
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
         BreadcrumpDTO breadcrump = new BreadcrumpDTO();
-        HyperLink hyperLink = new HyperLink(request.getContextPath() + "/private/", "Личный кабинет");
+        HyperLink hyperLink = new HyperLink(request.getContextPath() + "/private/", sitePropertiesService.getValue("rus_personal_account"));
         breadcrump.addHyperLink(hyperLink);
         model.asMap().put("breadcrump", breadcrump);
 

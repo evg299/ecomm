@@ -54,7 +54,7 @@ public class OrderController
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String home(HttpServletRequest request, Locale locale, Model model)
     {
-        model.asMap().put("title", "Оформление заказа");
+        model.asMap().put("title", sitePropertiesService.getValue("rus_checkout"));
         model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 

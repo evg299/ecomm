@@ -3,6 +3,7 @@ package ru.ecom4u.web.busyness.payment.types;
 import ru.ecom4u.web.busyness.delivery.types.EMS;
 import ru.ecom4u.web.busyness.delivery.types.FixPrice;
 import ru.ecom4u.web.busyness.delivery.types.Pickup;
+import ru.ecom4u.web.busyness.payment.AbstractPayment;
 import ru.ecom4u.web.busyness.payment.IPayment;
 
 import java.util.LinkedHashMap;
@@ -11,7 +12,7 @@ import java.util.Map;
 /**
  * Created by Evgeny on 07.07.14.
  */
-public class Yandex implements IPayment
+public class Yandex extends AbstractPayment implements IPayment
 {
     @Override
     public boolean isPayFirst()
@@ -35,7 +36,7 @@ public class Yandex implements IPayment
     @Override
     public String getPaymentName()
     {
-        return "Yandex деньги";
+        return getSitePropertiesService().getValue("rus_payment_yandex_name");
     }
 
     @Override

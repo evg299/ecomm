@@ -35,6 +35,7 @@ public class DBAuthenticationProvider implements AuthenticationProvider {
         }
 
         String hash = hasherService.calculateHash(password);
+        // System.err.println("hash: " + hash);
         if (!hash.equals(user.getHashPassord())) {
             throw new BadCredentialsException("Wrong password.");
         }

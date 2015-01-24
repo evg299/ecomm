@@ -2,6 +2,7 @@ package ru.ecom4u.web.busyness.delivery.types;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+import ru.ecom4u.web.busyness.delivery.AbstractDelivery;
 import ru.ecom4u.web.busyness.delivery.IDelivery;
 import ru.ecom4u.web.controllers.dto.json.DeliveryAddress;
 import ru.ecom4u.web.controllers.dto.json.DeliveryCalcResult;
@@ -15,9 +16,12 @@ import java.util.TreeMap;
 /**
  * Created by Evgeny on 17.05.14.
  */
-public class EMS implements IDelivery
+public class EMS extends AbstractDelivery implements IDelivery
 {
-    public static final String COUNTRY = "РОССИЯ";
+    public String getCountryFrom()
+    {
+        return getSitePropertiesService().getValue("rus_delivery_ems_country_from");
+    }
 
     public static enum DeliveryType
     {
@@ -100,7 +104,7 @@ public class EMS implements IDelivery
     @Override
     public String getDeliveryName()
     {
-        return "ЕМС";
+        return getSitePropertiesService().getValue("rus_delivery_ems_name");
     }
 
     @Override
@@ -118,9 +122,10 @@ public class EMS implements IDelivery
     @Override
     public DeliveryCalcResult forecast(DeliveryAddress warehouseAddress, DeliveryAddress deliveryAddress, double weight)
     {
-        if (COUNTRY.equalsIgnoreCase(warehouseAddress.getCountry()))
+        String country = getCountryFrom();
+        if (country.equalsIgnoreCase(warehouseAddress.getCountry()))
         {
-            if (COUNTRY.equalsIgnoreCase(deliveryAddress.getCountry()))
+            if (country.equalsIgnoreCase(deliveryAddress.getCountry()))
             {
                 String fromCode = resolveCode(warehouseAddress);
                 String toCode = resolveCode(deliveryAddress);
@@ -166,7 +171,7 @@ public class EMS implements IDelivery
             }
         }
 
-        throw new RuntimeException("From country not " + COUNTRY);
+        throw new RuntimeException("From country not " + country);
     }
 
     @Override
