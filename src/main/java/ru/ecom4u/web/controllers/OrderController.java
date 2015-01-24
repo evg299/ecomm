@@ -220,12 +220,12 @@ public class OrderController
             cardProducts.add(cardProductDTO);
         }
 
-        model.asMap().put("title", String.format("Заказ № %s", uuid.toUpperCase()));
+        model.asMap().put("title", String.format(sitePropertiesService.getValue("rus_order_title_tpl"), uuid.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
         model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());
 
-        model.asMap().put("message", "Заказ создан");
+        model.asMap().put("message", sitePropertiesService.getValue("rus_order_ok_message"));
         model.asMap().put("orderNum", uuid.toUpperCase());
         model.asMap().put("sumPrice", sumPrice);
         model.asMap().put("deliveryPrice", delivery.getCoast());
@@ -263,7 +263,7 @@ public class OrderController
 
             sumPrice += cardProductDTO.getPrice();
         }
-        model.asMap().put("title", String.format("Заказ № %s", orderUUID.toUpperCase()));
+        model.asMap().put("title", String.format(sitePropertiesService.getValue("rus_order_title_tpl"), orderUUID.toUpperCase()));
         model.asMap().put("cardProducts", cardProducts);
         model.asMap().put("categoryName", sitePropertiesService.getValue("rus_product_categories"));
         model.asMap().put("subCategories", productCategoryService.getRootProductCategories());

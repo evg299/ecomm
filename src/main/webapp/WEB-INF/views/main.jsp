@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title></title>
+    <title>${siteName}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -14,6 +14,7 @@
         document.menuIsOpen = true;
     </script>
     <script src="${pageContext.request.contextPath}/resources/js/left-menu.js"></script>
+    <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <%@include file="parts/header.jsp" %>
